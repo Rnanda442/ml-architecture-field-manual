@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import architectureRegistry from "../content/architecture-registry.json";
 
 type Sector = {
   id: string;
@@ -13,10 +14,19 @@ type Sector = {
   bottleneck: string;
   hypothesis: string;
   architecture: string;
+  architectureFamily?: string;
+  paradigm?: string;
+  dataType?: string;
+  outputType?: string;
+  evidence?: string;
+  dataSummary?: string;
   paper: string;
   url: string;
+  openUrl?: string;
+  year?: string;
   result: string;
   metric: string;
+  limitation?: string;
   accent: string;
   inputs: string[];
   pipeline: { label: string; plain: string; weight: string }[];
@@ -24,7 +34,22 @@ type Sector = {
   loss: string;
   lossNote: string;
   companies: string[];
+  organizationShelf?: { org: string; system: string; year: string; architecture: string; bottleneck: string; evidence: string; relation: string; url: string }[];
 };
+
+type RegistryEntry = {
+  architecture_id: string;
+  canonical_name: string;
+  architecture_family: string;
+  chapter_group: string;
+  coverage_status: string;
+  dominant_bottleneck: string[];
+  weighting_mechanisms: string[];
+  primary_paper: { title: string; year: string; url: string };
+  featured_organization: string;
+};
+
+const registry = architectureRegistry as RegistryEntry[];
 
 const sectors: Sector[] = [
   {
@@ -174,6 +199,54 @@ const sectors: Sector[] = [
     ],
     loss:"L = − Σi,t λt log p(yᵢ,t | hᵢ,t; θ)  →  order at quantile q = Cu/(Cu+Co)", lossNote:"Training weights make the distribution accurate; business costs choose which point on that distribution becomes the action.",
     companies:["Amazon","Walmart","UPS","Maersk","Siemens"]
+  },
+  {
+    id:"graphcast", number:"07", name:"GraphCast weather forecasting", field:"Climate & environmental science", company:"Google DeepMind",
+    objective:"Predict the evolving global weather state quickly enough that forecasters, grid operators, emergency planners, and logistics teams can act before hazardous conditions arrive.",
+    decision:"Should a weather-dependent action be issued, adjusted, or escalated for the next hours to 10 days?",
+    bottleneck:"Weather is a curved-Earth, long-range, multiscale system. A latitude-longitude image grid distorts the poles, while numerical physics is expensive and a plain local CNN struggles to move information along atmospheric connections.",
+    hypothesis:"A message-passing graph neural network on an icosahedral multimesh can learn how weather systems exchange information across Earth-scale neighborhoods, then roll that learned state forward much faster than a traditional deterministic forecast.",
+    architecture:"Message-passing graph neural network on a multimesh Earth graph",
+    architectureFamily:"Graph and structural architectures",
+    paradigm:"Supervised autoregressive spatiotemporal forecasting",
+    dataType:"Global gridded atmospheric fields",
+    outputType:"Six-hour-ahead weather state rolled into a 10-day forecast",
+    evidence:"The model sees the current weather state, the state six hours earlier, static Earth fields, and graph connectivity. The verifying future state is the target and must stay out of the inputs.",
+    dataSummary:"GraphCast is trained on ERA5 reanalysis. Each example pairs two atmospheric states six hours apart with the next six-hour state, then forecasts are rolled forward autoregressively at 0.25 degree global resolution.",
+    paper:"GraphCast: Learning skillful medium-range global weather forecasting", url:"https://www.science.org/doi/10.1126/science.adi2336", openUrl:"https://arxiv.org/abs/2212.12794", year:"2023",
+    result:"GraphCast predicted hundreds of variables globally at 0.25 degree resolution for 10 days in under one minute and outperformed HRES on more than 90% of 1380 verification targets; in the troposphere comparison it outperformed HRES on 99.7% of targets.",
+    metric:"Share of variables and lead times with lower forecast error than HRES",
+    limitation:"GraphCast is deterministic and trained from reanalysis, so operational uncertainty still needs ensembles or calibration. Future climate distribution shift and rare extremes remain important validation risks.",
+    accent:"teal",
+    inputs:["state at t-6h","state at t","grid-to-mesh edges","static Earth fields"],
+    pipeline:[
+      {label:"Ingest",plain:"Start from two recent global weather snapshots and static Earth fields.",weight:"Input embeddings and variable normalization weight which atmospheric fields enter the graph before message passing."},
+      {label:"Encode graph",plain:"Move gridded weather data onto a multiresolution mesh wrapped around the globe.",weight:"Node and edge encoders learn how grid points, mesh nodes, distance, and direction become message features."},
+      {label:"Pass messages",plain:"Let neighboring mesh regions exchange information repeatedly.",weight:"Message MLPs calculate m_ij(x); aggregation weights determine how neighboring regions update each node."},
+      {label:"Decode grid",plain:"Project the learned mesh representation back to every forecast grid cell.",weight:"Grid decoder weights and edge-to-grid aggregation decide how mesh state becomes local weather increments."},
+      {label:"Roll forward",plain:"Feed the prediction back in as the next input to forecast farther ahead.",weight:"Shared weights run autoregressively; rollout length is a human-selected inference choice that exposes compounding error."},
+      {label:"Score",plain:"Compare forecasts to verifying data and operational baselines.",weight:"Latitude and variable weights shape the loss so the score is not dominated by grid density or easy variables."},
+      {label:"Act",plain:"Translate forecast improvement into a weather-dependent action.",weight:"Decision costs C_miss and C_false weight missed warnings against false alarms for each operational use case."},
+    ],
+    weights:[
+      {type:"Node encoder",symbol:"W_node",role:"Which atmospheric variables become comparable node features",failure:"Important pressure-level signals can be washed out."},
+      {type:"Edge encoder",symbol:"W_edge",role:"How distance, direction, and graph type shape messages",failure:"Bad edge features make the sphere behave like a flat image."},
+      {type:"Message",symbol:"m_ij(x)",role:"What each neighboring region sends now",failure:"Weak messages miss fronts; overly strong messages smear them."},
+      {type:"Aggregation",symbol:"sum_j m_ij",role:"How incoming spatial evidence updates a region",failure:"Oversmoothing erases sharp cyclones and atmospheric rivers."},
+      {type:"Latitude",symbol:"omega_lat",role:"Prevent high-latitude grid density from dominating errors",failure:"The model optimizes the wrong geography."},
+      {type:"Variable",symbol:"lambda_v",role:"Balance winds, temperature, pressure, humidity, and precipitation",failure:"A dominant variable can starve rarer hazards."},
+      {type:"Decision",symbol:"C_miss/C_false",role:"Trade missed warnings against false alarms",failure:"A skillful forecast can be operationally timid or noisy."},
+    ],
+    loss:"L = sum_t sum_v lambda_v * omega_lat * ||y_hat_t,v - y_t,v||_2^2",
+    lossNote:"The paper optimizes forecast accuracy, while many real decisions optimize asymmetric costs such as missed cyclone warnings, grid imbalance, or unnecessary shutdowns.",
+    companies:["Google DeepMind","NVIDIA / LBNL","Huawei Cloud","Microsoft Research","ECMWF"],
+    organizationShelf:[
+      {org:"Google DeepMind",system:"GraphCast",year:"2023",architecture:"Message-passing graph neural network",bottleneck:"Global spatial dependence and compute cost",evidence:">90% of 1380 targets better than HRES; under one minute for a 10-day forecast",relation:"Authored by organization researchers",url:"https://www.science.org/doi/10.1126/science.adi2336"},
+      {org:"NVIDIA / LBNL",system:"FourCastNet3",year:"2025",architecture:"Spherical neural operator",bottleneck:"Probabilistic ensemble speed and spherical fidelity",evidence:"15-day forecast in about one minute on one H100; reported 60x speedup over IFS-ENS",relation:"Coauthored by organization researchers",url:"https://developer.nvidia.com/blog/fourcastnet-3-enables-fast-and-accurate-large-ensemble-weather-forecasting-with-scalable-geometric-ml/"},
+      {org:"Huawei Cloud",system:"Pangu-Weather",year:"2023",architecture:"3D neural network weather model",bottleneck:"Vertical atmospheric structure and inference speed",evidence:"Reported more than 10,000x speed improvement over operational IFS",relation:"Authored by organization researchers",url:"https://www.nature.com/articles/s41586-023-06185-3"},
+      {org:"Microsoft Research",system:"Aurora",year:"2025",architecture:"3D Swin Transformer with Perceiver encoders/decoders",bottleneck:"Heterogeneous Earth-system variables and task adaptation",evidence:"Reported 92% target advantage for 10-day high-resolution weather and 100% for cyclone-track targets",relation:"Published by organization research lab",url:"https://www.nature.com/articles/s41586-025-09005-y"},
+      {org:"ECMWF",system:"AIFS",year:"2025",architecture:"Operational AI forecasting system",bottleneck:"Operational speed, energy, and national-service integration",evidence:"Reported tropical-cyclone track gains up to 20% and about 1,000x energy reduction",relation:"Officially implemented and documented",url:"https://www.ecmwf.int/en/about/media-centre/news/2025/ecmwfs-ai-forecasts-become-operational"},
+    ]
   }
 ];
 
@@ -190,13 +263,32 @@ export default function Home() {
   const [stage,setStage] = useState(0);
   const [depth,setDepth] = useState<"plain"|"technical">("plain");
   const [guide,setGuide] = useState(55);
+  const [messageSteps,setMessageSteps] = useState(8);
+  const [registryFilter,setRegistryFilter] = useState<"complete"|"graph"|"all">("complete");
   const active = useMemo(()=>sectors.find(s=>s.id===activeId)!,[activeId]);
+  const registryCounts = useMemo(()=>({
+    total: registry.length,
+    complete: registry.filter(r=>r.coverage_status==="COMPLETE").length,
+    partial: registry.filter(r=>r.coverage_status==="PARTIAL").length,
+    overlapping: registry.filter(r=>r.coverage_status==="OVERLAPPING").length,
+    library: registry.filter(r=>r.coverage_status==="LIBRARY ONLY").length,
+  }),[]);
+  const registryCards = useMemo(()=>{
+    const filtered = registry.filter(entry => {
+      if (registryFilter === "complete") return entry.coverage_status === "COMPLETE";
+      if (registryFilter === "graph") return entry.architecture_family.includes("Graph");
+      return true;
+    });
+    return filtered
+      .sort((a,b)=>Number(b.coverage_status==="COMPLETE")-Number(a.coverage_status==="COMPLETE") || a.architecture_id.localeCompare(b.architecture_id))
+      .slice(0,12);
+  },[registryFilter]);
   const selectSector = (id:string) => { setActiveId(id); setStage(0); document.getElementById("chapter")?.scrollIntoView({behavior:"smooth",block:"start"}); };
 
   return <main>
     <header className="topbar">
       <a className="brand" href="#top"><span className="brandMark">ML</span><span>Architecture Field Manual</span></a>
-      <nav aria-label="Primary navigation"><a href="#method">Method</a><a href="#chapters">Chapters</a><a href="#weights">Weight lab</a><a href="#sources">Sources</a></nav>
+      <nav aria-label="Primary navigation"><a href="#method">Method</a><a href="#chapters">Chapters</a><a href="#library">Library</a><a href="#weights">Weight lab</a><a href="#sources">Sources</a></nav>
       <span className="edition">DOE fellowship · field edition</span>
     </header>
 
@@ -205,7 +297,7 @@ export default function Home() {
         <p className="eyebrow">An interactive instruction manual</p>
         <h1>Architecture follows the <em>bottleneck.</em></h1>
         <p className="dek">The same neural network is not right for every problem. Learn to move from a real decision → to the data constraint → to the architecture → to the layers of weighting that make it useful.</p>
-        <div className="heroActions"><a className="primary" href="#method">Start with the reasoning <span>↓</span></a><span className="reading">6 cases · 35–45 min guided session</span></div>
+        <div className="heroActions"><a className="primary" href="#method">Start with the reasoning <span>↓</span></a><a className="secondary" href="#chapter" onClick={()=>selectSector("graphcast")}>Open GraphCast</a><span className="reading">7 cases · 45-60 min guided session</span></div>
       </div>
       <div className="heroVisual" aria-label="Decision to architecture reasoning loop">
         <div className="orbit orbit1"><span>01</span><b>Decision</b><small>What action must improve?</small></div>
@@ -231,8 +323,32 @@ export default function Home() {
     </section>
 
     <section id="chapters" className="chapters section">
-      <div className="sectionIntro"><p className="eyebrow">Six cutting-edge cases</p><h2>Same questions. Different information flow.</h2><p>Select a sector, then click through its pipeline. Use the depth switch when the reasoning is clear.</p></div>
+      <div className="sectionIntro"><p className="eyebrow">Seven cutting-edge cases</p><h2>Same questions. Different information flow.</h2><p>Select a sector, then click through its pipeline. Use the depth switch when the reasoning is clear.</p></div>
       <div className="sectorTabs" role="tablist">{sectors.map(s=><button role="tab" aria-selected={activeId===s.id} className={activeId===s.id?"active":""} key={s.id} onClick={()=>selectSector(s.id)}><span>{s.number}</span><b>{s.field}</b><small>{s.architecture}</small></button>)}</div>
+    </section>
+
+    <section id="library" className="library section">
+      <div className="sectionIntro"><p className="eyebrow">Architecture registry</p><h2>A searchable coverage map for the manual.</h2><p>The registry keeps the full architecture backlog visible while the featured chapters teach the highest-value patterns in depth.</p></div>
+      <div className="registryStats" aria-label="Registry coverage summary">
+        <article><span>Total</span><b>{registryCounts.total}</b><small>architecture records</small></article>
+        <article><span>Complete</span><b>{registryCounts.complete}</b><small>full interactive chapters</small></article>
+        <article><span>Partial</span><b>{registryCounts.partial + registryCounts.overlapping}</b><small>covered or overlapping</small></article>
+        <article><span>Backlog</span><b>{registryCounts.library}</b><small>library-only cards</small></article>
+      </div>
+      <div className="libraryControls" role="group" aria-label="Registry filters">
+        <button className={registryFilter==="complete"?"on":""} onClick={()=>setRegistryFilter("complete")}>Complete</button>
+        <button className={registryFilter==="graph"?"on":""} onClick={()=>setRegistryFilter("graph")}>Graph family</button>
+        <button className={registryFilter==="all"?"on":""} onClick={()=>setRegistryFilter("all")}>All</button>
+      </div>
+      <div className="libraryGrid">
+        {registryCards.map(entry=><article key={entry.architecture_id}>
+          <span>{entry.coverage_status}</span>
+          <h3>{entry.canonical_name}</h3>
+          <p>{entry.architecture_family}</p>
+          <small>{entry.chapter_group}</small>
+          {entry.weighting_mechanisms.length>0&&<div>{entry.weighting_mechanisms.slice(0,3).map(w=><b key={w}>{w}</b>)}</div>}
+        </article>)}
+      </div>
     </section>
 
     <section id="chapter" className={`chapter ${active.accent}`}>
@@ -247,6 +363,13 @@ export default function Home() {
         <article><span>THE HYPOTHESIS</span><p>{active.hypothesis}</p></article>
       </div>
 
+      {(active.architectureFamily || active.evidence) && <div className="metaGrid">
+        <article><span>ARCHITECTURE FAMILY</span><b>{active.architectureFamily}</b><small>{active.paradigm}</small></article>
+        <article><span>DATA AT DECISION TIME</span><p>{active.evidence}</p></article>
+        <article><span>TRAINING DATA SHAPE</span><p>{active.dataSummary}</p></article>
+        <article><span>OUTPUT</span><b>{active.outputType}</b><small>{active.dataType}</small></article>
+      </div>}
+
       <div className="depthBar"><div><b>Architecture explorer</b><span>Click each stage to follow the information.</span></div><div className="toggle" role="group" aria-label="Explanation depth"><button className={depth==='plain'?'on':''} onClick={()=>setDepth('plain')}>Plain language</button><button className={depth==='technical'?'on':''} onClick={()=>setDepth('technical')}>Technical weights</button></div></div>
 
       <div className="pipeline" role="list" aria-label={`${active.name} pipeline`}>
@@ -259,11 +382,43 @@ export default function Home() {
         <article className="lossCard"><span className="cardLabel">TRAINING OBJECTIVE</span><code>{active.loss}</code><p>{active.lossNote}</p></article>
       </div>
 
+      {active.id==='graphcast'&&<div className="graphLab">
+        <div>
+          <span className="cardLabel">GRAPHCAST VISUAL</span>
+          <h3>Weather becomes messages on an Earth mesh.</h3>
+          <p>A grid snapshot is encoded onto a multiresolution graph, message-passing steps move information across neighboring mesh regions, and the decoded forecast is fed back in for the next six-hour step.</p>
+          <div className="forecastFacts">
+            <b>0.25 degree global grid</b><b>10-day rollout</b><b>Under one minute inference</b>
+          </div>
+        </div>
+        <div className="meshPanel" aria-label="GraphCast message passing concept">
+          <div className="meshStage gridIn">grid t-6h</div>
+          <div className="meshStage gridNow">grid t</div>
+          <div className="earthMesh">
+            {Array.from({length:12}).map((_,i)=><i key={i} style={{"--n":i,"--reach":messageSteps} as React.CSSProperties}/>)}
+            <b>{messageSteps}</b>
+            <span>message steps</span>
+          </div>
+          <div className="meshStage gridOut">grid t+6h</div>
+          <div className="meshStage rollout">rollout</div>
+        </div>
+        <div className="sliderWrap graphSlider">
+          <input aria-label="Message passing depth" type="range" min="2" max="16" value={messageSteps} onChange={e=>setMessageSteps(Number(e.target.value))}/>
+          <div className="sliderLabels"><span>local exchange</span><b>{messageSteps} steps</b><span>farther reach</span></div>
+          <div className="outcomeBars">
+            <label>Information reach<i style={{width:`${20+messageSteps*4.5}%`}}/></label>
+            <label>Sharp-front retention<i style={{width:`${104-messageSteps*3.4}%`}}/></label>
+          </div>
+        </div>
+      </div>}
+
       <div className="weightTable"><div className="tableHead"><span>Weight layer</span><span>Symbol</span><span>What it prioritizes</span><span>Failure if misweighted</span></div>{active.weights.map(w=><div className="tableRow" key={w.type}><b>{w.type}</b><code>{w.symbol}</code><span>{w.role}</span><span>{w.failure}</span></div>)}</div>
 
       {active.id==='materials'&&<div className="miniLab"><div><span className="cardLabel">MINI LAB · GUIDANCE WEIGHT</span><h3>Target compliance vs. discovery diversity</h3><p>Move the generation-time guidance weight. This is not a trained parameter—it is a human-selected control over model behavior.</p></div><div className="sliderWrap"><input aria-label="Guidance weight" type="range" min="0" max="100" value={guide} onChange={e=>setGuide(Number(e.target.value))}/><div className="sliderLabels"><span>Diverse / exploratory</span><b>s = {(guide/20).toFixed(1)}</b><span>Targeted / narrow</span></div><div className="outcomeBars"><label>Property match<i style={{width:`${30+guide*.65}%`}}/></label><label>Diversity<i style={{width:`${95-guide*.65}%`}}/></label></div></div></div>}
 
       <div className="resultBand"><div><span>REPORTED RESULT</span><p>{active.result}</p></div><div><span>METRIC THAT MATTERS</span><b>{active.metric}</b></div></div>
+      {active.limitation&&<aside className="limitation"><span>IMPORTANT LIMITATION</span><p>{active.limitation}</p></aside>}
+      {active.organizationShelf&&<div className="shelf"><div className="shelfHead"><span>FIVE-ORGANIZATION RESEARCH STATUS</span><b>Weather and Earth-system AI is now a multi-lab architecture race.</b></div>{active.organizationShelf.map(item=><a href={item.url} target="_blank" rel="noreferrer" className="shelfRow" key={item.system}><b>{item.org}</b><span>{item.system}</span><span>{item.year}</span><span>{item.architecture}</span><p>{item.evidence}</p><small>{item.relation}</small></a>)}</div>}
       <div className="companyRow"><span>Organizations to compare next</span>{active.companies.map(c=><b key={c}>{c}</b>)}</div>
     </section>
 
@@ -276,6 +431,7 @@ export default function Home() {
         ["creating candidates, not scoring them","diffusion / generative modeling","materials design"],
         ["actions change future cost","policy optimization / RL","deep hedging · theorem search"],
         ["hard physical symmetries","equivariant networks","crystal generation"],
+        ["spatial dependence is not a flat image","message passing on a graph","GraphCast weather forecasting"],
       ].map(r=><div className="matrixRow" key={r[0]}><b>{r[0]}</b><span>{r[1]}</span><span>{r[2]}</span></div>)}</div>
     </section>
 
