@@ -164,15 +164,113 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .stageIndex{font:700 46px var(--font-geist-mono);color:var(--chapter)}
 .stageExplain p{font:22px/1.45 Georgia,serif;margin:0}
 .stageExplain small{display:block;font:700 9px var(--font-geist-mono);color:#97a59e;margin-top:13px;letter-spacing:0}
-.architectureGrid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}
-.architectureGrid article{border:1px solid var(--line);padding:27px;min-height:245px}
-.inputMap>div{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:25px 0}
-.inputMap>div>div{position:relative;background:#eeece5;padding:13px;overflow:hidden}
-.inputMap i{position:absolute;inset:0 auto 0 0;background:rgba(22,137,120,.18)}
-.inputMap b{position:relative;font-size:12px}
-.inputMap p{font-size:12px;color:var(--muted)}
-.lossCard code{display:block;margin:42px 0 25px;font-size:22px;color:var(--chapter);white-space:normal}
-.lossCard p{font-size:13px;line-height:1.55;color:var(--muted)}
+.latex{font-family:var(--font-geist-mono),Consolas,monospace;color:var(--chapter);font-size:.95em;line-height:1.35;white-space:normal;overflow-wrap:anywhere;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:4px;padding:4px 6px}
+.weightBadge{display:inline-grid;gap:4px;align-items:center;justify-items:start;background:#fff;border:1px solid rgba(20,33,30,.18);box-shadow:0 8px 20px rgba(20,33,30,.04);padding:7px 8px;min-width:0}
+.weightBadge small{font:650 9px/1.2 var(--font-geist-mono);letter-spacing:0;color:#5d6b66;text-transform:uppercase}
+.visual3{border:1px solid var(--line);background:#fbfaf6;margin:24px 0 30px;padding:24px;min-width:0;overflow:hidden}
+.visual3Header{display:grid;grid-template-columns:170px 1fr;gap:24px;align-items:start;margin-bottom:22px}
+.visual3Header h3{font-size:28px;line-height:1.14;margin:0 0 8px}
+.visual3Header p{font-size:13px;line-height:1.5;color:var(--muted);margin:0;max-width:900px}
+.visualLoss{display:grid;gap:10px;margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
+.visualLoss>span{font:700 9px var(--font-geist-mono);text-transform:uppercase;letter-spacing:0;color:var(--chapter)}
+.visualLoss .latex{display:block;font-size:15px;width:100%}
+.visualLoss p{font-size:12px;line-height:1.5;color:var(--muted);margin:0}
+
+.quantumVisual{display:grid;gap:18px}
+.quantumCycles{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.qubitCycle{position:relative;display:grid;gap:12px;border:1px solid var(--line);background:#fff;padding:16px;min-height:235px}
+.qubitCycle>b{font:750 10px var(--font-geist-mono);text-transform:uppercase;color:var(--chapter)}
+.qubitGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;margin:8px 10px 4px}
+.qubitGrid:before,.qubitGrid:after{content:"";position:absolute;inset:16px 0;border-top:1px solid rgba(20,33,30,.22);border-bottom:1px solid rgba(20,33,30,.22);pointer-events:none}
+.qubitGrid:after{inset:0 16px;border:0;border-left:1px solid rgba(20,33,30,.22);border-right:1px solid rgba(20,33,30,.22)}
+.qubitGrid span{width:20px;height:20px;border-radius:50%;border:2px solid var(--ink);background:#fff;z-index:1;justify-self:center}
+.qubitGrid span.event{background:var(--chapter);box-shadow:0 0 0 7px rgba(115,87,221,.12)}
+.cycleArrow{position:absolute;right:-19px;top:88px;z-index:2;background:#fbfaf6;font-style:normal;color:var(--chapter);font-weight:900}
+.temporalRail{display:flex;align-items:center;gap:14px;border:2px solid var(--chapter);border-left:0;border-right:0;padding:12px 0}
+.temporalRail>span:last-child{font-size:12px;color:var(--muted)}
+.visualOutcome{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.visualOutcome>b{font-size:13px;border:1px solid var(--line);background:#fff;padding:10px}
+
+.mineralsVisual{display:grid;gap:16px}
+.gisLayers{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;perspective:900px}
+.mapLayer{min-height:150px;background:#fff;border:1px solid var(--line);display:grid;align-content:space-between;gap:10px;padding:14px;transform:skewY(-3deg);box-shadow:10px 12px 0 rgba(20,33,30,.05)}
+.mapLayer b{font-size:13px}
+.mapLayer>span{min-height:54px;border:1px solid rgba(20,33,30,.14);padding:8px;font-size:11px;color:var(--muted)}
+.mapLayer.bands>span{background:repeating-linear-gradient(90deg,rgba(232,165,41,.22) 0 9px,#fff 9px 18px)}
+.mapLayer.contours>span{background:radial-gradient(circle at 30% 40%,transparent 0 18px,rgba(20,33,30,.18) 19px 20px,transparent 21px)}
+.mapLayer.samples>span{background:radial-gradient(circle at 20% 35%,var(--chapter) 0 3px,transparent 4px),radial-gradient(circle at 70% 55%,var(--chapter) 0 3px,transparent 4px)}
+.stackConnector{text-align:center;font:750 11px var(--font-geist-mono);text-transform:uppercase;background:var(--ink);color:white;padding:13px}
+.maskedMap{position:relative;display:grid;grid-template-columns:repeat(9,1fr);gap:5px;border:1px solid var(--line);background:#fff;padding:16px;min-height:110px}
+.maskedMap i{background:#d9ded8;min-height:28px}
+.maskedMap i.masked{background:var(--ink)}
+.maskedMap .weightBadge{position:absolute;right:12px;bottom:12px}
+.visualColumn{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.visualColumn>b{font-size:13px;border:1px solid var(--line);background:#fff;padding:11px}
+
+.financeVisual{display:grid;gap:18px}
+.marketCurve{height:70px;position:relative;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fff,rgba(34,160,107,.08))}
+.marketCurve i{position:absolute;width:26%;height:3px;background:var(--chapter);transform-origin:left center}
+.marketCurve i:nth-child(1){left:6%;top:45px;transform:rotate(-12deg)}
+.marketCurve i:nth-child(2){left:30%;top:28px;transform:rotate(16deg)}
+.marketCurve i:nth-child(3){left:54%;top:40px;transform:rotate(-8deg)}
+.marketCurve i:nth-child(4){left:75%;top:30px;transform:rotate(12deg)}
+.tradeTimeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tradeStep{display:grid;gap:9px;background:#fff;border:1px solid var(--line);padding:14px;min-height:215px}
+.tradeStep>span{font-size:11px;color:var(--muted)}
+.tradeStep>b{font-size:13px;border-left:3px solid var(--chapter);padding-left:8px}
+.costWeight{border-color:rgba(160,34,34,.25);background:#fff7f5}
+.riskLoop{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;border:1px dashed var(--chapter);padding:14px}
+.riskLoop>span{font:750 11px var(--font-geist-mono);text-transform:uppercase;color:var(--muted)}
+
+.materialsVisual{display:grid;grid-template-columns:1fr .55fr;gap:24px;align-items:center}
+.spiralCore{position:relative;min-height:430px;border:1px solid var(--line);background:#10231f;color:white;overflow:hidden}
+.spiralRing{position:absolute;border:2px solid rgba(24,169,184,.55);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-18deg)}
+.ring1{width:310px;height:310px}.ring2{width:220px;height:220px}.ring3{width:130px;height:130px}
+.orbitLabel{position:absolute;left:24px;top:20px;font:750 10px var(--font-geist-mono);text-transform:uppercase;color:#bfe7e9}
+.spiralWeight{position:absolute}
+.spiralWeight.beta{right:24px;top:26px}.spiralWeight.atom{left:40px;top:160px}.spiralWeight.coord{right:46px;top:165px}.spiralWeight.lattice{left:50%;bottom:40px;transform:translateX(-50%)}
+.crystalCore{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:135px;height:135px;border-radius:50%;display:grid;place-content:center;text-align:center;background:#fff;color:var(--ink);border:3px solid var(--chapter)}
+.crystalCore b{font-size:13px}
+.propertySide{display:grid;gap:14px}
+.propertySide>b{font-size:16px;background:var(--chapter);color:#fff;padding:16px}
+.propertySide>span{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:12px}
+
+.mathVisual{display:grid;gap:18px}
+.theoremRoot{justify-self:center;display:grid;gap:10px;text-align:center;background:var(--ink);color:#fff;padding:18px 28px;font-weight:800}
+.proofBranches{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative}
+.proofBranch{display:grid;gap:10px;background:#fff;border:1px solid var(--line);padding:15px;min-height:220px}
+.proofBranch.valid{border-top:5px solid #22a06b}.proofBranch.reject{border-top:5px solid #d95050}
+.proofBranch>span{font:750 10px var(--font-geist-mono);text-transform:uppercase;color:var(--muted)}
+.proofBranch em{font-style:normal;font-size:12px;padding:8px;background:#f4f1e8}
+.proofFeedback{display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap;border:1px dashed var(--chapter);padding:14px}
+.proofFeedback b{background:#fff;border:1px solid var(--line);padding:10px}
+.proofFeedback span{font-size:12px;color:var(--muted)}
+
+.businessVisual{display:grid;grid-template-columns:.85fr .7fr .85fr;gap:18px;align-items:stretch}
+.productHistories,.sharedCore,.forecastFan{background:#fff;border:1px solid var(--line);padding:15px;display:grid;gap:10px}
+.productLine{display:grid;grid-template-columns:76px 1fr auto;gap:9px;align-items:center}
+.productLine b{font-size:12px}
+.sparkline{height:38px;display:flex;align-items:end;gap:4px}
+.sparkline i{display:block;width:10px;background:var(--chapter)}
+.sharedCore{align-content:center;text-align:center}
+.sharedCore>b{font-size:18px}
+.forecastFan{align-content:center;text-align:center}
+.forecastFan>div{display:flex;justify-content:center;gap:18px;padding:18px;background:linear-gradient(90deg,rgba(57,121,220,.08),rgba(57,121,220,.22),rgba(57,121,220,.08));clip-path:polygon(0 45%,50% 0,100% 45%,100% 55%,50% 100%,0 55%)}
+.forecastFan span{font:750 10px var(--font-geist-mono)}
+
+.graphcastVisual3{display:grid;grid-template-columns:.55fr .25fr 1fr .6fr;gap:16px;align-items:center}
+.weatherGrid,.gridToMesh,.forecastGrid{display:grid;gap:12px;background:#fff;border:1px solid var(--line);padding:16px;min-height:180px;align-content:center}
+.weatherGrid{background-image:linear-gradient(rgba(22,137,120,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(22,137,120,.13) 1px,transparent 1px);background-size:18px 18px}
+.gridToMesh{text-align:center;min-height:90px}
+.sphericalMesh{position:relative;min-height:330px;border-radius:50%;background:#10231f;border:2px solid rgba(199,243,107,.7);overflow:hidden;color:white}
+.sphericalMesh i{position:absolute;left:50%;top:50%;width:9px;height:9px;border-radius:50%;background:var(--lime);transform:rotate(calc(var(--n)*25.7deg)) translateY(-115px)}
+.sphericalMesh:before,.sphericalMesh:after,.globeLine{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.2);border-radius:50%}
+.sphericalMesh:before{width:74%;height:74%}.sphericalMesh:after{width:44%;height:44%}
+.globeLine.lat1{width:90%;height:28%;display:block}.globeLine.lat2{width:62%;height:88%;display:block}
+.sphericalMesh .weightBadge{position:absolute;z-index:2}
+.sphericalMesh .weightBadge:nth-of-type(1){left:16px;bottom:18px}
+.sphericalMesh .weightBadge:nth-of-type(2){right:16px;top:18px}
+.forecastGrid span{font:750 10px var(--font-geist-mono);text-transform:uppercase;color:var(--muted)}
 
 .graphcastDeep{display:grid;gap:22px;margin:28px 0}
 .graphcastDeep>article{border:1px solid var(--line);background:#fbfaf6;padding:24px;min-width:0;overflow-wrap:anywhere}
@@ -300,6 +398,11 @@ footer>a{font-size:11px;font-weight:650}
   .libraryGrid{grid-template-columns:repeat(2,1fr)}
   .chapterHeader{grid-template-columns:1fr}
   .metaGrid{grid-template-columns:repeat(2,1fr)}
+  .visual3Header{grid-template-columns:1fr}
+  .quantumCycles,.gisLayers,.tradeTimeline,.proofBranches{grid-template-columns:1fr}
+  .businessVisual,.materialsVisual,.graphcastVisual3{grid-template-columns:1fr}
+  .cycleArrow{display:none}
+  .sphericalMesh{max-width:360px;width:100%;justify-self:center}
   .flowDiagram,.pipelineDeep,.tensorFlow,.weightMap,.trainingLoop{grid-template-columns:repeat(2,1fr)}
   .compareStrip,.methodologyGrid,.failureGrid,.resultFacts,.weightDetails{grid-template-columns:repeat(2,1fr)}
   .flowStep i,.tensorFlow i,.trainingLoop i{display:none}
@@ -317,8 +420,17 @@ footer>a{font-size:11px;font-weight:650}
   .heroVisual{height:470px;transform:scale(.9);transform-origin:left top}
   .orbit{width:170px}
   .centerPulse{left:33%}
-  .reasoningRail,.reasonCards,.architectureGrid,.miniLab,.sourceGrid,.registryStats,.libraryGrid,.metaGrid,.filterGrid,.flowDiagram,.pipelineDeep,.tensorFlow,.weightMap,.trainingLoop,.compareStrip,.methodologyGrid,.failureGrid,.resultFacts,.weightDetails{grid-template-columns:1fr}
+  .reasoningRail,.reasonCards,.miniLab,.sourceGrid,.registryStats,.libraryGrid,.metaGrid,.filterGrid,.flowDiagram,.pipelineDeep,.tensorFlow,.weightMap,.trainingLoop,.compareStrip,.methodologyGrid,.failureGrid,.resultFacts,.weightDetails{grid-template-columns:1fr}
   .callout,.chapterHeader,.resultBand,.limitation,.shelfHead{grid-template-columns:1fr}
+  .visual3{padding:18px}
+  .visual3Header h3{font-size:22px}
+  .visualLoss .latex{font-size:12px}
+  .temporalRail,.visualOutcome,.visualColumn,.riskLoop,.proofFeedback{align-items:flex-start;flex-direction:column}
+  .productLine{grid-template-columns:1fr}
+  .spiralCore{min-height:360px}
+  .ring1{width:260px;height:260px}.ring2{width:185px;height:185px}.ring3{width:110px;height:110px}
+  .spiralWeight.atom{left:14px}.spiralWeight.coord{right:14px}
+  .sphericalMesh{min-height:285px}
   .libraryMeta{align-items:flex-start;flex-direction:column}
   .sectorTabs{grid-template-columns:1fr 1fr}
   .pipeline{grid-template-columns:1fr 1fr}

@@ -142,7 +142,7 @@ const sectors: Sector[] = [
       {type:"Objective",symbol:"λₖ",role:"How training errors are traded off",failure:"A dominant easy term can starve the real goal."},
       {type:"Decision",symbol:"Cᵢⱼ",role:"Which operational mistake costs more",failure:"Accurate probabilities can still yield a bad action."},
     ],
-    loss:"L = λlogical · BCE(y, pθ) + λreg · ‖θ‖²", lossNote:"The neural parameters θ are learned inside the model; λ values are chosen outside it to define what ‘good’ means.",
+    loss:"\\mathcal{L}=\\lambda_{\\mathrm{logical}}\\,\\mathrm{BCE}(y,p_\\theta)+\\lambda_{\\mathrm{reg}}\\lVert\\theta\\rVert_2^2", lossNote:"The neural parameters θ are learned inside the model; λ values are chosen outside it to define what ‘good’ means.",
     companies:["Google Quantum AI","IBM Quantum","Microsoft Quantum","Quantinuum","IonQ"]
   },
   {
@@ -167,7 +167,7 @@ const sectors: Sector[] = [
       {type:"Transfer",symbol:"ηlayer",role:"Control how much pretrained layers change",failure:"Aggressive tuning forgets general geospatial structure."},
       {type:"Decision",symbol:"vₖ",role:"Blend probability, uncertainty, and cost",failure:"A good map becomes a poor drilling plan."},
     ],
-    loss:"L = λmask · Lreconstruct + λprospect · weighted-BCE + λcal · Lcalibration", lossNote:"Three objectives act at different times: learn the world, learn the rare target, then make confidence operationally honest.",
+    loss:"\\mathcal{L}=\\lambda_{\\mathrm{mask}}\\mathcal{L}_{\\mathrm{reconstruct}}+\\lambda_{\\mathrm{prospect}}\\,\\mathrm{weightedBCE}+\\lambda_{\\mathrm{cal}}\\mathcal{L}_{\\mathrm{calibration}}", lossNote:"Three objectives act at different times: learn the world, learn the rare target, then make confidence operationally honest.",
     companies:["Viridien","Rio Tinto","BHP","KoBold Metals","Fleet Space Technologies"]
   },
   {
@@ -191,7 +191,7 @@ const sectors: Sector[] = [
       {type:"Risk",symbol:"γ",role:"Penalize bad tail outcomes",failure:"Low γ chases return; high γ over-hedges."},
       {type:"Scenario",symbol:"ωₛ",role:"Stress rare market paths",failure:"Average scenarios hide regime failure."},
     ],
-    loss:"minθ  ρᵧ(−PnLθ)  where PnL includes Σt costs(Δpositionₜ)", lossNote:"This is decision learning, not stock-price prediction. The loss evaluates the economic consequence of the entire trading path.",
+    loss:"\\min_\\theta\\,\\rho_\\gamma(-\\mathrm{PnL}_\\theta),\\quad \\mathrm{PnL}_\\theta\\text{ includes }\\sum_t c_j|\\Delta a_t|", lossNote:"This is decision learning, not stock-price prediction. The loss evaluates the economic consequence of the entire trading path.",
     companies:["J.P. Morgan","Goldman Sachs","Bloomberg","BlackRock","Two Sigma"]
   },
   {
@@ -215,7 +215,7 @@ const sectors: Sector[] = [
       {type:"Condition",symbol:"φadapter",role:"Steer frozen general knowledge",failure:"Full retraining can overfit scarce property labels."},
       {type:"Guidance",symbol:"s",role:"Trade diversity for target compliance",failure:"Excess guidance collapses to narrow candidates."},
     ],
-    loss:"L = λA·LA + λX·LX + λL·LL  ;  score = (1+s)εcond − sεuncond", lossNote:"The model learns three coupled denoising tasks. Guidance then reweights conditional and unconditional predictions at generation time.",
+    loss:"\\mathcal{L}=\\lambda_A\\mathcal{L}_A+\\lambda_X\\mathcal{L}_X+\\lambda_L\\mathcal{L}_L,\\quad \\hat{\\epsilon}=(1+s)\\epsilon_{\\mathrm{cond}}-s\\epsilon_{\\mathrm{uncond}}", lossNote:"The model learns three coupled denoising tasks. Guidance then reweights conditional and unconditional predictions at generation time.",
     companies:["Microsoft Research","Google DeepMind","Schrödinger","BASF","Toyota Research Institute"]
   },
   {
@@ -239,7 +239,7 @@ const sectors: Sector[] = [
       {type:"RL",symbol:"Aτ",role:"Upweight better-than-expected proofs",failure:"Unstable updates erase useful language skill."},
       {type:"Search",symbol:"bₖ",role:"Allocate attempts across branches",failure:"Greedy search misses low-probability breakthroughs."},
     ],
-    loss:"L = LSFT − β · Eτ[Aτ log pθ(τ)] + κ · KL(pθ ‖ pref)", lossNote:"Supervised learning teaches syntax, verifier reward teaches correctness, and KL control keeps reinforcement updates from destabilizing the base model.",
+    loss:"\\mathcal{L}=\\mathcal{L}_{\\mathrm{SFT}}-\\beta\\,\\mathbb{E}_{\\tau}[A_\\tau\\log p_\\theta(\\tau)]+\\kappa\\,\\mathrm{KL}(p_\\theta\\lVert p_{\\mathrm{ref}})", lossNote:"Supervised learning teaches syntax, verifier reward teaches correctness, and KL control keeps reinforcement updates from destabilizing the base model.",
     companies:["DeepSeek","Google DeepMind","Meta AI","Microsoft Research","Amazon Web Services"]
   },
   {
@@ -263,7 +263,7 @@ const sectors: Sector[] = [
       {type:"Horizon",symbol:"λh",role:"Value near vs. distant forecast steps",failure:"One average score hides horizon decay."},
       {type:"Decision",symbol:"Cu/Co",role:"Price stockouts vs. excess inventory",failure:"The median forecast is not always the right order."},
     ],
-    loss:"L = − Σi,t λt log p(yᵢ,t | hᵢ,t; θ)  →  order at quantile q = Cu/(Cu+Co)", lossNote:"Training weights make the distribution accurate; business costs choose which point on that distribution becomes the action.",
+    loss:"\\mathcal{L}=-\\sum_{i,t}\\lambda_t\\log p(y_{i,t}\\mid h_{i,t};\\theta),\\quad q=\\frac{C_u}{C_u+C_o}", lossNote:"Training weights make the distribution accurate; business costs choose which point on that distribution becomes the action.",
     companies:["Amazon","Walmart","UPS","Maersk","Siemens"]
   },
   {
@@ -303,7 +303,7 @@ const sectors: Sector[] = [
       {type:"Variable",symbol:"lambda_v",role:"Balance winds, temperature, pressure, humidity, and precipitation",failure:"A dominant variable can starve rarer hazards."},
       {type:"Decision",symbol:"C_miss/C_false",role:"Trade missed warnings against false alarms",failure:"A skillful forecast can be operationally timid or noisy."},
     ],
-    loss:"L(theta) = sum_t sum_v lambda_v sum_grid omega_lat ||y_hat_t,v(theta) - y_t,v||_2^2",
+    loss:"\\mathcal{L}(\\theta)=\\sum_t\\sum_v\\lambda_v\\sum_g\\omega_{\\mathrm{lat}(g)}\\lVert\\hat{y}_{t,v,g}(\\theta)-y_{t,v,g}\\rVert_2^2",
     lossNote:"lambda_v and omega_lat are selected objective weights, not neural parameters. Gradients update theta, while missed-warning, false-alarm, energy-grid, and transport costs are downstream decision weights.",
     companies:["Google DeepMind","NVIDIA / LBNL","Huawei Cloud","Microsoft Research","ECMWF"],
     organizationShelf:[
@@ -432,6 +432,133 @@ const graphcastEquationSteps = [
   ["y_t,v", "verifying ERA5 future state used as the training target."],
   ["theta", "learned neural-network parameters updated by gradients."]
 ];
+
+function Latex({children,className=""}:{children:string;className?:string}) {
+  return <code className={`latex ${className}`}>{children}</code>;
+}
+
+function WeightBadge({math,label,className=""}:{math:string;label:string;className?:string}) {
+  return <span className={`weightBadge ${className}`}><Latex>{math}</Latex><small>{label}</small></span>;
+}
+
+function Sparkline({bars}:{bars:number[]}) {
+  return <span className="sparkline" aria-hidden="true">{bars.map((height,i)=><i key={i} style={{height:`${height}%`}} />)}</span>;
+}
+
+function ArchitectureVisual({active}:{active:Sector}) {
+  return <article className={`visual3 visual3-${active.id}`} aria-label={`${active.name} main architecture visual`}>
+    <div className="visual3Header">
+      <span className="cardLabel">VISUAL 3 · ML ARCHITECTURE</span>
+      <div><h3>{active.architecture}</h3><p>{architectureTeachingLine(active.id)}</p></div>
+    </div>
+    {active.id==="quantum"&&<div className="quantumVisual">
+      <div className="quantumCycles">
+        {["Cycle 1","Cycle 2","Cycle 3"].map((cycle,index)=><div className="qubitCycle" key={cycle}>
+          <b>{cycle}</b>
+          <div className="qubitGrid" aria-label={`${cycle} qubit grid`}>
+            {Array.from({length:9}).map((_,i)=><span key={i} className={(i+index)%4===0?"event":"quiet"} />)}
+          </div>
+          <WeightBadge math="\\alpha_{ij}" label="spatial attention" />
+          {index<2&&<i className="cycleArrow">→</i>}
+        </div>)}
+      </div>
+      <div className="temporalRail"><WeightBadge math="g_t" label="temporal memory gates" /><span>memory carries unresolved evidence across cycles</span></div>
+      <div className="visualOutcome"><WeightBadge math="W_e" label="event embeddings" /><b>logical error probabilities</b><WeightBadge math="W_o" label="output weights" /><b>correction decision</b><WeightBadge math="C_{ij}" label="correction cost" /></div>
+    </div>}
+
+    {active.id==="minerals"&&<div className="mineralsVisual">
+      <div className="gisLayers">
+        {[
+          ["Geology","faults","m_1"],
+          ["Magnetics","bands","m_2"],
+          ["Gravity","contours","m_3"],
+          ["Geochemistry","samples","m_4"]
+        ].map(([name,pattern,weight])=><div className={`mapLayer ${pattern}`} key={name}><b>{name}</b><span>{pattern}</span><WeightBadge math={weight} label="modality reliability" /></div>)}
+      </div>
+      <div className="stackConnector">multimodal patch encoder</div>
+      <div className="maskedMap" aria-label="masked geospatial patches">{Array.from({length:18}).map((_,i)=><i key={i} className={i%4===1||i%7===0?"masked":""} />)}<WeightBadge math="a_p" label="patch weighting" /></div>
+      <div className="visualColumn">
+        <WeightBadge math="\\theta" label="self-supervised backbone" />
+        <b>geological features</b>
+        <WeightBadge math="w_+" label="rare-positive class weight" />
+        <b>prospectivity + uncertainty map</b>
+        <WeightBadge math="C_{survey}" label="survey cost ranking" />
+      </div>
+    </div>}
+
+    {active.id==="finance"&&<div className="financeVisual">
+      <div className="marketCurve" aria-hidden="true"><i/><i/><i/><i/></div>
+      <div className="tradeTimeline">
+        {["t_1","t_2","t_3","T"].map((time,i)=><div className="tradeStep" key={time}>
+          <Latex>{time}</Latex>
+          <span>market state</span>
+          {i<3?<><WeightBadge math={`\\pi_\\theta(s_${i+1})`} label="policy action" /><b>{`a_${i+1}`}</b><WeightBadge math={`c_j|\\Delta a_${i+1}|`} label="transaction cost" className="costWeight" /></>:<><b>final market</b><WeightBadge math="\\mathrm{PnL}_\\theta" label="portfolio result" /></>}
+        </div>)}
+      </div>
+      <div className="riskLoop"><WeightBadge math="\\rho_\\gamma" label="convex risk" /><span>update policy</span><WeightBadge math="\\theta" label="policy parameters" /><WeightBadge math="\\omega_s" label="stress scenario weight" /></div>
+    </div>}
+
+    {active.id==="materials"&&<div className="materialsVisual">
+      <div className="spiralCore">
+        <span className="orbitLabel outer">random crystal</span>
+        <span className="spiralRing ring1" /><span className="spiralRing ring2" /><span className="spiralRing ring3" />
+        <WeightBadge math="\\beta_t" label="noise schedule" className="spiralWeight beta" />
+        <WeightBadge math="\\lambda_A" label="atom channel" className="spiralWeight atom" />
+        <WeightBadge math="\\lambda_X" label="coordinate channel" className="spiralWeight coord" />
+        <WeightBadge math="\\lambda_L" label="lattice channel" className="spiralWeight lattice" />
+        <div className="crystalCore"><b>stable crystal</b><Latex>{"\\theta_{score}"}</Latex></div>
+      </div>
+      <div className="propertySide"><WeightBadge math="\\phi(c)" label="property adapter" /><WeightBadge math="s" label="guidance strength" /><b>targeted material candidate</b><span>DFT validation outside the loop</span></div>
+    </div>}
+
+    {active.id==="math"&&<div className="mathVisual">
+      <div className="theoremRoot">THEOREM<WeightBadge math="\\alpha_{ij}" label="symbol attention" /></div>
+      <div className="proofBranches">
+        {[
+          ["Subgoal A","valid","r_\\tau"],
+          ["Subgoal B","reject","b_i"],
+          ["Subgoal C","valid","A_\\tau"]
+        ].map(([goal,status,weight])=><div className={`proofBranch ${status}`} key={goal}><b>{goal}</b><WeightBadge math="p_\\theta(\\mathrm{tactic})" label="next tactic probability" /><span>LEAN gate</span><em>{status==="valid"?"verified":"revise / search"}</em><WeightBadge math={weight} label={status==="valid"?"verifier reward":"branch budget"} /></div>)}
+      </div>
+      <div className="proofFeedback"><b>verified proof</b><WeightBadge math="\\kappa\\,\\mathrm{KL}" label="stability penalty" /><span>reward feedback updates/searches the successful path</span></div>
+    </div>}
+
+    {active.id==="business"&&<div className="businessVisual">
+      <div className="productHistories">
+        {[
+          ["Product A",[20,36,58,28,72],"\\nu_A"],
+          ["Product B",[14,18,30,66,42],"\\nu_B"],
+          ["Product C",[78,64,48,31,18],"\\nu_C"],
+          ["Product D",[12,15,16,28,17],"\\nu_D"],
+          ["Product E",[58,72,61,84,76],"\\nu_E"]
+        ].map(([name,bars,scale])=><div className="productLine" key={name as string}><b>{name}</b><Sparkline bars={bars as number[]} /><WeightBadge math={scale as string} label="series scaling" /></div>)}
+      </div>
+      <div className="sharedCore"><b>shared recurrent model</b><WeightBadge math="\\theta_{RNN}" label="shared parameters" /><WeightBadge math="g_t" label="memory gates" /><span>item-specific hidden state</span><Latex>{"h_{i,t}"}</Latex></div>
+      <div className="forecastFan"><WeightBadge math="\\mu_{i,t},\\sigma_{i,t}" label="distribution head" /><div><span>P10</span><span>P50</span><span>P90</span></div><WeightBadge math="q=\\frac{C_u}{C_u+C_o}" label="inventory quantile" /><WeightBadge math="\\lambda_h" label="horizon weight" /></div>
+    </div>}
+
+    {active.id==="graphcast"&&<div className="graphcastVisual3">
+      <div className="weatherGrid"><b>latitude-longitude weather grid</b><WeightBadge math="W_{node}" label="node encoder" /></div>
+      <div className="gridToMesh"><WeightBadge math="W_{edge}" label="grid-to-mesh edges" /></div>
+      <div className="sphericalMesh" aria-label="spherical multimesh graph"><span className="globeLine lat1"/><span className="globeLine lat2"/>{Array.from({length:14}).map((_,i)=><i key={i} style={{"--n":i} as React.CSSProperties} />)}<WeightBadge math="m_{ij}" label="dynamic messages" /><WeightBadge math="\\sum_j m_{ij}" label="aggregation" /></div>
+      <div className="forecastGrid"><WeightBadge math="W_{decode}" label="forecast decoder" /><b>six-hour weather grid</b><WeightBadge math="\\lambda_v\\times\\omega_{lat}" label="weighted loss" /><span>autoregressive rollout</span></div>
+    </div>}
+    <div className="visualLoss"><span>Training objective</span><Latex>{active.loss}</Latex><p>{active.lossNote}</p></div>
+  </article>;
+}
+
+function architectureTeachingLine(id:string) {
+  const lines: Record<string,string> = {
+    quantum: "The transformer finds spatial relationships, while recurrence remembers how those relationships evolve.",
+    minerals: "The architecture learns the structure of maps without deposit labels, then specializes using scarce positives.",
+    finance: "Every action changes both the portfolio and the future cost, so the whole trading path is optimized.",
+    materials: "MatterGen denoises atoms, coordinates, and lattice together while steering toward a requested property.",
+    math: "The model proposes proof paths, but the verifier decides whether each step is correct.",
+    business: "One shared recurrent model learns across products, then business costs select the useful quantile.",
+    graphcast: "GraphCast moves information across a spherical multiscale graph instead of treating Earth as a flat image."
+  };
+  return lines[id] || "The diagram places model weights where they operate.";
+}
 
 export default function Home() {
   const [activeId,setActiveId] = useState("quantum");
@@ -623,10 +750,7 @@ export default function Home() {
       </div>
       <div className="stageExplain"><span className="stageIndex">{String(stage+1).padStart(2,'0')}</span><div><p>{depth==='plain'?active.pipeline[stage].plain:active.pipeline[stage].weight}</p><small>{depth==='plain'?'WHY THIS STAGE EXISTS':'WHERE THE WEIGHTING HAPPENS'}</small></div></div>
 
-      <div className="architectureGrid">
-        <article className="inputMap"><span className="cardLabel">INFORMATION ENTERING</span><div>{active.inputs.map((x,i)=><div key={x}><i style={{width:`${42+i*14}%`}}></i><b>{x}</b></div>)}</div><p>Architecture: <strong>{active.architecture}</strong></p></article>
-        <article className="lossCard"><span className="cardLabel">TRAINING OBJECTIVE</span><code>{active.loss}</code><p>{active.lossNote}</p></article>
-      </div>
+      <ArchitectureVisual active={active} />
 
       {active.id==='graphcast'&&<div className="graphcastDeep">
         <article className="objectiveVisual" aria-label="GraphCast objective flow from observations to consequence">
