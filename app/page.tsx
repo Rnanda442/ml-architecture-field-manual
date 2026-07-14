@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/static-components, react/no-unescaped-entities */
+
 import { useMemo, useState } from "react";
 import architectureRegistry from "../content/architecture-registry.json";
 
@@ -437,112 +439,76 @@ function Latex({children,className=""}:{children:string;className?:string}) {
   return <code className={`latex ${className}`}>{children}</code>;
 }
 
-function WeightBadge({math,label,className=""}:{math:string;label:string;className?:string}) {
-  return <span className={`weightBadge ${className}`}><Latex>{math}</Latex><small>{label}</small></span>;
-}
-
-function Sparkline({bars}:{bars:number[]}) {
-  return <span className="sparkline" aria-hidden="true">{bars.map((height,i)=><i key={i} style={{height:`${height}%`}} />)}</span>;
-}
-
 function ArchitectureVisual({active}:{active:Sector}) {
+  const [layer,setLayer] = useState<"flow"|"weights"|"training">("flow");
+  const showWeights = layer !== "flow";
+  const showTraining = layer === "training";
+  const W = ({x,y,s,label}:{x:number;y:number;s:string;label:string}) => showWeights ? <g className="svgWeight" transform={`translate(${x} ${y})`}><rect width="138" height="38" rx="10"/><text x="12" y="16">{s}</text><text className="svgSmall" x="12" y="30">{label}</text></g> : null;
+  const Box = ({x,y,w=170,h=74,title,sub,tone=""}:{x:number;y:number;w?:number;h?:number;title:string;sub:string;tone?:string}) => <g className={`svgBox ${tone}`}><rect x={x} y={y} width={w} height={h} rx="14"/><text x={x+14} y={y+27}>{title}</text><text className="svgSmall" x={x+14} y={y+49}>{sub}</text></g>;
+  const Arrow = ({d,label}:{d:string;label?:string}) => <g className="svgArrow"><path d={d} markerEnd="url(#arrow)"/>{label&&<text><textPath href="#never">{label}</textPath></text>}</g>;
+  const defs = <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z"/></marker><pattern id="grid" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0V18" fill="none" stroke="currentColor" strokeOpacity=".18"/></pattern></defs>;
   return <article className={`visual3 visual3-${active.id}`} aria-label={`${active.name} main architecture visual`}>
     <div className="visual3Header">
-      <span className="cardLabel">VISUAL 3 · ML ARCHITECTURE</span>
+      <span className="cardLabel">ARCHITECTURE MAP · FOLLOW THE ARROWS</span>
       <div><h3>{active.architecture}</h3><p>{architectureTeachingLine(active.id)}</p></div>
+      <div className="diagramControls" role="group" aria-label="Diagram detail"><button className={layer==="flow"?"on":""} onClick={()=>setLayer("flow")}>1 · Flow</button><button className={layer==="weights"?"on":""} onClick={()=>setLayer("weights")}>2 · Weights</button><button className={layer==="training"?"on":""} onClick={()=>setLayer("training")}>3 · Training</button></div>
     </div>
-    {active.id==="quantum"&&<div className="quantumVisual">
-      <div className="quantumCycles">
-        {["Cycle 1","Cycle 2","Cycle 3"].map((cycle,index)=><div className="qubitCycle" key={cycle}>
-          <b>{cycle}</b>
-          <div className="qubitGrid" aria-label={`${cycle} qubit grid`}>
-            {Array.from({length:9}).map((_,i)=><span key={i} className={(i+index)%4===0?"event":"quiet"} />)}
-          </div>
-          <WeightBadge math="\\alpha_{ij}" label="spatial attention" />
-          {index<2&&<i className="cycleArrow">→</i>}
-        </div>)}
-      </div>
-      <div className="temporalRail"><WeightBadge math="g_t" label="temporal memory gates" /><span>memory carries unresolved evidence across cycles</span></div>
-      <div className="visualOutcome"><WeightBadge math="W_e" label="event embeddings" /><b>logical error probabilities</b><WeightBadge math="W_o" label="output weights" /><b>correction decision</b><WeightBadge math="C_{ij}" label="correction cost" /></div>
-    </div>}
-
-    {active.id==="minerals"&&<div className="mineralsVisual">
-      <div className="gisLayers">
-        {[
-          ["Geology","faults","m_1"],
-          ["Magnetics","bands","m_2"],
-          ["Gravity","contours","m_3"],
-          ["Geochemistry","samples","m_4"]
-        ].map(([name,pattern,weight])=><div className={`mapLayer ${pattern}`} key={name}><b>{name}</b><span>{pattern}</span><WeightBadge math={weight} label="modality reliability" /></div>)}
-      </div>
-      <div className="stackConnector">multimodal patch encoder</div>
-      <div className="maskedMap" aria-label="masked geospatial patches">{Array.from({length:18}).map((_,i)=><i key={i} className={i%4===1||i%7===0?"masked":""} />)}<WeightBadge math="a_p" label="patch weighting" /></div>
-      <div className="visualColumn">
-        <WeightBadge math="\\theta" label="self-supervised backbone" />
-        <b>geological features</b>
-        <WeightBadge math="w_+" label="rare-positive class weight" />
-        <b>prospectivity + uncertainty map</b>
-        <WeightBadge math="C_{survey}" label="survey cost ranking" />
-      </div>
-    </div>}
-
-    {active.id==="finance"&&<div className="financeVisual">
-      <div className="marketCurve" aria-hidden="true"><i/><i/><i/><i/></div>
-      <div className="tradeTimeline">
-        {["t_1","t_2","t_3","T"].map((time,i)=><div className="tradeStep" key={time}>
-          <Latex>{time}</Latex>
-          <span>market state</span>
-          {i<3?<><WeightBadge math={`\\pi_\\theta(s_${i+1})`} label="policy action" /><b>{`a_${i+1}`}</b><WeightBadge math={`c_j|\\Delta a_${i+1}|`} label="transaction cost" className="costWeight" /></>:<><b>final market</b><WeightBadge math="\\mathrm{PnL}_\\theta" label="portfolio result" /></>}
-        </div>)}
-      </div>
-      <div className="riskLoop"><WeightBadge math="\\rho_\\gamma" label="convex risk" /><span>update policy</span><WeightBadge math="\\theta" label="policy parameters" /><WeightBadge math="\\omega_s" label="stress scenario weight" /></div>
-    </div>}
-
-    {active.id==="materials"&&<div className="materialsVisual">
-      <div className="spiralCore">
-        <span className="orbitLabel outer">random crystal</span>
-        <span className="spiralRing ring1" /><span className="spiralRing ring2" /><span className="spiralRing ring3" />
-        <WeightBadge math="\\beta_t" label="noise schedule" className="spiralWeight beta" />
-        <WeightBadge math="\\lambda_A" label="atom channel" className="spiralWeight atom" />
-        <WeightBadge math="\\lambda_X" label="coordinate channel" className="spiralWeight coord" />
-        <WeightBadge math="\\lambda_L" label="lattice channel" className="spiralWeight lattice" />
-        <div className="crystalCore"><b>stable crystal</b><Latex>{"\\theta_{score}"}</Latex></div>
-      </div>
-      <div className="propertySide"><WeightBadge math="\\phi(c)" label="property adapter" /><WeightBadge math="s" label="guidance strength" /><b>targeted material candidate</b><span>DFT validation outside the loop</span></div>
-    </div>}
-
-    {active.id==="math"&&<div className="mathVisual">
-      <div className="theoremRoot">THEOREM<WeightBadge math="\\alpha_{ij}" label="symbol attention" /></div>
-      <div className="proofBranches">
-        {[
-          ["Subgoal A","valid","r_\\tau"],
-          ["Subgoal B","reject","b_i"],
-          ["Subgoal C","valid","A_\\tau"]
-        ].map(([goal,status,weight])=><div className={`proofBranch ${status}`} key={goal}><b>{goal}</b><WeightBadge math="p_\\theta(\\mathrm{tactic})" label="next tactic probability" /><span>LEAN gate</span><em>{status==="valid"?"verified":"revise / search"}</em><WeightBadge math={weight} label={status==="valid"?"verifier reward":"branch budget"} /></div>)}
-      </div>
-      <div className="proofFeedback"><b>verified proof</b><WeightBadge math="\\kappa\\,\\mathrm{KL}" label="stability penalty" /><span>reward feedback updates/searches the successful path</span></div>
-    </div>}
-
-    {active.id==="business"&&<div className="businessVisual">
-      <div className="productHistories">
-        {[
-          ["Product A",[20,36,58,28,72],"\\nu_A"],
-          ["Product B",[14,18,30,66,42],"\\nu_B"],
-          ["Product C",[78,64,48,31,18],"\\nu_C"],
-          ["Product D",[12,15,16,28,17],"\\nu_D"],
-          ["Product E",[58,72,61,84,76],"\\nu_E"]
-        ].map(([name,bars,scale])=><div className="productLine" key={name as string}><b>{name}</b><Sparkline bars={bars as number[]} /><WeightBadge math={scale as string} label="series scaling" /></div>)}
-      </div>
-      <div className="sharedCore"><b>shared recurrent model</b><WeightBadge math="\\theta_{RNN}" label="shared parameters" /><WeightBadge math="g_t" label="memory gates" /><span>item-specific hidden state</span><Latex>{"h_{i,t}"}</Latex></div>
-      <div className="forecastFan"><WeightBadge math="\\mu_{i,t},\\sigma_{i,t}" label="distribution head" /><div><span>P10</span><span>P50</span><span>P90</span></div><WeightBadge math="q=\\frac{C_u}{C_u+C_o}" label="inventory quantile" /><WeightBadge math="\\lambda_h" label="horizon weight" /></div>
-    </div>}
-
-    {active.id==="graphcast"&&<div className="graphcastVisual3">
-      <div className="weatherGrid"><b>latitude-longitude weather grid</b><WeightBadge math="W_{node}" label="node encoder" /></div>
-      <div className="gridToMesh"><WeightBadge math="W_{edge}" label="grid-to-mesh edges" /></div>
-      <div className="sphericalMesh" aria-label="spherical multimesh graph"><span className="globeLine lat1"/><span className="globeLine lat2"/>{Array.from({length:14}).map((_,i)=><i key={i} style={{"--n":i} as React.CSSProperties} />)}<WeightBadge math="m_{ij}" label="dynamic messages" /><WeightBadge math="\\sum_j m_{ij}" label="aggregation" /></div>
-      <div className="forecastGrid"><WeightBadge math="W_{decode}" label="forecast decoder" /><b>six-hour weather grid</b><WeightBadge math="\\lambda_v\\times\\omega_{lat}" label="weighted loss" /><span>autoregressive rollout</span></div>
-    </div>}
+    <div className="diagramViewport"><svg className="architectureSvg" viewBox="0 0 1100 560" role="img" aria-label={`${active.name}: connected model architecture`}>{defs}
+      {active.id==="quantum"&&<>
+        <text className="svgSection" x="34" y="34">SYNDROME EVENTS ACROSS SPACE + TIME</text>
+        {[0,1,2].map(c=><g key={c} transform={`translate(${45+c*230} 72)`}><rect className="qubitPlane" width="185" height="185" rx="18"/><text x="14" y="25">cycle t{c?`+${c}`:""}</text>{Array.from({length:9}).map((_,i)=><circle key={i} className={(i+c)%4===0?"hotNode":"quietNode"} cx={38+(i%3)*54} cy={62+Math.floor(i/3)*48} r="8"/>)}<path className="attentionEdge" d="M38 62L146 158M92 62L38 158M38 110L146 110"/></g>)}
+        <Arrow d="M230 164H266"/><Arrow d="M460 164H496"/><path className="memoryRail" d="M80 290 C250 350 480 350 690 290" markerEnd="url(#arrow)"/><text className="svgLabel" x="272" y="345">recurrent memory carries unresolved evidence</text>
+        <Box x={760} y={88} title="Decoder head" sub="logical error probabilities"/><Arrow d="M690 164H750"/><Box x={760} y={225} title="Correction rule" sub="lowest expected failure cost" tone="output"/><Arrow d="M845 164V215"/><W x={80} y={375} s="αᵢⱼ" label="spatial attention"/><W x={270} y={375} s="gₜ" label="memory gates"/><W x={460} y={375} s="Wₒ" label="output weights"/><W x={760} y={330} s="Cᵢⱼ" label="decision cost"/>
+        {showTraining&&<><path className="feedback" d="M845 310 C845 500 350 510 180 270" markerEnd="url(#arrow)"/><text className="feedbackText" x="410" y="500">logical-error loss updates embeddings, attention, memory, and decoder</text></>}
+      </>}
+      {active.id==="minerals"&&<>
+        <text className="svgSection" x="30" y="34">ALIGNED GEOSPATIAL EVIDENCE</text>
+        {[["GEOLOGY",65,"fault"],["MAGNETICS",125,"bands"],["GRAVITY",185,"rings"],["GEOCHEMISTRY",245,"dots"]].map(([n,y,p],i)=><g key={n}><rect className={`geoLayer ${p}`} x={50+i*13} y={Number(y)} width="230" height="100" rx="10"/><text x={70+i*13} y={Number(y)+28}>{n}</text></g>)}
+        <Arrow d="M330 205H420"/><Box x={430} y={145} w={205} h={120} title="Masked map encoder" sub="learn structure without labels"/><g className="patchMask">{Array.from({length:12}).map((_,i)=><rect key={i} x={452+(i%4)*40} y={195+Math.floor(i/4)*20} width="28" height="13" className={i%5===0?"masked":""}/>)}</g>
+        <Arrow d="M645 205H715"/><g><rect className="heatmap" x="730" y="105" width="280" height="210" rx="18"/><circle cx="810" cy="190" r="46"/><circle cx="930" cy="245" r="31"/><text x="750" y="138">PROSPECTIVITY + UNCERTAINTY</text><text className="svgSmall" x="750" y="295">rank cells for field investigation</text></g>
+        <W x={62} y={385} s="mₖ" label="modality trust"/><W x={430} y={300} s="aₚ" label="patch importance"/><W x={605} y={385} s="w₊" label="rare deposit class"/><W x={790} y={385} s="Csurvey" label="survey cost"/>
+        {showTraining&&<><path className="feedback" d="M860 335 C780 510 470 505 520 275" markerEnd="url(#arrow)"/><text className="feedbackText" x="560" y="480">confirmed deposits fine-tune the pretrained geological representation</text></>}
+      </>}
+      {active.id==="finance"&&<>
+        <text className="svgSection" x="30" y="34">ONE POLICY, UNROLLED THROUGH THE ENTIRE TRADING PATH</text>
+        <path className="marketLine" d="M55 128 C145 45 220 205 310 112 S470 190 560 95 S720 155 810 78"/>
+        {[80,285,490,695].map((x,i)=><g key={x}><circle className="timeNode" cx={x} cy="205" r="20"/><text x={x-10} y="211">t{i+1}</text><Box x={x-55} y={245} w={150} h={78} title={i<3?"Policy action":"Terminal P&L"} sub={i<3?"choose hedge position":"after all costs"}/>{i<3&&<Arrow d={`M${x+95} 284H${x+140}`}/>}</g>)}
+        <Box x={860} y={150} w={190} h={105} title="Convex risk ργ" sub="judge the full path" tone="output"/><Arrow d="M845 284Q930 300 945 265"/><W x={95} y={365} s="πθ(sₜ)" label="shared policy"/><W x={300} y={365} s="cⱼ|Δaₜ|" label="trading friction"/><W x={505} y={365} s="ωₛ" label="stress scenarios"/><W x={860} y={300} s="γ" label="risk aversion"/>
+        {showTraining&&<><path className="feedback" d="M950 275 C930 500 300 500 155 330" markerEnd="url(#arrow)"/><text className="feedbackText" x="430" y="485">backpropagate terminal economic risk through every action</text></>}
+      </>}
+      {active.id==="materials"&&<>
+        <text className="svgSection" x="30" y="34">REVERSE DIFFUSION: NOISE → PHYSICALLY PLAUSIBLE CRYSTAL</text>
+        {[85,315,545,775].map((x,i)=><g key={x}><rect className="crystalFrame" x={x} y="100" width="155" height="190" rx="20"/>{Array.from({length:9}).map((_,j)=><circle key={j} className={`atom atom${j%3}`} cx={x+24+(j%3)*52+(3-i)*((j%2)*5)} cy={135+Math.floor(j/3)*53+(3-i)*((j%3)*3)} r={7+i*1.3}/>)}<text x={x+16} y="322">{["random state","coarse structure","refined lattice","candidate crystal"][i]}</text>{i<3&&<Arrow d={`M${x+165} 195H${x+215}`}/>}</g>)}
+        <path className="conditionLine" d="M510 430 C630 350 720 345 835 300" markerEnd="url(#arrow)"/><Box x={370} y={400} w={210} h={82} title="Property condition c" sub="strength, stability, supply risk"/>
+        <W x={85} y={355} s="βₜ" label="noise schedule"/><W x={250} y={355} s="λA, λX, λL" label="channel balance"/><W x={625} y={400} s="s" label="guidance strength"/><W x={850} y={355} s="θscore" label="denoiser"/>
+        {showTraining&&<><path className="feedback" d="M930 345 C930 515 270 520 160 300" markerEnd="url(#arrow)"/><text className="feedbackText" x="470" y="510">known crystals teach the model to reverse structured corruption</text></>}
+      </>}
+      {active.id==="math"&&<>
+        <text className="svgSection" x="30" y="34">PROOF SEARCH: GENERATE BRANCHES, VERIFY EVERY STEP</text><Box x={440} y={60} w={220} h={72} title="Formal theorem" sub="Lean state + retrieved lemmas"/>
+        <path className="treeEdge" d="M550 132V175M550 175L210 230M550 175L550 230M550 175L890 230"/>
+        {[150,490,830].map((x,i)=><g key={x}><Box x={x} y={230} w={220} h={76} title={`Candidate subgoal ${String.fromCharCode(65+i)}`} sub="model proposes next tactic"/><Arrow d={`M${x+110} 306V350`}/><g className={i===1?"verifyGate reject":"verifyGate"}><rect x={x+22} y={355} width="176" height="50" rx="12"/><text x={x+50} y={386}>{i===1?"LEAN: REJECT":"LEAN: VERIFIED"}</text></g></g>)}
+        <path className="treeEdge" d="M260 410Q500 470 550 505M940 410Q690 470 550 505"/><text className="svgLabel" x="475" y="535">verified proof</text>
+        <W x={155} y={430} s="pθ(tactic)" label="proposal score"/><W x={490} y={430} s="bᵢ" label="branch budget"/><W x={830} y={430} s="rτ" label="verifier reward"/>
+        {showTraining&&<><path className="feedback" d="M550 510 C1040 540 1040 70 670 95" markerEnd="url(#arrow)"/><text className="feedbackText" x="765" y="520">reward successful proof paths</text></>}
+      </>}
+      {active.id==="business"&&<>
+        <text className="svgSection" x="30" y="34">MANY PRODUCT HISTORIES → ONE SHARED MODEL → MANY FORECAST DISTRIBUTIONS</text>
+        {[80,145,210,275,340].map((y,i)=><g key={y}><text x="35" y={y+7}>item {String.fromCharCode(65+i)}</text><path className="seriesLine" d={`M100 ${y} l35 ${i%2?-12:10} l35 ${i%3?18:-8} l35 -22 l35 ${i%2?8:18}`}/><Arrow d={`M250 ${y} C320 ${y} 330 245 405 245`}/></g>)}
+        <g className="rnnCore"><rect x="420" y="145" width="240" height="205" rx="32"/><path d="M485 220Q540 165 595 220Q540 275 485 220"/><text x="470" y="305">SHARED RECURRENT CORE</text><text className="svgSmall" x="485" y="328">item-specific hidden state</text></g>
+        {[105,205,305].map((y,i)=><g key={y}><Arrow d={`M660 245 C720 245 720 ${y} 785 ${y}`}/><path className={`fan fan${i}`} d={`M790 ${y} C850 ${y-35} 920 ${y-25} 1015 ${y-42} L1015 ${y+42} C920 ${y+25} 850 ${y+35} 790 ${y}Z`}/><text x="820" y={y+5}>{["P10","P50","P90"][i]} forecast</text></g>)}
+        <W x={130} y={390} s="νᵢ" label="series scaling"/><W x={430} y={390} s="θRNN, gₜ" label="shared memory"/><W x={790} y={390} s="μ, σ" label="distribution head"/>
+        {showTraining&&<><path className="feedback" d="M950 430 C790 515 430 515 520 355" markerEnd="url(#arrow)"/><text className="feedbackText" x="575" y="500">likelihood across all series updates shared parameters</text></>}
+      </>}
+      {active.id==="graphcast"&&<>
+        <text className="svgSection" x="30" y="34">GLOBAL WEATHER GRID → MULTIMESH MESSAGE PASSING → NEXT WEATHER GRID</text>
+        <g><rect className="weatherMap" x="38" y="105" width="220" height="250" rx="22"/><path d="M55 170Q145 90 240 180M55 255Q145 335 240 250M100 112V348M180 112V348"/><text x="65" y="390">analyzed weather at t</text></g><Arrow d="M270 225H345"/>
+        <g className="meshGlobe"><circle cx="550" cy="225" r="145"/><ellipse cx="550" cy="225" rx="72" ry="145"/><ellipse cx="550" cy="225" rx="145" ry="58"/>{[[455,155],[550,95],[645,155],[430,225],[520,205],[610,225],[470,300],[550,350],[640,300]].map(([x,y],i)=><circle key={i} cx={x} cy={y} r="8"/>)}<path d="M455 155L550 95L645 155L610 225L640 300L550 350L470 300L430 225L455 155M455 155L520 205L610 225M430 225L520 205L470 300M520 205L550 350M610 225L470 300"/><text x="470" y="420">spherical multimesh</text></g>
+        <Arrow d="M705 225H780"/><g><rect className="weatherMap outputMap" x="795" y="105" width="250" height="250" rx="22"/><path d="M810 165Q900 110 1025 190M815 275Q915 320 1020 245M855 112V348M955 112V348"/><text x="820" y="390">forecast at t + 6h</text></g>
+        <W x={45} y={430} s="Wnode" label="grid encoder"/><W x={390} y={430} s="mᵢⱼ, Σⱼ" label="messages + aggregation"/><W x={800} y={430} s="Wdecode" label="grid decoder"/>
+        {showTraining&&<><path className="feedback" d="M925 410 C920 535 340 535 145 365" markerEnd="url(#arrow)"/><text className="feedbackText" x="430" y="520">weighted forecast error updates encoder, processor, and decoder</text></>}
+      </>}
+    </svg></div>
+    <div className="diagramLegend"><span><i className="legendFlow"/>information flow</span><span><i className="legendLearned"/>learned / dynamic weights</span><span><i className="legendHuman"/>human-selected objective or cost</span>{showTraining&&<span><i className="legendTraining"/>training feedback</span>}</div>
     <div className="visualLoss"><span>Training objective</span><Latex>{active.loss}</Latex><p>{active.lossNote}</p></div>
   </article>;
 }

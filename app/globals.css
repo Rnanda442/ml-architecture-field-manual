@@ -452,3 +452,30 @@ footer>a{font-size:11px;font-weight:650}
   .heroActions{align-items:flex-start;flex-direction:column}
   .heroVisual:before{display:none}
 }
+
+/* Connected scientific architecture diagrams */
+.visual3{overflow:hidden;background:linear-gradient(145deg,#fff 0%,#f7f8fc 100%)}
+.visual3Header{display:grid;grid-template-columns:180px 1fr auto;gap:24px;align-items:start}
+.diagramControls{display:flex;padding:4px;border:1px solid #d8dce7;border-radius:12px;background:#fff;box-shadow:0 6px 20px rgba(24,31,55,.06)}
+.diagramControls button{border:0;background:transparent;color:#657086;padding:9px 12px;border-radius:9px;font:700 11px/1 var(--font-sans);letter-spacing:.04em;cursor:pointer;white-space:nowrap}
+.diagramControls button.on{background:#151a2d;color:#fff}
+.diagramViewport{margin-top:24px;border:1px solid #dfe3ec;border-radius:20px;background:#fbfcff;overflow-x:auto;box-shadow:inset 0 1px 0 #fff}
+.architectureSvg{display:block;width:100%;min-width:900px;height:auto;font-family:var(--font-sans);color:#56617a}
+.architectureSvg text{fill:#172039;font-size:15px;font-weight:750}
+.architectureSvg .svgSmall{font-size:11px;font-weight:600;fill:#6d768b}
+.architectureSvg .svgSection{font-size:12px;letter-spacing:.13em;fill:#69738b}
+.architectureSvg .svgLabel{font-size:12px;fill:#5d6880}
+.svgBox rect{fill:#fff;stroke:#bfc7d8;stroke-width:1.5}.svgBox.output rect{fill:#eef9f4;stroke:#5ab38b}
+.svgArrow path,.treeEdge{fill:none;stroke:#52617b;stroke-width:2.5}.svgArrow marker path{fill:#52617b;stroke:none}
+.svgWeight rect{fill:#f3efff;stroke:#846bd1;stroke-width:1.3}.svgWeight text{fill:#5d43ad;font-size:14px}.svgWeight .svgSmall{fill:#7568a0;font-size:10px}
+.feedback{fill:none;stroke:#ee7a4d;stroke-width:3;stroke-dasharray:8 7}.feedbackText{fill:#c85228!important;font-size:12px!important}
+.qubitPlane{fill:#eef3ff;stroke:#a8b8df}.quietNode{fill:#fff;stroke:#7888ae;stroke-width:2}.hotNode{fill:#ff765f;stroke:#b83d2a;stroke-width:2}.attentionEdge{fill:none;stroke:#876bd1;stroke-width:2;stroke-dasharray:5 4}.memoryRail{fill:none;stroke:#2b9d91;stroke-width:4}
+.geoLayer{fill:#f2ead7;stroke:#9a7a3c;stroke-width:1.5;opacity:.88}.geoLayer.bands{fill:#dceaf0}.geoLayer.rings{fill:#eee2f4}.geoLayer.dots{fill:#e4efdc}.patchMask rect{fill:#d9e2f3}.patchMask rect.masked{fill:#333d55}.heatmap{fill:#f8e4b9;stroke:#b98620;stroke-width:2}.heatmap+circle,.heatmap~circle{fill:#e85f43;opacity:.45}
+.marketLine{fill:none;stroke:#2a9b83;stroke-width:5}.timeNode{fill:#fff;stroke:#303a55;stroke-width:3}
+.crystalFrame{fill:#f2f5fa;stroke:#bdc6d7}.atom{stroke:#fff;stroke-width:2}.atom0{fill:#43a7bb}.atom1{fill:#7b62c7}.atom2{fill:#ef9c43}.conditionLine{fill:none;stroke:#de8740;stroke-width:3;stroke-dasharray:7 5}
+.verifyGate rect{fill:#e8f7ef;stroke:#48a97d}.verifyGate.reject rect{fill:#fff0ed;stroke:#e26955}.verifyGate.reject text{fill:#b74233}
+.seriesLine{fill:none;stroke:#2b8aa0;stroke-width:3}.rnnCore rect{fill:#ebe8fb;stroke:#7865bf;stroke-width:2}.rnnCore path{fill:none;stroke:#7865bf;stroke-width:3;marker-end:url(#arrow)}.fan{opacity:.65;stroke-width:1.5}.fan0{fill:#d8edf4;stroke:#4e9eb4}.fan1{fill:#bce0ea;stroke:#328ca6}.fan2{fill:#91c8d8;stroke:#247990}
+.weatherMap{fill:url(#grid);stroke:#5b7796;stroke-width:2}.weatherMap path{fill:none;stroke:#4b91ad;stroke-width:3}.outputMap{color:#81a9a0}.meshGlobe>circle,.meshGlobe>ellipse{fill:#eef5fa;stroke:#557d9c;stroke-width:1.5}.meshGlobe circle:not(:first-child){fill:#f16d4f;stroke:#fff;stroke-width:2}.meshGlobe path{fill:none;stroke:#416c8e;stroke-width:2}
+.diagramLegend{display:flex;flex-wrap:wrap;gap:20px;padding:14px 4px 0;color:#646f85;font-size:11px;font-weight:700}.diagramLegend span{display:flex;align-items:center;gap:7px}.diagramLegend i{width:22px;height:4px;border-radius:4px;background:#52617b}.diagramLegend .legendLearned{background:#846bd1}.diagramLegend .legendHuman{background:#d48935}.diagramLegend .legendTraining{background:repeating-linear-gradient(90deg,#ee7a4d 0 6px,transparent 6px 10px)}
+.visualLoss{margin-top:18px}
+@media(max-width:900px){.visual3Header{grid-template-columns:1fr}.diagramControls{width:max-content}.diagramViewport{margin-left:-18px;margin-right:-18px;border-radius:0;border-left:0;border-right:0}.architectureSvg{min-width:850px}.diagramLegend{padding-bottom:4px}}
