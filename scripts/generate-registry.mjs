@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-const reviewed = "2026-07-13";
+const reviewed = "2026-07-14";
 
 const sections = [
   ["Foundational and tabular architectures", [
@@ -211,11 +211,19 @@ const overrides = {
     org: "Microsoft Research",
     relation: "published by organization's research laboratory"
   }),
-  "Graph convolutional network": overlapping("case-07-graphcast-weather-forecasting", ["Graph and structural architectures"], ["graph message weights"]),
-  "Graph attention network": overlapping("case-07-graphcast-weather-forecasting", ["Graph and structural architectures"], ["graph attention coefficients"]),
+  "Graph convolutional network": libraryOnly({
+    aliases: ["GCN"],
+    bottleneck: ["graph locality", "neighbor aggregation"],
+    weights: ["graph convolution weights", "neighborhood aggregation weights"]
+  }),
+  "Graph attention network": libraryOnly({
+    aliases: ["GAT"],
+    bottleneck: ["graph locality", "neighbor importance"],
+    weights: ["attention coefficients", "message weights"]
+  }),
   "Masked autoencoder": overlapping("case-02-critical-mineral-prospectivity", ["Spatial and image architectures"], ["mask sampling weights"]),
   "Diffusion model": overlapping("case-04-inverse-materials-design", ["Generative architectures"], ["noise schedule", "score weights"]),
-  "LLM-guided formal search": overlapping("case-05-formal-theorem-proving", ["Search, discovery, and optimization"], ["token probabilities", "search scores"]),
+  "LLM-guided formal search": partial("case-05-formal-theorem-proving", ["Search, discovery, and optimization"], ["token probabilities", "search scores"]),
   "Policy-gradient network": complete({
     aliases: ["time-unrolled neural policy", "deep hedging"],
     chapter: "case-03-deep-hedging",
@@ -329,6 +337,19 @@ function partial(chapter, families, weights) {
     source_verification_status: "needs dedicated primary-source verification",
     data_type: families,
     output_type: []
+  };
+}
+
+function libraryOnly({ aliases = [], bottleneck = [], weights = [] } = {}) {
+  return {
+    aliases,
+    dominant_bottleneck: bottleneck,
+    weighting_mechanisms: weights,
+    coverage_status: "LIBRARY ONLY",
+    chapter_status: "searchable registry card only; not covered by the GraphCast chapter",
+    visual_status: "library card only",
+    interaction_status: "filterable library card",
+    source_verification_status: "not yet primary-source verified for a full chapter"
   };
 }
 

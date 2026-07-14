@@ -13,9 +13,11 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-geist-sans),Arial,sans-serif}
-button,a{font:inherit}
+button,a,input,select,summary{font:inherit}
 button{color:inherit}
 a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+button:disabled{opacity:.45;cursor:not-allowed}
 
 .topbar{position:sticky;top:0;z-index:50;min-height:66px;padding:0 4vw;display:flex;align-items:center;gap:28px;background:rgba(244,241,232,.91);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:11px;font-weight:720;letter-spacing:0}
@@ -97,6 +99,18 @@ a{color:inherit;text-decoration:none}
 .libraryControls{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .libraryControls button{border:1px solid var(--line);background:#fff;padding:10px 13px;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer}
 .libraryControls button.on{background:var(--ink);color:white}
+.librarySearch{margin:24px 0 14px}
+.librarySearch label,.filterGrid label{display:grid;gap:7px;font:700 10px var(--font-geist-mono);letter-spacing:0;text-transform:uppercase;color:#58736d}
+.librarySearch input,.filterGrid select{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:4px;padding:12px 13px;font-size:13px;text-transform:none;letter-spacing:0}
+.filterGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.libraryMeta{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:16px 0 22px}
+.libraryMeta p{margin:0;font-size:13px;color:var(--muted)}
+.clearButton,.showMore,.openChapterButton{border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:4px;padding:10px 13px;font-size:12px;font-weight:750;cursor:pointer}
+.showMore{display:block;margin:28px auto 0;background:var(--ink);color:#fff}
+.openChapterButton{margin-top:14px;background:var(--ink);color:#fff}
+.emptyState{border:1px solid var(--line);background:#fff;padding:24px;margin-top:18px}
+.emptyState p{margin:8px 0 0;color:var(--muted);font-size:13px}
+.consolidatedLabel{display:block;margin-top:14px;font-size:11px;line-height:1.35;color:#6d7974;font-style:normal}
 .libraryGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .libraryGrid article{border:1px solid var(--line);background:#fff;padding:18px;min-height:190px;display:flex;flex-direction:column}
 .libraryGrid h3{font-size:17px;margin:18px 0 8px}
@@ -117,7 +131,9 @@ a{color:inherit;text-decoration:none}
 .chapterHeader h2{font-size:64px;line-height:.98;letter-spacing:0;margin:0}
 .chapterObjective{font:26px/1.35 Georgia,serif;max-width:850px;margin:28px 0 0}
 .chapterObjective span{display:block;font:700 10px var(--font-geist-mono);color:var(--chapter);text-transform:uppercase;letter-spacing:0;margin-bottom:8px}
+.paperStack{display:grid;gap:14px}
 .paperLink{border-top:2px solid var(--ink);padding-top:16px}
+.openVersion{border-top:1px solid var(--line)}
 .paperLink span{font:700 10px var(--font-geist-mono);color:var(--chapter)}
 .paperLink b{display:block;font-size:14px;line-height:1.45;margin-top:12px}
 .reasonCards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:60px 0 24px}
@@ -128,6 +144,9 @@ a{color:inherit;text-decoration:none}
 .metaGrid article{border:1px solid var(--line);padding:20px;background:#fbfaf6;min-height:165px}
 .metaGrid b{display:block;font-size:15px;line-height:1.35;margin:18px 0 7px}
 .metaGrid p,.metaGrid small{display:block;font-size:12px;line-height:1.5;color:var(--muted);margin:18px 0 0}
+.graphcastUniqueness{border:1px solid rgba(22,137,120,.24);background:#f1fbf8;padding:24px;margin:-4px 0 28px}
+.graphcastUniqueness b{display:block;font:22px/1.35 Georgia,serif}
+.graphcastUniqueness p{font-size:13px;line-height:1.55;color:var(--muted);margin:12px 0 0}
 .depthBar{display:flex;justify-content:space-between;align-items:center;margin:80px 0 30px}
 .depthBar>div:first-child b{display:block;font-size:26px}
 .depthBar>div:first-child span{font-size:13px;color:var(--muted)}
@@ -155,6 +174,38 @@ a{color:inherit;text-decoration:none}
 .lossCard code{display:block;margin:42px 0 25px;font-size:22px;color:var(--chapter);white-space:normal}
 .lossCard p{font-size:13px;line-height:1.55;color:var(--muted)}
 
+.graphcastDeep{display:grid;gap:22px;margin:28px 0}
+.graphcastDeep>article{border:1px solid var(--line);background:#fbfaf6;padding:24px;min-width:0;overflow-wrap:anywhere}
+.graphcastDeep h3,.graphcastWeights h3{font-size:24px;line-height:1.18;margin:13px 0 18px}
+.flowDiagram,.compareStrip,.methodologyGrid,.pipelineDeep,.tensorFlow,.weightMap,.trainingLoop,.failureGrid,.resultFacts{display:grid;gap:12px}
+.flowDiagram{grid-template-columns:repeat(5,1fr)}
+.flowStep,.compareStrip>div,.methodologyGrid>div,.pipelineDeep>div,.tensorFlow>div,.weightMap>div,.trainingLoop>div,.failureGrid>div,.resultFacts>div,.weightDetails article{position:relative;border:1px solid var(--line);background:#fff;padding:15px;min-width:0}
+.flowStep i,.tensorFlow i,.trainingLoop i{position:absolute;right:-10px;top:50%;transform:translateY(-50%);background:#fff;color:var(--chapter);font-style:normal;font-weight:800;z-index:1}
+.flowStep b,.compareStrip b,.methodologyGrid b,.pipelineDeep b,.tensorFlow b,.weightMap b,.trainingLoop b,.failureGrid b,.resultFacts b{display:block;font-size:13px;line-height:1.3}
+.flowStep p,.compareStrip p,.methodologyGrid p,.pipelineDeep p,.tensorFlow p,.trainingLoop p,.failureGrid p{font-size:12px;line-height:1.45;color:var(--muted);margin:8px 0 0}
+.sourceNote{display:block;margin-top:14px;font-size:12px;line-height:1.45;color:#50605a}
+.compareStrip{grid-template-columns:repeat(3,1fr)}
+.methodologyGrid{grid-template-columns:repeat(3,1fr)}
+.timeFlow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px;padding:14px;border:1px solid var(--line);background:#10231f;color:white}
+.timeFlow span{font:700 11px var(--font-geist-mono);border:1px solid rgba(255,255,255,.22);padding:8px}
+.timeFlow b{color:var(--lime)}
+.pipelineDeep{grid-template-columns:repeat(7,1fr)}
+.pipelineDeep code,.tensorFlow code,.weightMap code,.weightDetails code,.equationExplain code{display:inline-block;color:var(--chapter);font-weight:750;white-space:normal;overflow-wrap:anywhere}
+.pipelineDeep small{display:block;margin-top:10px;color:#7b5f5f;font-size:11px;line-height:1.35}
+.tensorFlow{grid-template-columns:repeat(5,1fr)}
+.weightMap{grid-template-columns:repeat(5,1fr)}
+.weightMap span{display:block;margin-top:8px;font-size:11px;color:var(--muted);line-height:1.35}
+.trainingLoop{grid-template-columns:repeat(6,1fr)}
+.failureGrid{grid-template-columns:repeat(4,1fr)}
+.resultFacts{grid-template-columns:repeat(4,1fr)}
+.resultFacts b{font-size:22px;color:var(--chapter)}
+.resultFacts span{display:block;font-size:12px;line-height:1.35;color:var(--muted);margin-top:7px}
+.comparisonTable{border-top:2px solid var(--ink);overflow-x:auto;max-width:100%;min-width:0}
+.comparisonHead,.comparisonRow{display:grid;grid-template-columns:.6fr 1fr 1fr 1fr;gap:13px;min-width:760px;padding:14px;border-bottom:1px solid var(--line)}
+.comparisonHead{font:700 9px var(--font-geist-mono);text-transform:uppercase;color:var(--muted)}
+.comparisonRow{font-size:12px;line-height:1.35}
+.comparisonRow small{grid-column:1/-1;color:var(--muted);line-height:1.45}
+
 .graphLab{display:grid;grid-template-columns:.75fr 1fr .85fr;gap:22px;align-items:stretch;margin:28px 0;border:1px solid var(--line);background:#f5fbf8;padding:24px}
 .graphLab h3{font-size:28px;margin:15px 0}
 .graphLab p{font-size:13px;line-height:1.55;color:var(--muted)}
@@ -173,12 +224,15 @@ a{color:inherit;text-decoration:none}
 .gridOut{right:18px;top:18px}
 .rollout{right:18px;bottom:18px;color:var(--lime)}
 .graphSlider{align-self:center;background:#fff;padding:20px;border:1px solid var(--line)}
+.graphSlider p,.sliderNote{font-size:12px;line-height:1.5;color:var(--muted);margin:0}
+.sliderNote{border-left:3px solid var(--chapter);padding-left:10px}
 .sliderWrap input{width:100%;accent-color:var(--chapter);margin:25px 0 10px}
 .sliderLabels{display:flex;justify-content:space-between;font-size:10px;gap:10px}
 .sliderLabels b{color:var(--chapter)}
 .outcomeBars{display:grid;gap:12px;margin-top:25px}
 .outcomeBars label{position:relative;background:white;padding:11px;font-size:11px;overflow:hidden;border:1px solid var(--line)}
 .outcomeBars i{position:absolute;left:0;bottom:0;height:4px;background:var(--chapter);transition:.2s}
+.outcomeBars em{display:block;margin-top:6px;font-style:normal;color:var(--muted);font-size:10px}
 
 .weightTable{margin-top:20px;border-top:2px solid var(--ink)}
 .tableHead,.tableRow{display:grid;grid-template-columns:.8fr .55fr 1.2fr 1.4fr;gap:15px;padding:15px;border-bottom:1px solid var(--line);align-items:center}
@@ -186,6 +240,17 @@ a{color:inherit;text-decoration:none}
 .tableRow{font-size:12px;line-height:1.4}
 .tableRow code{color:var(--chapter);font-weight:700}
 .tableRow span:last-child{color:#6c5656}
+.graphcastWeights{margin-top:28px;border:1px solid var(--line);background:#fbfaf6;padding:24px}
+.weightDetailsHead{max-width:820px}
+.weightDetails{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.weightDetails article b{display:block;margin:10px 0;font-size:13px}
+.weightDetails p{font-size:12px;line-height:1.4;color:var(--muted);margin:7px 0}
+.weightDetails small{display:block;margin-top:10px;font-size:11px;line-height:1.4;color:#765d5d}
+.equationDetails{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}
+.equationDetails summary{cursor:pointer;font-weight:800}
+.equationExplain{margin-top:16px;display:grid;gap:8px}
+.equationExplain p{margin:0;font-size:13px;line-height:1.55;color:var(--muted)}
+.equationExplain code{font-size:16px;margin-bottom:6px}
 .miniLab{margin:45px 0;display:grid;grid-template-columns:.8fr 1.2fr;gap:55px;background:#edf7f5;padding:35px}
 .miniLab h3{font-size:29px;margin:15px 0}
 .miniLab p{font-size:13px;line-height:1.5}
@@ -231,9 +296,13 @@ footer>a{font-size:11px;font-weight:650}
   .reasoningRail{grid-template-columns:repeat(3,1fr)}
   .sectorTabs{grid-template-columns:repeat(3,1fr)}
   .registryStats{grid-template-columns:repeat(2,1fr)}
+  .filterGrid{grid-template-columns:repeat(2,1fr)}
   .libraryGrid{grid-template-columns:repeat(2,1fr)}
   .chapterHeader{grid-template-columns:1fr}
   .metaGrid{grid-template-columns:repeat(2,1fr)}
+  .flowDiagram,.pipelineDeep,.tensorFlow,.weightMap,.trainingLoop{grid-template-columns:repeat(2,1fr)}
+  .compareStrip,.methodologyGrid,.failureGrid,.resultFacts,.weightDetails{grid-template-columns:repeat(2,1fr)}
+  .flowStep i,.tensorFlow i,.trainingLoop i{display:none}
   .graphLab{grid-template-columns:1fr}
   .sourceGrid{grid-template-columns:1fr 1fr}
   .heroCopy{z-index:1}
@@ -248,8 +317,9 @@ footer>a{font-size:11px;font-weight:650}
   .heroVisual{height:470px;transform:scale(.9);transform-origin:left top}
   .orbit{width:170px}
   .centerPulse{left:33%}
-  .reasoningRail,.reasonCards,.architectureGrid,.miniLab,.sourceGrid,.registryStats,.libraryGrid,.metaGrid{grid-template-columns:1fr}
+  .reasoningRail,.reasonCards,.architectureGrid,.miniLab,.sourceGrid,.registryStats,.libraryGrid,.metaGrid,.filterGrid,.flowDiagram,.pipelineDeep,.tensorFlow,.weightMap,.trainingLoop,.compareStrip,.methodologyGrid,.failureGrid,.resultFacts,.weightDetails{grid-template-columns:1fr}
   .callout,.chapterHeader,.resultBand,.limitation,.shelfHead{grid-template-columns:1fr}
+  .libraryMeta{align-items:flex-start;flex-direction:column}
   .sectorTabs{grid-template-columns:1fr 1fr}
   .pipeline{grid-template-columns:1fr 1fr}
   .stageExplain{grid-template-columns:55px 1fr;padding:25px}

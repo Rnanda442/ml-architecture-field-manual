@@ -23,7 +23,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "002-logistic-regression",
@@ -49,7 +49,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "003-ridge-regression",
@@ -75,7 +75,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "004-lasso-regression",
@@ -101,7 +101,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "005-elastic-net",
@@ -127,7 +127,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "006-decision-tree",
@@ -153,7 +153,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "007-random-forest",
@@ -179,7 +179,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "008-extra-trees",
@@ -205,7 +205,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "009-gradient-boosted-trees",
@@ -231,7 +231,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "010-xgboost",
@@ -257,7 +257,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "011-lightgbm",
@@ -283,7 +283,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "012-catboost",
@@ -309,7 +309,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "013-multilayer-perceptron",
@@ -335,7 +335,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "014-convolutional-neural-network",
@@ -361,7 +361,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "015-resnet",
@@ -387,7 +387,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "016-densenet",
@@ -413,7 +413,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "017-u-net",
@@ -439,7 +439,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "018-3d-u-net",
@@ -465,7 +465,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "019-vision-transformer",
@@ -491,7 +491,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "020-swin-transformer",
@@ -517,7 +517,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "021-masked-autoencoder",
@@ -547,7 +547,7 @@
     "visual_status": "covered by consolidated chapter visuals",
     "interaction_status": "covered by consolidated chapter explorer",
     "source_verification_status": "source verified through consolidated chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "022-siamese-image-network",
@@ -573,7 +573,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "023-geospatial-foundation-model",
@@ -623,23 +623,27 @@
     "visual_status": "full chapter visuals",
     "interaction_status": "interactive chapter explorer",
     "source_verification_status": "primary source linked",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "024-graph-convolutional-network",
     "canonical_name": "Graph convolutional network",
-    "aliases": [],
-    "architecture_family": "Graph and structural architectures",
-    "chapter_group": "case-07-graphcast-weather-forecasting",
-    "sector": [],
-    "data_type": [
-      "Graph and structural architectures"
+    "aliases": [
+      "GCN"
     ],
+    "architecture_family": "Graph and structural architectures",
+    "chapter_group": "searchable-library",
+    "sector": [],
+    "data_type": [],
     "output_type": [],
     "learning_paradigm": [],
-    "dominant_bottleneck": [],
+    "dominant_bottleneck": [
+      "graph locality",
+      "neighbor aggregation"
+    ],
     "weighting_mechanisms": [
-      "graph message weights"
+      "graph convolution weights",
+      "neighborhood aggregation weights"
     ],
     "primary_paper": {
       "title": "",
@@ -648,28 +652,32 @@
     },
     "featured_organization": "",
     "relationship_classification": "",
-    "coverage_status": "OVERLAPPING",
-    "chapter_status": "covered conceptually in case-07-graphcast-weather-forecasting",
-    "visual_status": "covered by consolidated chapter visuals",
-    "interaction_status": "covered by consolidated chapter explorer",
-    "source_verification_status": "source verified through consolidated chapter",
-    "last_reviewed": "2026-07-13"
+    "coverage_status": "LIBRARY ONLY",
+    "chapter_status": "searchable registry card only; not covered by the GraphCast chapter",
+    "visual_status": "library card only",
+    "interaction_status": "filterable library card",
+    "source_verification_status": "not yet primary-source verified for a full chapter",
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "025-graph-attention-network",
     "canonical_name": "Graph attention network",
-    "aliases": [],
-    "architecture_family": "Graph and structural architectures",
-    "chapter_group": "case-07-graphcast-weather-forecasting",
-    "sector": [],
-    "data_type": [
-      "Graph and structural architectures"
+    "aliases": [
+      "GAT"
     ],
+    "architecture_family": "Graph and structural architectures",
+    "chapter_group": "searchable-library",
+    "sector": [],
+    "data_type": [],
     "output_type": [],
     "learning_paradigm": [],
-    "dominant_bottleneck": [],
+    "dominant_bottleneck": [
+      "graph locality",
+      "neighbor importance"
+    ],
     "weighting_mechanisms": [
-      "graph attention coefficients"
+      "attention coefficients",
+      "message weights"
     ],
     "primary_paper": {
       "title": "",
@@ -678,12 +686,12 @@
     },
     "featured_organization": "",
     "relationship_classification": "",
-    "coverage_status": "OVERLAPPING",
-    "chapter_status": "covered conceptually in case-07-graphcast-weather-forecasting",
-    "visual_status": "covered by consolidated chapter visuals",
-    "interaction_status": "covered by consolidated chapter explorer",
-    "source_verification_status": "source verified through consolidated chapter",
-    "last_reviewed": "2026-07-13"
+    "coverage_status": "LIBRARY ONLY",
+    "chapter_status": "searchable registry card only; not covered by the GraphCast chapter",
+    "visual_status": "library card only",
+    "interaction_status": "filterable library card",
+    "source_verification_status": "not yet primary-source verified for a full chapter",
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "026-message-passing-neural-network",
@@ -735,7 +743,7 @@
     "visual_status": "full chapter visuals",
     "interaction_status": "interactive chapter explorer",
     "source_verification_status": "primary source linked",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "027-graph-transformer",
@@ -761,7 +769,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "028-equivariant-graph-neural-network",
@@ -787,7 +795,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "029-crystal-graph-convolutional-network",
@@ -813,7 +821,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "030-neural-interatomic-potential",
@@ -839,7 +847,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "031-recurrent-neural-network",
@@ -869,7 +877,7 @@
     "visual_status": "partial",
     "interaction_status": "partial",
     "source_verification_status": "needs dedicated primary-source verification",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "032-lstm",
@@ -899,7 +907,7 @@
     "visual_status": "partial",
     "interaction_status": "partial",
     "source_verification_status": "needs dedicated primary-source verification",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "033-gru",
@@ -929,7 +937,7 @@
     "visual_status": "partial",
     "interaction_status": "partial",
     "source_verification_status": "needs dedicated primary-source verification",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "034-temporal-convolutional-network",
@@ -955,7 +963,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "035-deepar",
@@ -1003,7 +1011,7 @@
     "visual_status": "full chapter visuals",
     "interaction_status": "interactive chapter explorer",
     "source_verification_status": "primary source linked",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "036-n-beats",
@@ -1029,7 +1037,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "037-temporal-fusion-transformer",
@@ -1055,7 +1063,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "038-general-time-series-transformer",
@@ -1081,7 +1089,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "039-state-space-sequence-model",
@@ -1107,7 +1115,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "040-spatiotemporal-transformer",
@@ -1133,7 +1141,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "041-encoder-only-transformer",
@@ -1159,7 +1167,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "042-decoder-only-transformer",
@@ -1185,7 +1193,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "043-encoder-decoder-transformer",
@@ -1211,7 +1219,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "044-recurrent-transformer",
@@ -1258,7 +1266,7 @@
     "visual_status": "full chapter visuals",
     "interaction_status": "interactive chapter explorer",
     "source_verification_status": "primary source linked",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "045-multimodal-transformer",
@@ -1284,7 +1292,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "046-mixture-of-experts-transformer",
@@ -1310,7 +1318,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "047-retrieval-augmented-architecture",
@@ -1336,7 +1344,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "048-tool-using-or-agentic-architecture",
@@ -1362,7 +1370,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "049-transformer-plus-formal-search",
@@ -1413,7 +1421,7 @@
     "visual_status": "full chapter visuals",
     "interaction_status": "interactive chapter explorer",
     "source_verification_status": "primary source linked",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "050-autoencoder",
@@ -1439,7 +1447,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "051-variational-autoencoder",
@@ -1465,7 +1473,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "052-generative-adversarial-network",
@@ -1491,7 +1499,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "053-autoregressive-generator",
@@ -1517,7 +1525,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "054-diffusion-model",
@@ -1548,7 +1556,7 @@
     "visual_status": "covered by consolidated chapter visuals",
     "interaction_status": "covered by consolidated chapter explorer",
     "source_verification_status": "source verified through consolidated chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "055-conditional-diffusion-model",
@@ -1597,7 +1605,7 @@
     "visual_status": "full chapter visuals",
     "interaction_status": "interactive chapter explorer",
     "source_verification_status": "primary source linked",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "056-latent-diffusion-model",
@@ -1623,7 +1631,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "057-normalizing-flow",
@@ -1649,7 +1657,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "058-flow-matching-model",
@@ -1675,7 +1683,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "059-deep-q-network",
@@ -1701,7 +1709,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "060-double-dqn",
@@ -1727,7 +1735,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "061-policy-gradient-network",
@@ -1778,7 +1786,7 @@
     "visual_status": "full chapter visuals",
     "interaction_status": "interactive chapter explorer",
     "source_verification_status": "primary source linked",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "062-actor-critic",
@@ -1809,7 +1817,7 @@
     "visual_status": "partial",
     "interaction_status": "partial",
     "source_verification_status": "needs dedicated primary-source verification",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "063-proximal-policy-optimization",
@@ -1835,7 +1843,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "064-soft-actor-critic",
@@ -1861,7 +1869,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "065-model-based-reinforcement-learning",
@@ -1887,7 +1895,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "066-offline-reinforcement-learning",
@@ -1913,7 +1921,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "067-contextual-bandit",
@@ -1939,7 +1947,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "068-multi-agent-reinforcement-learning",
@@ -1965,7 +1973,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "069-hierarchical-reinforcement-learning",
@@ -1991,7 +1999,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "070-physics-informed-neural-network",
@@ -2017,7 +2025,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "071-neural-operator",
@@ -2043,7 +2051,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "072-fourier-neural-operator",
@@ -2069,7 +2077,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "073-graph-neural-operator",
@@ -2095,7 +2103,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "074-differentiable-simulator",
@@ -2121,7 +2129,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "075-ml-surrogate-model",
@@ -2147,7 +2155,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "076-hybrid-physics-ml-architecture",
@@ -2173,7 +2181,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "077-operator-learning-inverse-model",
@@ -2199,7 +2207,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "078-scientific-foundation-model",
@@ -2225,7 +2233,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "079-gaussian-process",
@@ -2251,7 +2259,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "080-bayesian-neural-network",
@@ -2277,7 +2285,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "081-deep-ensemble",
@@ -2303,7 +2311,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "082-monte-carlo-dropout",
@@ -2329,7 +2337,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "083-quantile-regression-network",
@@ -2355,7 +2363,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "084-mixture-density-network",
@@ -2381,7 +2389,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "085-evidential-neural-network",
@@ -2407,7 +2415,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "086-conformal-prediction-pipeline",
@@ -2433,7 +2441,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "087-bayesian-optimization",
@@ -2459,7 +2467,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "088-active-learning",
@@ -2485,7 +2493,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "089-evolutionary-optimization-with-ml-surrogate",
@@ -2511,7 +2519,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "090-monte-carlo-tree-search",
@@ -2537,7 +2545,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "091-neural-architecture-search",
@@ -2563,7 +2571,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "092-reinforcement-learning-guided-search",
@@ -2589,7 +2597,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "093-llm-guided-formal-search",
@@ -2615,12 +2623,12 @@
     },
     "featured_organization": "",
     "relationship_classification": "",
-    "coverage_status": "OVERLAPPING",
-    "chapter_status": "covered conceptually in case-05-formal-theorem-proving",
-    "visual_status": "covered by consolidated chapter visuals",
-    "interaction_status": "covered by consolidated chapter explorer",
-    "source_verification_status": "source verified through consolidated chapter",
-    "last_reviewed": "2026-07-13"
+    "coverage_status": "PARTIAL",
+    "chapter_status": "mentioned or partially explained in case-05-formal-theorem-proving",
+    "visual_status": "partial",
+    "interaction_status": "partial",
+    "source_verification_status": "needs dedicated primary-source verification",
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "094-autonomous-experimental-design-pipeline",
@@ -2646,7 +2654,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "095-isolation-forest",
@@ -2672,7 +2680,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "096-one-class-svm",
@@ -2698,7 +2706,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "097-autoencoder-anomaly-detector",
@@ -2724,7 +2732,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "098-contrastive-learning-architecture",
@@ -2750,7 +2758,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "099-siamese-few-shot-architecture",
@@ -2776,7 +2784,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "100-prototypical-network",
@@ -2802,7 +2810,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "101-self-supervised-pretraining-pipeline",
@@ -2832,7 +2840,7 @@
     "visual_status": "partial",
     "interaction_status": "partial",
     "source_verification_status": "needs dedicated primary-source verification",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "102-semi-supervised-teacher-student-model",
@@ -2858,7 +2866,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "103-transfer-learning-architecture",
@@ -2884,7 +2892,7 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   },
   {
     "architecture_id": "104-federated-learning-architecture",
@@ -2910,6 +2918,6 @@
     "visual_status": "library card only",
     "interaction_status": "filterable library card",
     "source_verification_status": "not yet primary-source verified for a full chapter",
-    "last_reviewed": "2026-07-13"
+    "last_reviewed": "2026-07-14"
   }
 ]
