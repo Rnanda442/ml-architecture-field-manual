@@ -865,18 +865,14 @@
     "weighting_mechanisms": [
       "recurrent gates"
     ],
-    "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
-    },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-06-probabilistic-demand-forecasting",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "primary_paper": {"title":"Learning Longer Memory in Recurrent Neural Networks","year":"2015","url":"https://arxiv.org/abs/1412.7753"},
+    "featured_organization": "Meta AI research",
+    "relationship_classification": "dedicated architecture supplement to DeepAR",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive architecture supplement",
+    "visual_status": "complete connected mechanism diagram",
+    "interaction_status": "complete tabbed supplement",
+    "source_verification_status": "primary source verified",
     "last_reviewed": "2026-07-14"
   },
   {
@@ -895,18 +891,14 @@
     "weighting_mechanisms": [
       "recurrent gates"
     ],
-    "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
-    },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-06-probabilistic-demand-forecasting",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "primary_paper": {"title":"LSTM: A Search Space Odyssey","year":"2017","url":"https://arxiv.org/abs/1503.04069"},
+    "featured_organization": "Google / Jürgen Schmidhuber research lineage",
+    "relationship_classification": "dedicated architecture supplement to DeepAR",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive architecture supplement",
+    "visual_status": "complete gated-memory diagram",
+    "interaction_status": "complete tabbed supplement",
+    "source_verification_status": "primary source verified",
     "last_reviewed": "2026-07-14"
   },
   {
@@ -925,18 +917,14 @@
     "weighting_mechanisms": [
       "recurrent gates"
     ],
-    "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
-    },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-06-probabilistic-demand-forecasting",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "primary_paper": {"title":"Learning Phrase Representations using RNN Encoder-Decoder","year":"2014","url":"https://arxiv.org/abs/1406.1078"},
+    "featured_organization": "Université de Montréal / Google research lineage",
+    "relationship_classification": "dedicated architecture supplement to DeepAR",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive architecture supplement",
+    "visual_status": "complete gated-memory diagram",
+    "interaction_status": "complete tabbed supplement",
+    "source_verification_status": "primary source verified",
     "last_reviewed": "2026-07-14"
   },
   {
@@ -1805,18 +1793,14 @@
       "policy weights",
       "value weights"
     ],
-    "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
-    },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-03-deep-hedging",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "primary_paper": {"title":"Asynchronous Methods for Deep Reinforcement Learning","year":"2016","url":"https://arxiv.org/abs/1602.01783"},
+    "featured_organization": "Google DeepMind",
+    "relationship_classification": "dedicated reinforcement-learning supplement to deep hedging",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive architecture supplement",
+    "visual_status": "complete actor-critic feedback diagram",
+    "interaction_status": "complete tabbed supplement",
+    "source_verification_status": "primary source verified",
     "last_reviewed": "2026-07-14"
   },
   {
@@ -2616,18 +2600,14 @@
       "token probabilities",
       "search scores"
     ],
-    "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
-    },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-05-formal-theorem-proving",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "primary_paper": {"title":"Kimina-Prover Preview: Towards Large Formal Reasoning Models with Reinforcement Learning","year":"2025","url":"https://arxiv.org/abs/2504.11354"},
+    "featured_organization": "Project Numina",
+    "relationship_classification": "dedicated generate-verify-search supplement to formal theorem proving",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive architecture supplement",
+    "visual_status": "complete proof-search diagram",
+    "interaction_status": "complete tabbed supplement",
+    "source_verification_status": "primary source verified",
     "last_reviewed": "2026-07-14"
   },
   {
@@ -2828,18 +2808,14 @@
     "weighting_mechanisms": [
       "mask weights"
     ],
-    "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
-    },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-02-critical-mineral-prospectivity",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "primary_paper": {"title":"Masked Autoencoders Are Scalable Vision Learners","year":"2022","url":"https://arxiv.org/abs/2111.06377"},
+    "featured_organization": "Meta AI",
+    "relationship_classification": "dedicated limited-label learning supplement to critical-mineral prospectivity",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive architecture supplement",
+    "visual_status": "complete mask-encode-reconstruct diagram",
+    "interaction_status": "complete tabbed supplement",
+    "source_verification_status": "primary source verified",
     "last_reviewed": "2026-07-14"
   },
   {

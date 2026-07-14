@@ -106,6 +106,10 @@ const chapterTargets: Record<string, string> = {
   "case-07-graphcast-weather-forecasting": "graphcast"
 };
 
+const supplementTargets: Record<string,string> = {
+  "031-recurrent-neural-network":"rnn","032-lstm":"lstm","033-gru":"gru","062-actor-critic":"actorcritic","093-llm-guided-formal-search":"formalsearch","101-self-supervised-pretraining-pipeline":"selfsupervised"
+};
+
 const chapterNames: Record<string, string> = {
   "case-01-quantum-error-correction": "Quantum error correction",
   "case-02-critical-mineral-prospectivity": "Critical-mineral prospectivity",
@@ -526,8 +530,33 @@ function architectureTeachingLine(id:string) {
   return lines[id] || "The diagram places model weights where they operate.";
 }
 
+type Supplement = {
+  id:string; name:string; family:string; company:string; paper:string; year:string; url:string;
+  objective:string; bottleneck:string; hypothesis:string; result:string; relation:string;
+  equation:string; weights:{symbol:string;meaning:string;failure:string}[];
+};
+
+const supplements: Supplement[] = [
+  {id:"rnn",name:"Vanilla RNN",family:"Sequence memory",company:"Meta AI research",paper:"Learning Longer Memory in Recurrent Neural Networks",year:"2015",url:"https://arxiv.org/abs/1412.7753",objective:"Carry a compact state through an ordered sequence so yesterday can change today’s prediction.",bottleneck:"Repeated multiplication by the recurrent matrix can make gradients vanish or explode, so distant evidence stops influencing learning.",hypothesis:"A deliberately slow recurrent subspace can retain long-range information without the full complexity of gated memory.",result:"The modified recurrent model achieved language-modeling performance similar to substantially more complex LSTMs in the reported experiments.",relation:"DeepAR uses recurrence as a shared temporal engine; this supplement exposes the simplest recurrent mechanism underneath it.",equation:"hₜ = tanh(Wₓxₜ + Wₕhₜ₋₁ + b)",weights:[{symbol:"Wₓ",meaning:"weights new evidence",failure:"weak input mapping ignores useful signals"},{symbol:"Wₕ",meaning:"weights remembered state",failure:"spectral dynamics erase or amplify history"},{symbol:"ωₜ",meaning:"weights time-step examples",failure:"easy periods dominate rare regimes"}]},
+  {id:"lstm",name:"LSTM",family:"Gated sequence memory",company:"Google / Jürgen Schmidhuber research lineage",paper:"LSTM: A Search Space Odyssey",year:"2017",url:"https://arxiv.org/abs/1503.04069",objective:"Preserve useful information over long sequences while selectively writing, forgetting, and exposing memory.",bottleneck:"A single recurrent transformation cannot independently decide what to remember, erase, and reveal.",hypothesis:"Multiplicative gates create a controlled memory path whose gradients and contents can survive longer horizons.",result:"Across 5,400 runs, no tested variant significantly beat the standard LSTM; the forget gate and output activation were the most critical components.",relation:"Use LSTM when long memory and precise control matter more than parameter economy.",equation:"cₜ = fₜ⊙cₜ₋₁ + iₜ⊙c̃ₜ;  hₜ = oₜ⊙tanh(cₜ)",weights:[{symbol:"fₜ",meaning:"forget gate",failure:"near zero erases; near one hoards stale state"},{symbol:"iₜ",meaning:"input gate",failure:"noise overwrites durable memory"},{symbol:"oₜ",meaning:"output gate",failure:"stored evidence never reaches prediction"}]},
+  {id:"gru",name:"GRU",family:"Compact gated memory",company:"Université de Montréal / Google research lineage",paper:"Learning Phrase Representations using RNN Encoder–Decoder",year:"2014",url:"https://arxiv.org/abs/1406.1078",objective:"Learn when to preserve or replace sequence state with fewer gates than an LSTM.",bottleneck:"Long memory helps, but separate input, forget, output, and cell machinery can be costly or unnecessary for smaller datasets and latency-sensitive systems.",hypothesis:"Update and reset gates can merge memory control into a simpler recurrent unit without losing useful sequence representation.",result:"The RNN encoder–decoder improved a statistical translation system and learned meaningful phrase representations.",relation:"Use GRU as the middle ground: gated memory with fewer parameters than LSTM.",equation:"hₜ = (1−zₜ)⊙hₜ₋₁ + zₜ⊙h̃ₜ",weights:[{symbol:"zₜ",meaning:"update gate",failure:"state changes too slowly or forgets too quickly"},{symbol:"rₜ",meaning:"reset gate",failure:"irrelevant past contaminates candidate state"},{symbol:"Wₕ",meaning:"candidate-state mapping",failure:"new evidence is represented poorly"}]},
+  {id:"actorcritic",name:"Actor–critic",family:"Reinforcement learning",company:"Google DeepMind",paper:"Asynchronous Methods for Deep Reinforcement Learning",year:"2016",url:"https://arxiv.org/abs/1602.01783",objective:"Learn an action policy while simultaneously learning how good the current state is.",bottleneck:"Policy-gradient rewards are noisy and delayed; value-only methods struggle with continuous actions and direct policy optimization.",hypothesis:"A critic can reduce the actor’s gradient variance by estimating advantage, while parallel actor-learners decorrelate experience.",result:"A3C surpassed the then state of the art on Atari while training in half the time on a multi-core CPU and also succeeded on continuous control and 3D mazes.",relation:"Deep hedging can use actor–critic when trading actions are learned from sequential reward rather than a directly differentiable terminal risk alone.",equation:"∇θJ ≈ ∇θ log πθ(aₜ|sₜ) Aₜ + β∇θH(πθ)",weights:[{symbol:"θ",meaning:"actor policy parameters",failure:"policy exploits unstable value errors"},{symbol:"φ",meaning:"critic value parameters",failure:"biased value estimates misdirect action updates"},{symbol:"γ, β",meaning:"future reward and exploration weights",failure:"myopia or premature policy collapse"}]},
+  {id:"formalsearch",name:"LLM-guided formal search",family:"Generate–verify search",company:"Project Numina",paper:"Kimina-Prover Preview: Towards Large Formal Reasoning Models with Reinforcement Learning",year:"2025",url:"https://arxiv.org/abs/2504.11354",objective:"Allocate limited proof attempts to branches most likely to end in a verifier-accepted theorem.",bottleneck:"A language model can generate plausible steps, but proof success is sparse and search cost grows exponentially with branching and depth.",hypothesis:"Verifier-grounded reinforcement learning can teach a structured formal reasoning pattern that makes search both stronger and more sample-efficient.",result:"Kimina-Prover reported 80.7% on miniF2F at pass@8192 and showed scaling with model size and test-time sampling.",relation:"The theorem chapter explains one prover; this supplement isolates the architecture of model-guided branch generation, verification, pruning, and retry.",equation:"score(b) = log pθ(b|s) + η·progress(b) + ξ·novelty(b)",weights:[{symbol:"pθ",meaning:"model branch probability",failure:"likely-looking but repetitive branches monopolize compute"},{symbol:"bₖ",meaning:"search budget per branch",failure:"breakthrough paths are pruned early"},{symbol:"rverify",meaning:"formal reward",failure:"proxy rewards replace mathematical validity"}]},
+  {id:"selfsupervised",name:"Self-supervised pretraining",family:"Limited-label representation learning",company:"Meta AI",paper:"Masked Autoencoders Are Scalable Vision Learners",year:"2022",url:"https://arxiv.org/abs/2111.06377",objective:"Learn reusable structure from abundant unlabeled inputs before scarce task labels are introduced.",bottleneck:"Supervised training wastes unlabeled data and overfits when labels are rare, biased, or expensive—exactly the mineral-exploration setting.",hypothesis:"Reconstructing heavily masked inputs forces an encoder to learn transferable structure while an asymmetric decoder keeps pretraining efficient.",result:"MAE reported 3× or greater training acceleration, 87.8% ImageNet-1K accuracy for ViT-Huge, and strong transfer relative to supervised pretraining.",relation:"The mineral chapter applies this general architecture to aligned geospatial layers and rare deposit labels.",equation:"Lpre = Σp∈M ωₚ‖xₚ − Dφ(Eθ(xvisible))ₚ‖²",weights:[{symbol:"ωₚ",meaning:"masked-patch reconstruction weight",failure:"easy textures dominate geological structure"},{symbol:"θ",meaning:"transferable encoder parameters",failure:"representations memorize pretext artifacts"},{symbol:"λpre:task",meaning:"pretrain/fine-tune balance",failure:"fine-tuning destroys general features"}]}
+];
+
+function SupplementDiagram({item}:{item:Supplement}) {
+  const labels:Record<string,string[]> = {
+    rnn:["xₜ₋₂","hₜ₋₂","xₜ₋₁","hₜ₋₁","xₜ","hₜ"],lstm:["input gate","cell memory","forget gate","output gate"],gru:["previous state","reset","candidate","update","new state"],
+    actorcritic:["state sₜ","actor πθ","action aₜ","environment","reward rₜ","critic Vφ"],formalsearch:["theorem","propose branches","Lean verifier","prune / retry","verified proof"],selfsupervised:["full map","mask 75%","visible encoder","light decoder","reconstruction","fine-tune"]
+  };
+  const nodes=labels[item.id];
+  return <svg className={`supplementSvg supplement-${item.id}`} viewBox="0 0 1000 250" role="img" aria-label={`${item.name} mechanism`}><defs><marker id={`sa-${item.id}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z"/></marker></defs>{nodes.map((n,i)=>{const x=35+i*(900/(nodes.length-1));const y=item.id==="formalsearch"&&i>0&&i<4?85+(i%2)*75:105;return <g key={n}><rect x={x-25} y={y-32} width="145" height="64" rx="14"/><text x={x-10} y={y+5}>{n}</text>{i<nodes.length-1&&<path d={`M${x+120} ${y} L${35+(i+1)*(900/(nodes.length-1))-32} ${item.id==="formalsearch"&&i+1>0&&i+1<4?85+((i+1)%2)*75:105}`} markerEnd={`url(#sa-${item.id})`}/>}</g>})}{item.id==="lstm"&&<path className="memoryBypass" d="M70 52H915" markerEnd={`url(#sa-${item.id})`}/>} {item.id==="actorcritic"&&<path className="feedback" d="M920 165C700 235 300 235 205 145" markerEnd={`url(#sa-${item.id})`}/>}</svg>;
+}
+
 export default function Home() {
   const [activeId,setActiveId] = useState("quantum");
+  const [supplementId,setSupplementId] = useState("rnn");
   const [stage,setStage] = useState(0);
   const [depth,setDepth] = useState<"plain"|"technical">("plain");
   const [guide,setGuide] = useState(55);
@@ -536,6 +565,7 @@ export default function Home() {
   const [libraryFilters,setLibraryFilters] = useState<LibraryFilters>(defaultLibraryFilters);
   const [visibleRegistryCount,setVisibleRegistryCount] = useState(24);
   const active = useMemo(()=>sectors.find(s=>s.id===activeId)!,[activeId]);
+  const activeSupplement = useMemo(()=>supplements.find(s=>s.id===supplementId)!,[supplementId]);
   const registryCounts = useMemo(()=>({
     total: registry.length,
     complete: registry.filter(r=>r.coverage_status==="COMPLETE").length,
@@ -601,7 +631,7 @@ export default function Home() {
   return <main>
     <header className="topbar">
       <a className="brand" href="#top"><span className="brandMark">ML</span><span>Architecture Field Manual</span></a>
-      <nav aria-label="Primary navigation"><a href="#method">Method</a><a href="#chapters">Chapters</a><a href="#library">Library</a><a href="#weights">Weight lab</a><a href="#sources">Sources</a></nav>
+      <nav aria-label="Primary navigation"><a href="#method">Method</a><a href="#chapters">Chapters</a><a href="#supplements">Supplements</a><a href="#library">Library</a><a href="#weights">Weight lab</a><a href="#sources">Sources</a></nav>
       <span className="edition">DOE fellowship · field edition</span>
     </header>
 
@@ -610,7 +640,7 @@ export default function Home() {
         <p className="eyebrow">An interactive instruction manual</p>
         <h1>Architecture follows the <em>bottleneck.</em></h1>
         <p className="dek">The same neural network is not right for every problem. Learn to move from a real decision → to the data constraint → to the architecture → to the layers of weighting that make it useful.</p>
-        <div className="heroActions"><a className="primary" href="#method">Start with the reasoning <span>↓</span></a><a className="secondary" href="#chapter" onClick={()=>selectSector("graphcast")}>Open GraphCast</a><span className="reading">7 cases · 45-60 min guided session</span></div>
+        <div className="heroActions"><a className="primary" href="#method">Start with the reasoning <span>↓</span></a><a className="secondary" href="#chapter" onClick={()=>selectSector("graphcast")}>Open GraphCast</a><span className="reading">7 flagship cases + 6 architecture supplements</span></div>
       </div>
       <div className="heroVisual" aria-label="Decision to architecture reasoning loop">
         <div className="orbit orbit1"><span>01</span><b>Decision</b><small>What action must improve?</small></div>
@@ -640,11 +670,24 @@ export default function Home() {
       <div className="sectorTabs" role="tablist">{sectors.map(s=><button role="tab" aria-selected={activeId===s.id} className={activeId===s.id?"active":""} key={s.id} onClick={()=>selectSector(s.id)}><span>{s.number}</span><b>{s.field}</b><small>{s.architecture}</small></button>)}</div>
     </section>
 
+    <section id="supplements" className="supplements section darkSection">
+      <div className="sectionIntro"><p className="eyebrow">Six completed architecture supplements</p><h2>The mechanisms that were only partially explained.</h2><p>These are not duplicate sectors. They isolate the architecture choice, its mathematical bottleneck, and the weights that change its behavior.</p></div>
+      <div className="supplementTabs" role="tablist" aria-label="Architecture supplements">{supplements.map(s=><button key={s.id} role="tab" aria-selected={supplementId===s.id} className={supplementId===s.id?"active":""} onClick={()=>setSupplementId(s.id)}><b>{s.name}</b><small>{s.family}</small></button>)}</div>
+      <article className="supplementSheet">
+        <header><div><span>{activeSupplement.company} · {activeSupplement.year}</span><h3>{activeSupplement.name}</h3><p>{activeSupplement.relation}</p></div><a href={activeSupplement.url} target="_blank" rel="noreferrer"><span>PRIMARY PAPER ↗</span><b>{activeSupplement.paper}</b></a></header>
+        <div className="supplementReasoning"><div><span>OBJECTIVE</span><p>{activeSupplement.objective}</p></div><div><span>BOTTLENECK</span><p>{activeSupplement.bottleneck}</p></div><div><span>HYPOTHESIS</span><p>{activeSupplement.hypothesis}</p></div></div>
+        <div className="supplementDiagram"><span className="cardLabel">CONNECTED MECHANISM</span><SupplementDiagram item={activeSupplement}/></div>
+        <div className="supplementEquation"><span>CORE EQUATION</span><code>{activeSupplement.equation}</code></div>
+        <div className="supplementWeights"><div className="supplementWeightsHead"><span>WEIGHT</span><span>WHAT IT CONTROLS</span><span>FAILURE IF MISWEIGHTED</span></div>{activeSupplement.weights.map(w=><div key={w.symbol}><code>{w.symbol}</code><span>{w.meaning}</span><span>{w.failure}</span></div>)}</div>
+        <div className="supplementResult"><span>REPORTED RESULT</span><p>{activeSupplement.result}</p></div>
+      </article>
+    </section>
+
     <section id="library" className="library section">
       <div className="sectionIntro"><p className="eyebrow">Architecture registry</p><h2>A searchable coverage map for the manual.</h2><p>The registry keeps the full architecture backlog visible while the featured chapters teach the highest-value patterns in depth.</p></div>
       <div className="registryStats" aria-label="Registry coverage summary">
         <article><span>Total</span><b>{registryCounts.total}</b><small>architecture records</small></article>
-        <article><span>Complete</span><b>{registryCounts.complete}</b><small>full interactive chapters</small></article>
+        <article><span>Complete</span><b>{registryCounts.complete}</b><small>chapters + supplements</small></article>
         <article><span>Partial + overlap</span><b>{registryCounts.partial + registryCounts.overlapping}</b><small>covered or consolidated</small></article>
         <article><span>Backlog</span><b>{registryCounts.library}</b><small>library-only cards</small></article>
       </div>
@@ -667,6 +710,7 @@ export default function Home() {
       <div className="libraryGrid">
         {visibleRegistryCards.map(entry=>{
           const chapterTarget = chapterTargets[entry.chapter_group];
+          const supplementTarget = supplementTargets[entry.architecture_id];
           const consolidated = chapterTarget && entry.coverage_status !== "COMPLETE";
           return <article key={entry.architecture_id}>
           <span>{entry.coverage_status}</span>
@@ -676,7 +720,9 @@ export default function Home() {
           <small>{chapterNames[entry.chapter_group] || "Searchable library card"}</small>
           {entry.weighting_mechanisms.length>0&&<div>{entry.weighting_mechanisms.slice(0,3).map(w=><b key={w}>{w}</b>)}</div>}
           {consolidated&&<em className="consolidatedLabel">Consolidated in {chapterNames[entry.chapter_group]}; not a standalone chapter.</em>}
-          {entry.coverage_status==="COMPLETE" && chapterTarget
+          {supplementTarget
+            ? <button className="openChapterButton" onClick={()=>{setSupplementId(supplementTarget);document.getElementById("supplements")?.scrollIntoView({behavior:"smooth"});}}>Open supplement</button>
+            : entry.coverage_status==="COMPLETE" && chapterTarget
             ? <button className="openChapterButton" onClick={()=>selectSector(chapterTarget)}>Open chapter</button>
             : <em className="consolidatedLabel">{entry.coverage_status==="LIBRARY ONLY"?"Library-only backlog card":entry.chapter_status}</em>}
         </article>})}
