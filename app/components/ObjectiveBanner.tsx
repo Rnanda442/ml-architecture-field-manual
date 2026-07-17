@@ -10,7 +10,10 @@ export function ObjectiveBanner({ objective }: { objective: ObjectiveInfo }) {
 
   return (
     <section className="objective-banner" aria-label="Case objective">
-      <p>{objective.sentence}</p>
+      <div className="objective-lead">
+        <span>MAIN OBJECTIVE</span>
+        <p>{objective.sentence}</p>
+      </div>
       <div className="objective-flow" aria-label="Input to architecture to output to use">
         {flow.map(([label, value], index) => (
           <div className="objective-step" key={label}>
