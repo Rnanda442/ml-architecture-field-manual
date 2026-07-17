@@ -13,6 +13,20 @@ Whenever a number is used, it belongs to the primary paper named in that case.
 When a technical term appears, explain it before using it as if the audience has never heard it before.
 It is better to be clear than fast.
 
+HIGHLIGHT SYSTEM
+
+Use the companion color-coded presenter copy when rehearsing:
+ML_Architecture_Field_Manual_50_Minute_Presentation_Script_Color_Coded.html
+
+Green = must-say takeaway or recap.
+Blue = paper evidence, benchmark, metric, or exact reported result.
+Purple = definition or plain-language explanation.
+Orange = presenter action, click, pause, or audience question.
+Red = caution, limitation, or "do not overclaim" boundary.
+Gray = optional or skippable material, especially the question buffer and private appendix.
+
+If you need to shorten live, skip gray material first, then skip recap questions, then skip the supplements. Do not skip the green takeaways, blue paper results, or red limitations.
+
 The four claim labels used in this script are:
 Reported by the paper: a direct paper result or setup.
 Interpretation supported by the paper: a careful explanation of why the result matters.

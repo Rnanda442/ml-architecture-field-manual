@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Color-Coded ML Architecture Field Manual Presenter Script</title>
+<style>
+:root { color-scheme: light; --bg:#f7f1e4; --ink:#17231f; --muted:#65716b; --green:#0f6b3b; --blue:#1559a8; --purple:#6a3aa8; --orange:#b35a00; --red:#b42318; --gray:#6b7280; --paper:#fffdf7; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font: 18px/1.55 Arial, Helvetica, sans-serif; }
+.toolbar { position:sticky; top:0; z-index:10; background:#173f35; color:white; padding:14px 22px; box-shadow:0 4px 18px rgba(0,0,0,.18); }
+.toolbar h1 { margin:0 0 8px; font-size:20px; }
+.legend { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.legend b, button { border:0; border-radius:6px; padding:6px 9px; font-size:13px; font-weight:800; }
+button { cursor:pointer; background:#fff; color:#173f35; }
+.content { max-width:1120px; margin:0 auto; padding:28px 22px 80px; }
+.line { display:grid; grid-template-columns:132px minmax(0,1fr); gap:14px; margin:7px 0; padding:10px 13px; border-left:6px solid transparent; border-radius:8px; background:rgba(255,255,255,.48); }
+.line span:last-child { white-space:pre-wrap; }
+.tag { align-self:start; display:inline-block; text-align:center; border-radius:999px; padding:4px 7px; font-size:12px; font-weight:900; color:white; letter-spacing:.02em; }
+.section { margin-top:22px; font-size:25px; font-weight:900; background:#173f35; color:white; border-left-color:#173f35; }
+.section .tag { background:#0b2f28; }
+.takeaway { background:#e7f6ec; border-left-color:var(--green); font-weight:800; }
+.takeaway .tag { background:var(--green); }
+.evidence { background:#e8f1ff; border-left-color:var(--blue); }
+.evidence .tag { background:var(--blue); }
+.definition { background:#f2eafa; border-left-color:var(--purple); }
+.definition .tag { background:var(--purple); }
+.action { background:#fff0dc; border-left-color:var(--orange); font-style:italic; }
+.action .tag { background:var(--orange); }
+.caution { background:#ffe8e5; border-left-color:var(--red); font-weight:750; }
+.caution .tag { background:var(--red); }
+.skip { background:#eef0f3; border-left-color:var(--gray); color:#374151; }
+.skip .tag { background:var(--gray); }
+.appendix { opacity:.82; }
+.normal .tag { display:none; }
+.blank { height:10px; }
+.rule { height:2px; background:rgba(23,63,53,.25); margin:18px 0; }
+body.hide-skip .skip, body.hide-skip .appendix { display:none; }
+body.must-only .line:not(.takeaway):not(.section) { display:none; }
+body.evidence-only .line:not(.evidence):not(.section) { display:none; }
+@media print { .toolbar { position:static; } button { display:none; } body { background:white; } .line { break-inside:avoid; } }
+</style>
+</head>
+<body>
+<header class="toolbar">
+  <h1>ML Architecture Field Manual - Color-Coded Presenter Script</h1>
+  <div class="legend">
+    <b style="background:#e7f6ec;color:#0f6b3b">Green: must say</b>
+    <b style="background:#e8f1ff;color:#1559a8">Blue: paper evidence</b>
+    <b style="background:#f2eafa;color:#6a3aa8">Purple: explain</b>
+    <b style="background:#fff0dc;color:#b35a00">Orange: do / ask</b>
+    <b style="background:#ffe8e5;color:#b42318">Red: caution</b>
+    <b style="background:#eef0f3;color:#374151">Gray: skippable</b>
+    <button onclick="document.body.className=''">Show all</button>
+    <button onclick="document.body.className='hide-skip'">Hide skippable</button>
+    <button onclick="document.body.className='must-only'">Must-say only</button>
+    <button onclick="document.body.className='evidence-only'">Evidence only</button>
+  </div>
+</header>
+<main class="content">
+<p class="line normal"><span>ML ARCHITECTURE FIELD MANUAL</span></p>
+<p class="line normal"><span>SOURCE-GROUNDED EXPANDED PRESENTATION SCRIPT</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Target runtime: no fixed limit. This version is intentionally slower and more explanatory. Use it when the audience includes normal, intelligent people who may not know machine learning, quantum computing, finance, materials science, theorem proving, supply chains, or weather modeling.</span></p>
+<div class="blank"></div>
+<p class="line section"><span class="tag">SECTION</span><span>HOW TO READ THIS FILE</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Words outside parentheses are spoken aloud.</span></p>
+<p class="line normal"><span>Directions in parentheses are presenter actions and are not spoken.</span></p>
+<p class="line normal"><span>Keep Presentation Mode on.</span></p>
+<p class="line caution"><span class="tag">CAUTION</span><span>Do not treat the classroom labs as paper experiments.</span></p>
+<p class="line normal"><span>Whenever a number is used, it belongs to the primary paper named in that case.</span></p>
+<p class="line normal"><span>When a technical term appears, explain it before using it as if the audience has never heard it before.</span></p>
+<p class="line normal"><span>It is better to be clear than fast.</span></p>
+<div class="blank"></div>
+<p class="line section"><span class="tag">SECTION</span><span>HIGHLIGHT SYSTEM</span></p>
+<div class="blank"></div>
+<p class="line skip"><span class="tag">SKIPPABLE</span><span>Use the companion color-coded presenter copy when rehearsing:</span></p>
+<p class="line normal"><span>ML_Architecture_Field_Manual_50_Minute_Presentation_Script_Color_Coded.html</span></p>
+<div class="blank"></div>
+<p class="line skip"><span class="tag">SKIPPABLE</span><span>Green = must-say takeaway or recap.</span></p>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Blue = paper evidence, benchmark, metric, or exact reported result.</span></p>
+<p class="line skip"><span class="tag">SKIPPABLE</span><span>Purple = definition or plain-language explanation.</span></p>
+<p class="line skip"><span class="tag">SKIPPABLE</span><span>Orange = presenter action, click, pause, or audience question.</span></p>
+<p class="line caution"><span class="tag">CAUTION</span><span>Red = caution, limitation, or &quot;do not overclaim&quot; boundary.</span></p>
+<p class="line skip"><span class="tag">SKIPPABLE</span><span>Gray = optional or skippable material, especially the question buffer and private appendix.</span></p>
+<div class="blank"></div>
+<p class="line action question"><span class="tag">ASK / PAUSE</span><span>If you need to shorten live, skip gray material first, then skip recap questions, then skip the supplements. Do not skip the green takeaways, blue paper results, or red limitations.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The four claim labels used in this script are:</span></p>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the paper: a direct paper result or setup.</span></p>
+<p class="line normal"><span>Interpretation supported by the paper: a careful explanation of why the result matters.</span></p>
+<p class="line normal"><span>Classroom illustration on the website: an interaction built to teach the idea.</span></p>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Presenter analogy only: a simple analogy, not a scientific claim.</span></p>
+<div class="blank"></div>
+<p class="line section"><span class="tag">SECTION</span><span>PACING NOTE</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The earlier version was timed. This version is not. The presenter should slow down, define terms, and use the examples. If time is limited, skip a case or skip the supplements rather than rushing through explanations.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Actual spoken word count, excluding headings, parenthetical directions, and source appendix: 7,946 words. This version is not time-boxed; it is designed for clarity, slower delivery, audience questions, and plain-language explanation.</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line section"><span class="tag">SECTION</span><span>OPENING: HOW TO READ THE MANUAL</span></p>
+<div class="rule"></div>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Begin on Home. Confirm Presentation mode is on. Keep the cursor away from the title.)</span></p>
+<div class="blank"></div>
+<p class="line takeaway"><span class="tag">MUST SAY</span><span>Good morning. The whole presentation begins with one sentence: architecture follows the bottleneck.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>By architecture, I mean the design of the model and the path information takes through it. By bottleneck, I mean the part of the problem that makes ordinary prediction or ordinary automation fail.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Let me say that in everyday language. If a problem is hard because information is spread over time, then a model needs memory. If a problem is hard because information is spread over a map, then a model needs a way to combine map layers. If a problem is hard because a proposed answer may be wrong, then the architecture needs a checker. We are not choosing models by fashion. We are matching the model&#39;s shape to the problem&#39;s shape.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Point to the four-step flow.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Look here: real problem, information bottleneck, architecture, decision or scientific output. That is the structure for today. I will not ask, &quot;Which model is trendy?&quot; I will ask, &quot;What information relationship is hard, and what model design is built for that relationship?&quot;</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Machine learning is the part of AI that learns relationships and decision rules from data. The architecture determines how information is allowed to move, combine, and persist.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The word &quot;learns&quot; can sound mysterious, but here it means something concrete. During training, the model sees many examples. It changes internal numbers so that its outputs become less wrong on those examples. Those internal numbers are called learned parameters. They are not thoughts. They are adjustable knobs inside a mathematical system.</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>The word &quot;prediction&quot; also needs care. In this presentation, prediction does not always mean &quot;tomorrow&#39;s value.&quot; Sometimes it means a probability, sometimes a ranking, sometimes a generated candidate, sometimes the next weather grid, and sometimes a proposed proof step. After the model produces that output, a person, controller, verifier, or business rule may still need to decide what to do.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Point to the seven flagship case buttons.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>We will move through seven cases: quantum error correction, mineral prospectivity, deep hedging, inverse materials design, theorem proving, demand forecasting, and GraphCast weather forecasting.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Before we begin, when you hear the phrase &quot;model weight,&quot; what do you think it means?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 8 seconds. If nobody answers, say: &quot;Most people think it means a number learned inside the neural network.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>That answer is partly right. Today I will separate three places weighting happens. The model learns parameters. Researchers choose training objectives and data weights. Operators choose decision costs and thresholds. Not every weight is a neural-network parameter.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Here is the simple version. A learned model weight is like a knob the model adjusts while practicing. A training weight is like a teacher saying, &quot;This kind of mistake matters more.&quot; A decision cost is like an operator saying, &quot;This mistake would be more expensive in the real world.&quot; Those are different kinds of control, and confusing them makes ML systems sound more automatic than they really are.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Start guided tour.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>For every case, I will use the same teaching pattern. First, what real problem is being solved? Second, why does a simpler approach struggle? Third, what did the paper test? Fourth, how does the architecture move information? Fifth, what did the paper actually report, and where does the evidence stop?</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The classroom labs are here to make the tradeoff visible. They are not reproductions of the papers&#39; experiments.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>There is a practical reason for being this careful. In applied machine learning, the dangerous mistake is not only choosing the wrong architecture. It is also using a good paper result outside the setting where it was tested. So today, every claim will stay attached to its data, benchmark, metric, and limitation.</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line section"><span class="tag">SECTION</span><span>CASE 1: QUANTUM ERROR CORRECTION</span></p>
+<div class="rule"></div>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Case 1 should be visible. Point to the objective banner.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Our first case is quantum error correction. The real problem is that physical qubits are fragile. A logical qubit stores information across several physical qubits, but errors still occur. The system needs a decoder that reads warning evidence and estimates which logical error is likely.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>For a non-quantum audience, think of a physical qubit as a very delicate physical device that can hold quantum information for a short time. A logical qubit is not one device. It is a protected pattern spread across many devices. The hope is that even if some physical pieces are noisy, the overall encoded information can survive. The decoder is the system that looks at the warning signs and tries to infer what likely went wrong.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the paper: Google Quantum AI and DeepMind tested a recurrent transformer decoder for the surface code. A surface code is a way to arrange physical qubits so errors can be detected through repeated measurements. Code distance is a rough measure of physical protection. In this paper, distance 3 and distance 5 are the real Sycamore hardware settings, and distances up to 11 are simulated larger settings.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The phrase &quot;recurrent transformer&quot; combines two ideas. Transformer means the model can compare different pieces of evidence and decide which pieces should pay attention to each other. Recurrent means it carries information forward from one measurement cycle to the next. That combination fits this problem because a quantum error may leave clues in more than one place and more than one moment.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Point to &quot;Syndrome events&quot; on the diagram. Click &quot;Syndrome events across qubits and time.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The input is syndrome events. A syndrome event is not the error itself. It is warning evidence that a measurement relationship changed. Presenter analogy only: it is like hearing a smoke alarm. It tells you something is wrong, but it does not tell you exactly where the fire began.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is important because the model is not looking directly at the protected quantum information. Directly reading it would destroy what we are trying to protect. Instead, the system reads indirect checks. The decoder has to reconstruct the hidden error story from those indirect checks.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>If a smoke alarm rings once, do you know the exact source and severity of the fire?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: no. If someone says &quot;it gives a clue,&quot; say: &quot;Exactly. It is evidence, not the full diagnosis.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>That is why the old approach is hard. Algorithmic decoders such as minimum-weight perfect matching, correlated matching, belief-propagation matching, and tensor-network decoding encode assumptions about how errors connect. Real hardware has correlated noise, leakage, crosstalk, and analog readout signals. The paper&#39;s research question was whether a learned recurrent transformer could decode better by learning those patterns directly from data.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Spatial attention over qubit relationships.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Spatial attention asks which qubit warnings in the current cycle should influence one another. Dynamic attention weights are calculated from the current input. They are not fixed knowledge written by a human.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>In plain language, attention is a relevance score. If two warning events look related, attention lets one event affect how the other is interpreted. If they look unrelated, the model can mostly ignore that connection. The attention pattern changes from example to example.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Recurrent memory across measurement cycles.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Recurrent memory carries unresolved evidence forward. Measurement cycle means one round of repeated error-checking measurements. The paper trained on sequences up to 25 cycles, then tested whether the decoder sustained accuracy beyond that. Generalizing beyond 25 cycles means the model did not only memorize a fixed short sequence length.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is like keeping notes during an investigation. A clue from five minutes ago may only become meaningful after a new clue appears. If the notes are erased too soon, the pattern is lost. If every old clue is kept forever, the system may become confused by noise. The architecture has to learn what to keep and what to let fade.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Logical-error probabilities.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>The exact output is logical-error probability. Logical error rate means the fraction of runs in which the protected logical information fails after decoding. Lower is better.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Probability means the model is expressing uncertainty. It is saying, &quot;Given the warning evidence, this error seems this likely.&quot; The correction decision is separate. A controller still has to decide whether the probability is high enough to act.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Weights&quot; tab. Open &quot;Equation.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>Do not read the equation all at once. Look first at ownership. Theta is learned by gradients inside the recurrent transformer. Lambda-logical and lambda-regularization are researcher-selected training settings. The downstream correction cost is selected by the operator. If missed errors are more dangerous, the correction threshold can change after the probability is produced.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click back to &quot;Why this model.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Now the evidence. Reported by the paper: on real Sycamore surface-code data, the machine-learning decoder achieved logical error rates of 2.901 plus or minus 0.023 percent at distance 3 and 2.748 plus or minus 0.015 percent at distance 5. The tensor-network decoder comparison was 3.028 percent at distance 3 and 2.915 percent at distance 5. The paper also compared against MWPM-style decoders, including PyMatching, correlated matching, and belief-propagation matching.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>In plain language, the learned decoder made fewer logical mistakes on those evaluated hardware datasets. The architecture is designed to help because attention connects spatial warning patterns and recurrence keeps temporal evidence alive. This is an interpretation supported by the paper, not a proof that every component independently caused the gain.</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>So do not hear this result as, &quot;AI solved quantum error correction.&quot; Hear it as, &quot;On these tested small surface-code settings, a model shaped like the evidence pattern decoded better than strong hand-designed alternatives.&quot; That is impressive, but it is still a bounded scientific claim.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click the lab. Set Memory retention low, near 25.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Classroom illustration on the website: before I move the slider again, what output do you expect to change if old evidence fades too fast?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: the correction choice or logical-error probability becomes more dependent on recent warnings. If partly correct, say: &quot;Yes, the model can still see new evidence, but the old chain weakens.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Move Memory retention to about 75. Move Attention concentration from low to high.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Now older evidence remains. Attention concentration makes the model focus on a smaller set of spatial relationships. Too diffuse can mix noise. Too narrow can miss distributed patterns.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Move &quot;False-correction vs missed-error cost&quot; upward.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This last slider is not a paper result. It is a classroom decision-cost illustration. The same probability can produce a different action if the cost of missing an error is higher than the cost of a false correction.</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>What the result does not prove: it does not prove broad deployment readiness for all quantum processors. The real-hardware result is limited to small distance 3 and distance 5 Sycamore data. The larger distances are simulated, although the simulation included realistic leakage, crosstalk, and analog readout. The required next validation is continued testing on larger devices, longer operational runs, and hardware-specific noise that changes over time.</span></p>
+<div class="blank"></div>
+<p class="line takeaway"><span class="tag">MUST SAY</span><span>So the main point is this: the recurrent transformer produced lower logical error rates in the paper&#39;s evaluated settings because it was designed to connect syndrome evidence across qubits and time.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Next case.&quot;)</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line section"><span class="tag">SECTION</span><span>CASE 2: CRITICAL-MINERAL PROSPECTIVITY</span></p>
+<div class="rule"></div>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Point to the objective banner.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The second case is mineral prospectivity. The real problem is not &quot;find a deposit with magic.&quot; The practical problem is ranking map cells so geoscientists can decide where limited surveys and drilling should go.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Prospectivity means &quot;how promising does this location look?&quot; It is a probability-like signal, not a shovel in the ground. A model can point to places worth attention, but a deposit is not confirmed until people collect evidence in the field.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the paper: GFM4MPM evaluated Mississippi Valley Type and Clastic-Dominated lead-zinc deposits in North America and Australia. The data setting used large multimodal geospatial layers with few historical positive labels. Multimodal means different map types describe the same place, such as geology, geophysics, and geochemistry.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Those map types are different kinds of evidence. Geology describes rocks and structures. Geophysics measures physical properties, such as magnetics and gravity. Geochemistry measures chemical traces. No single layer tells the whole story. The architecture is useful only if it can line up these different kinds of evidence and learn patterns across them.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Geology, magnetics, gravity, geochemistry.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The input layers must be aligned. If the geology map and magnetic map are shifted, the model can learn a false relationship. This is a practical data problem before it is a modeling problem.</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>A normal person version is this: imagine stacking transparent maps on top of each other. If the layers do not line up, the model may think a chemical signal belongs to a rock unit that is actually miles away. Better modeling cannot fix badly aligned evidence.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>If most known deposits are near roads and old surveys, what accidental pattern might a model learn?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 8 seconds. Expected answer: where people searched, not where deposits are. If partly correct, say: &quot;Yes. The model can confuse exploration history with geology.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>That is class imbalance and sampling bias. Class imbalance means the positive class is rare. If only a tiny number of cells are known deposits, ordinary accuracy can look high while missing what matters. Sampling bias means the labels reflect where humans looked, not only where minerals exist.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is one of the most human parts of the problem. The map does not only contain geology. It also contains the history of human exploration. Roads, property access, older surveys, and funding decisions can all influence what is labeled. The model has to learn from imperfect human-collected evidence.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Masked self-supervised learning.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The paper&#39;s research question was whether self-supervised pretraining could learn robust map features before fine-tuning on scarce deposit labels. Pretraining means learning a broad representation first. Self-supervised means the training task is created from the data itself. Here the model masks part of the geospatial input and learns to reconstruct it.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>In everyday terms, the model studies the map before taking the exam. During pretraining, it learns what normal geological patterns look like without needing deposit labels. Then, during fine-tuning, it uses the few known deposits to learn which of those patterns are associated with mineral prospectivity.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Few confirmed deposit labels.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Fine-tuning means adapting that pretrained representation to the specific prospectivity task. The paper treats the problem as positive-unlabeled classification, because unlabeled cells are not guaranteed to be true negatives. The paper also uses an undersampling idea to reduce the risk of calling unknown true positives negative.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>That phrase, positive-unlabeled, is worth slowing down for. Positive means &quot;known deposit.&quot; Unlabeled means &quot;we do not know.&quot; It does not mean &quot;definitely no deposit.&quot; This matters because if we train the model as if every unlabeled place is negative, we may punish it for pointing to real but undiscovered deposits.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Prospectivity and uncertainty map&quot;, then &quot;Exploration ranking.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>The output is prospectivity and uncertainty. It ranks places to investigate. It does not discover a deposit by itself. The external validation is mapping, sampling, and drilling.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Evidence&quot; tab.)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>The comparison is specific. The paper compared against five baselines: weights of evidence, gradient boosting, artificial neural networks, convolutional neural networks, and a vision transformer. The metrics included F1, Matthews correlation coefficient, area under the precision-recall curve, balanced accuracy, AUROC, and accuracy. A baseline means a comparison method used to judge whether the new method improves on existing approaches.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the paper: for the MVT task, the proposed model reached F1 of 80.3 plus or minus 6.6 and AUPRC of 84.3 plus or minus 7.6. The strongest F1 baseline in the table was gradient boosting at 76.0 plus or minus 3.1. For the CD task, the proposed model reached AUPRC of 93.7 plus or minus 5.1, compared with 84.7 plus or minus 4.9 for the CNN baseline.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>In simple language, the model improved the ranking quality on the evaluated lead-zinc prospectivity tasks, especially where rare positives make ordinary accuracy misleading. The architecture is designed to help because masked pretraining can learn reusable spatial features from unlabeled maps before scarce labels are used.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>So the model is not saying, &quot;Drill here and you will find ore.&quot; It is saying, &quot;Given the map evidence and what we know from past deposits, this cell looks more promising than other cells.&quot; That is still useful because fieldwork is expensive and teams need priorities.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Weights&quot; tab. Open &quot;Equation.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>Do not read the whole equation. The reconstruction term belongs to self-supervised pretraining. The prospectivity term belongs to supervised fine-tuning with rare labels. Calibration asks whether predicted probabilities behave like frequencies. The model learns encoder parameters, but researchers choose mask strategy, loss weighting, and sampling design. Survey cost is an operational decision after prediction.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click the lab. Lower &quot;Geology reliability&quot; and raise &quot;Magnetic reliability.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Classroom illustration: before I change rare-deposit weight, what do you think should happen if the model is told rare positives matter more?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: it should stop ignoring possible deposit cells. If partly correct, say: &quot;Yes, it makes missing rare positives more costly in the teaching model.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Raise &quot;Rare-deposit class weight.&quot; Then raise &quot;Survey-cost weight.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Notice the distinction. Rare-deposit class weight affects the probability map. Survey-cost weight affects the operational priority. A cell can be geologically promising and still be lower priority because it is expensive to survey.</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>What the result does not prove: it does not prove the model found new deposits. It evaluated ranking performance against known labels and geospatial data. The main limitation is that known deposits are sparse and spatially biased. External validation still requires geoscience review, field surveys, and drilling.</span></p>
+<div class="blank"></div>
+<p class="line takeaway"><span class="tag">MUST SAY</span><span>So the main point is this: GFM4MPM uses unlabeled map structure to support rare-label prospectivity ranking, but the final claim is a ranking claim, not a confirmed-discovery claim.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Recap after the first two cases. Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line action question"><span class="tag">ASK / PAUSE</span><span>Quick check before we leave the first pair. In the quantum case, what was the model output: a correction action or a probability used before correction?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 5 seconds. Expected answer: a probability used before correction.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>And in the mineral case, what was the model output: a discovered deposit or a ranked prospectivity map?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 5 seconds. Expected answer: a ranked prospectivity map.)</span></p>
+<div class="blank"></div>
+<p class="line action question"><span class="tag">ASK / PAUSE</span><span>Good. Those distinctions matter because they stop us from overstating the papers. The first paper improved a decoder&#39;s error estimate under tested code settings. The second improved prospectivity ranking under evaluated map and label settings. In both cases, the architecture helps before the final real-world action.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Next case.&quot;)</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line section"><span class="tag">SECTION</span><span>CASE 3: DEEP HEDGING</span></p>
+<div class="rule"></div>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Point to the objective banner.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The third case is deep hedging. The real problem is not predicting tomorrow&#39;s stock direction. It is choosing a sequence of hedge positions that leaves a portfolio with lower terminal risk after trading costs.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>A hedge is a protective position. If you own something risky, a hedge is another position that can reduce the damage if the risk moves against you. The key word is reduce. Hedging is not about making every trade profitable. It is about controlling the shape of possible losses.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the paper: the Deep Hedging paper tested the framework in a synthetic market driven by the Heston model. A Heston model is a simulated market model where volatility changes randomly over time. The paper included market frictions such as transaction costs, and it compared the learned strategy against the standard complete-market solution.</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>Synthetic market means the experiment happened inside a simulated market, not directly in live trading. That is not a flaw by itself. Simulations let researchers test ideas under controlled conditions. But it means the evidence is evidence about the simulated setting, not a guarantee about real markets.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Market and portfolio state.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The input is market and portfolio state. State means the information available before choosing an action: prices, positions, time, and exposure.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Exposure means what the portfolio is sensitive to. For example, a portfolio may lose money if the stock falls, if volatility rises, or if time passes. The policy looks at the current exposure and decides how to adjust the hedge.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line action question"><span class="tag">ASK / PAUSE</span><span>Would you rather have a model that predicts tomorrow&#39;s direction, or a model that leaves you with lower final risk after costs?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: lower final risk after costs. If someone says &quot;both,&quot; say: &quot;Yes, direction can help, but the metric here is the final risk after the whole sequence.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Sequential hedge policy.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>A policy is a rule that maps state to action. In this architecture, the policy is represented by neural-network parameters. The learned output is a hedge action.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is different from a forecast. A forecast might say, &quot;I think the market will move up.&quot; A policy says, &quot;Given what I know now, this is the action I should take.&quot; That distinction matters because an action has consequences and costs.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Hedge action&quot;, then &quot;Transaction cost.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Every action changes the next state and incurs cost. Transaction cost means the penalty for changing position, including fees, spread, and market impact in simplified form.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Updated portfolio&quot;, then &quot;Terminal risk objective.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>The paper evaluates terminal convex risk. Terminal means at the end of the hedging period. Convex risk is a mathematical way to penalize undesirable outcome distributions, especially losses. The important point is that the metric is path-level risk after costs, not one-step accuracy.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>In simple terms, the paper is asking, &quot;After the whole sequence of trades is over, how bad is the remaining risk?&quot; A strategy that looks clever step by step can still be poor if it trades too often and pays too much cost. That is why the architecture is trained over the full path.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Weights&quot; tab. Open &quot;Equation.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Look first at ownership. Theta is the learned policy. Gamma or the chosen risk measure expresses risk preference. The cost term prices turnover. If transaction cost increases, frequent trading becomes less attractive. If risk aversion increases, the policy may accept more cost to reduce severe tail outcomes.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Evidence&quot; tab.)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>The exact evidence is narrower than a market claim. Reported by the paper: in the synthetic Heston-market demonstration with transaction costs, deep hedging outperformed the standard complete-market solution under the paper&#39;s terminal convex-risk objective. The paper does not report a single universal percentage improvement that applies to live markets.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>In plain language, when trading is costly, a frictionless textbook hedge is no longer the right target. The architecture is designed to help because it optimizes the whole action sequence under the same kind of costs that affect the final portfolio.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is the human intuition: if every move costs money, you do not want a nervous strategy that constantly adjusts. You want a strategy that knows when adjustment is worth paying for. The sequential policy is built to learn that tradeoff.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click the lab. Set &quot;Transaction cost&quot; low, then high.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Classroom illustration: before I raise transaction cost, what do you expect to happen to trading frequency?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: it should fall. If partly correct, say: &quot;Right. The policy should trade only when the risk benefit is worth the cost.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Raise &quot;Risk aversion&quot; and &quot;Stress-scenario weight.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Now the teaching model shows a different tradeoff. Higher risk aversion and stress weight can justify stronger hedging even when turnover is expensive.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line action question"><span class="tag">ASK / PAUSE</span><span>What happens if the real market crisis looks unlike the simulated Heston paths?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: the learned policy may fail. If partly correct, say: &quot;Yes. That is simulator mismatch.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>What the result does not prove: it does not prove live-market profitability or robustness under regime change. The main limitation is simulator mismatch. The external validation would be stress testing, out-of-sample historical replay, transaction-cost realism, risk controls, and live governance.</span></p>
+<div class="blank"></div>
+<p class="line takeaway"><span class="tag">MUST SAY</span><span>So the main point is this: deep hedging learns a sequential risk-management policy after costs, not a stock-price prediction rule.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Next case.&quot;)</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line section"><span class="tag">SECTION</span><span>CASE 4: MATTERGEN INVERSE MATERIALS DESIGN</span></p>
+<div class="rule"></div>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Point to the objective banner.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The fourth case is inverse materials design. The real problem is that researchers want materials with target properties, but brute-force simulation and synthesis are expensive.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Inverse design means starting with the desired property and working backward toward a structure that might have it. That is the reverse of the usual scientific question. Instead of saying, &quot;Here is a material; what can it do?&quot; we ask, &quot;Here is what we want; what material might do it?&quot;</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the paper: MatterGen is a conditional diffusion model for inorganic crystal structures. Diffusion means generation by reversing a corruption process. The model gradually refines atom types, coordinates, and lattice variables. Lattice means the repeating geometry of the crystal unit cell.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Conditional means the model is not generating randomly. It is being asked to generate under a condition, such as a target property or chemistry. A crystal structure has several coupled parts: which atoms are present, where they sit, and how the repeating cell is shaped. If one part is wrong, the whole material can be invalid.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Noisy crystal variables.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The input begins as noisy crystal variables plus a requested property. Presenter analogy only: this is like beginning with a blurred blueprint. But unlike a picture, a crystal must obey periodic geometry and physical chemistry.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The blurred-blueprint analogy helps, but do not overuse it. An image can be visually plausible and still not obey physics. A crystal candidate has to survive energy calculations and, eventually, experimental synthesis.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>If a model draws a realistic-looking bridge, does that prove the bridge can stand?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: no. If partly correct, say: &quot;Yes, it can be promising, but it needs structural validation.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Equivariant score network.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The score network learns how to denoise. Equivariance means that if the crystal is rotated or translated, the model&#39;s geometric reasoning changes consistently rather than treating it as a totally unrelated object. In this paper, that matters because atom positions and lattice geometry are not arbitrary pixels.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Here is the normal-language idea. If I rotate a chair, it is still the same chair. If I rotate a crystal representation, it is still the same physical structure. Equivariance helps the model respect that kind of physical sameness instead of wasting learning capacity relearning the same structure in different orientations.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Atom, coordinate, lattice balance.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The architecture must keep atom identity, coordinates, and lattice coupled. If the model gets the coordinates right but the atoms wrong, the material can fail. If the lattice is wrong, the same atoms can form a different physical structure.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Property conditioning and guidance.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Property conditioning tells the generator what target is requested. Guidance strength pushes generation toward that condition. This can improve compliance, but too much pressure can reduce diversity or produce implausible structures.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is like giving a designer a very strict requirement. Some guidance is useful because it says what we want. Too much pressure can make the design forced. In materials, a forced candidate might satisfy a predictor but fail physics.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Ordered candidate crystal&quot;, then &quot;Simulation and synthesis triage.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>The output is a candidate. It is not proof of a real material. DFT, or density functional theory, is a physics-based calculation used to evaluate structures computationally. Synthesis is the laboratory attempt to make the material. Those are external validation steps.</span></p>
+<div class="blank"></div>
+<p class="line takeaway"><span class="tag">MUST SAY</span><span>This is the most important boundary in the materials case. The generator does not get to declare success by itself. It suggests candidates. DFT asks whether the candidate is physically plausible under a quantum-mechanical calculation. Synthesis asks whether humans can actually make and measure it.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Evidence&quot; tab.)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>The paper&#39;s comparison is specific. MatterGen was compared with previous state-of-the-art generative models including CDVAE and DiffCSP, with metrics based on stable, unique, and new materials and distance to the DFT-relaxed structure. Stable means within the paper&#39;s energy-above-hull criterion after DFT relaxation. Unique means not a duplicate among generated samples. New means not matching known structures in the reference databases.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the Nature paper: MatterGen more than doubled the percentage of stable, unique, and new materials, generated structures more than ten times closer to the DFT local energy minimum, and synthesized one generated material whose measured property was within 20 percent of the target.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>In simple language, the generator was better at producing candidates that survived computational screening and one proof-of-concept synthesis. The architecture is designed to help because the diffusion process jointly denoises the coupled crystal variables, and adapters allow property conditioning.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>So the result is not just &quot;the samples looked nice.&quot; The result is that more generated structures passed the paper&#39;s stability, novelty, and uniqueness criteria, and one generated target was carried into a lab validation story. That makes the evidence stronger than a purely visual or purely model-scored example, but still not universal.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Weights&quot; tab. Open &quot;Equation.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>Do not read every symbol. The atom, coordinate, and lattice losses are researcher-selected training balances. The score-network parameters are learned. Guidance strength is a generation setting. Screening thresholds and DFT budget are decision settings after generation.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click the lab. Raise &quot;Guidance strength.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Classroom illustration: before I raise guidance, what do you expect to happen to property compliance and diversity?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 7 seconds. Expected answer: compliance up, diversity or stability risk may worsen. If partly correct, say: &quot;Yes. More target pressure can narrow the search.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Move &quot;Atom-channel weight&quot;, &quot;Coordinate-channel weight&quot;, and &quot;Lattice-channel weight&quot; one at a time.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The teaching point is balance. A single overall loss can hide that one part of the crystal is failing.</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>What the result does not prove: it does not prove every generated candidate is synthesizable. It does not replace DFT. It does not replace laboratory synthesis. The main limitation is that the generator proposes; physics and lab systems validate.</span></p>
+<div class="blank"></div>
+<p class="line takeaway"><span class="tag">MUST SAY</span><span>So the main point is this: MatterGen improves candidate generation for inorganic materials, but the evidence becomes strongest only after external DFT and synthesis checks.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Recap after four cases. Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line action question"><span class="tag">ASK / PAUSE</span><span>Now compare the finance and materials cases. Which one learned an action policy, and which one generated a candidate object?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: deep hedging learned the action policy; MatterGen generated candidate crystal structures.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Exactly. Deep hedging is evaluated by terminal risk after costs. MatterGen is evaluated by candidate quality under DFT and one synthesis proof of concept. The architecture-to-result link is different. In finance, the loop matters because each trade changes the next state. In materials, the coupled denoising matters because atom identity, position, lattice, and target property must agree.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Next case.&quot;)</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line section"><span class="tag">SECTION</span><span>CASE 5: FORMAL THEOREM PROVING</span></p>
+<div class="rule"></div>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Point to the objective banner.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The fifth case is formal theorem proving. The real problem is that a language model can write something mathematically plausible that is still formally wrong.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This case is useful because it separates two ideas people often confuse: sounding right and being checked right. A normal language answer can be persuasive. A formal proof has to pass exact rules inside a proof assistant.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the paper: DeepSeek-Prover-V2 is a Lean 4 formal theorem-proving model. Lean is a proof assistant. It checks whether every step follows from the encoded definitions and rules.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Think of Lean as a strict referee. It does not care whether a proof sounds elegant. It only checks whether each formal step is allowed. If one step is invalid, the proof is rejected.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Formal theorem and proof state.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The input is a formal theorem, the current proof state, and available lemmas. A lemma is a smaller proven result that can help prove a larger result.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Proof state means &quot;where we are in the proof right now.&quot; It includes what has already been proven and what still remains. This is like a to-do list for the proof, but written in formal mathematical language.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>If a proof explanation sounds convincing in English, is that the same as a formal proof?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: no. If partly correct, say: &quot;Exactly. Plausible language is not the same as verifier acceptance.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Language model proposes steps.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The model proposes tactics and subgoals. Likelihood means the model&#39;s learned probability for a possible continuation. It is useful for ranking what to try. It is not a correctness certificate.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>A tactic is a formal proof move. A subgoal is a smaller claim that would help finish the larger proof. The language model can be helpful because it has learned patterns from many examples. But a high-probability move is only a suggestion. It is not automatically true.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Branching proof search.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Search means the system keeps multiple possible proof paths alive. Pass@k means success when the system is allowed up to k attempts or samples under a finite budget. More budget can help, but it costs compute and still may miss a valid low-probability path.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is like solving a maze. The model suggests which hallway looks promising. Search decides how many hallways to try. The verifier tells us whether a path actually reaches the exit.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Lean verifier.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The verifier is the hard boundary. The model proposes. Lean verifies. That distinction is the architecture.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>For a normal audience, this is the key safety lesson. The system is not saying, &quot;Trust the language model.&quot; It is saying, &quot;Use the language model to search faster, but require a formal checker before calling the result correct.&quot;</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Accepted formal proof&quot;, then &quot;Retry or prune branch.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Rejected branches are pruned or retried. Accepted branches become formal proof artifacts, but only for the encoded theorem and library context.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Evidence&quot; tab.)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>The benchmarks are specific. MiniF2F-test contains formalized competition-style mathematics problems. PutnamBench contains formalized Putnam-style problems. Reported by the latest arXiv record: DeepSeek-Prover-V2-671B reached an 88.9 percent pass ratio on MiniF2F-test and solved 49 of 658 PutnamBench problems. The paper also reports 82.4 percent on MiniF2F-test at Pass@32, improving to 88.9 percent at Pass@8192.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>In plain language, allowing a larger search budget raised the chance of finding a verified proof on that benchmark. The architecture is designed to help because the model generates promising subgoals and proof branches, while the verifier filters correctness.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The result is strong because the accepted proof is machine-checkable. But the scope is still narrow. It only applies to problems that have been formalized in Lean, using available libraries, under the search budget used in the evaluation.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Weights&quot; tab. Open &quot;Equation.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Look at the three parts. The supervised term learns from formal proof examples. The reinforcement term rewards proof-search outcomes. KL control discourages the updated model from drifting too far from a reference model. Theta is learned. Beta and kappa are researcher-selected. The branch budget is a search decision.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click the lab. Select &quot;lemma&quot; branch. Set &quot;Proof-attempt budget&quot; low, then high.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Classroom illustration: before I increase the budget, what do you think will happen to lower-probability branches?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: they get more chances. If partly correct, say: &quot;Yes. Budget controls whether the search can explore beyond the most likely path.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line action question"><span class="tag">ASK / PAUSE</span><span>Should the model&#39;s confidence ever override a Lean rejection?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 5 seconds. Expected answer: no.)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>What the result does not prove: it does not prove general human-level mathematics. It depends on formalization, available libraries, Lean version, benchmark scope, and compute budget. A formally verified solution is stronger than a plausible natural-language answer, but it is only a proof of the encoded theorem.</span></p>
+<div class="blank"></div>
+<p class="line takeaway"><span class="tag">MUST SAY</span><span>So the main point is this: DeepSeek-Prover-V2 uses language-model probability to guide search, but formal verification decides correctness.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Next case.&quot;)</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line section"><span class="tag">SECTION</span><span>CASE 6: DEEPAR PROBABILISTIC DEMAND FORECASTING</span></p>
+<div class="rule"></div>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Point to the objective banner.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The sixth case is demand forecasting. The real problem is that a business needs decisions under uncertainty. A single number, like 100 units, is not enough if demand might plausibly be 60 or 160.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is a case where the model output and the business decision are visibly different. The model does not need to say, &quot;Order exactly this many.&quot; The model can say, &quot;Here is the range of likely demand.&quot; Then the business decides how cautious to be.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the paper: DeepAR evaluated several real-world forecasting datasets. The public datasets included parts, electricity, and traffic. Parts was monthly sales for 1,046 automobile parts. Electricity was hourly consumption for 370 customers. Traffic was hourly occupancy for 963 San Francisco Bay Area freeway lanes. The paper also used Amazon weekly item-sales datasets called ec and ec-sub.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>These are time series. A time series is simply a value recorded over time: sales each month, electricity each hour, traffic each hour. Forecasting is hard because the future depends on seasonality, trends, shocks, promotions, and random variation.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Product histories and covariates.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The input is product history plus covariates. A covariate is extra information related to demand, such as season, price, holiday, or promotion. If covariates are wrong or missing, the forecast can be miscalibrated.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Miscalibrated means the model&#39;s probabilities do not match reality. If it says an event should happen about 90 percent of the time, but it only happens 60 percent of the time, the forecast is not calibrated. Calibration matters because businesses use probabilities to make decisions.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>If the best guess is 100 units, should the business always stock exactly 100?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: no. If partly correct, say: &quot;Right. The cost of being short and the cost of overstock are different.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Shared recurrent core.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Autoregressive means the model uses previous values to help predict future values. Recurrent means it carries a hidden state through time. DeepAR uses one global model across many related time series, instead of fitting a separate model for each product.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The simple intuition is shared learning. A slow-selling product may not have enough history by itself. But if many products share seasonal patterns, the model can learn from the group. That is why a global recurrent model can help.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Probabilistic likelihood head.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Likelihood asks whether the model assigned high probability to what actually happened. For count data, the paper used a negative-binomial likelihood. That matters because demand is often intermittent and non-Gaussian.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Intermittent demand means demand appears in bursts, with zeros or quiet periods in between. Non-Gaussian means it does not behave like a neat bell curve. If the probability model assumes the wrong shape, the uncertainty can be misleading.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Forecast distribution P10/P50/P90.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>The output is a distribution. A quantile is a point in that distribution. P50 is the median. P90 means the model expects demand to be below that level about 90 percent of the time under similar conditions. It does not mean &quot;90 percent accurate.&quot;</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>A distribution is a whole set of possibilities with probabilities attached. This is more useful than one number because it lets the business ask different questions. &quot;What is the middle expectation?&quot; &quot;What is a cautious high-demand plan?&quot; &quot;How wide is the uncertainty?&quot;</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Business-cost quantile&quot;, then &quot;Inventory decision.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The business chooses an inventory quantity after the forecast. Shortage cost and overstock cost select a quantile. That cost rule is a classroom decision example on the website, not necessarily one of the paper&#39;s experiments.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Evidence&quot; tab.)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the paper: across several real-world forecasting datasets, DeepAR reported accuracy improvements of around 15 percent compared with state-of-the-art methods. For the parts and Amazon ec/ec-sub datasets, baselines included Croston, ETS, Snyder, ISSM, and RNN variants. Table 1 reports DeepAR average relative accuracy of 0.85, where the strongest previously published method is normalized to 1.00, and lower is better. For electricity and traffic, the paper compared point forecast accuracy with a matrix factorization method and reported DeepAR normalized deviation of 0.07 versus 0.16 on electricity, and 0.17 versus 0.20 on traffic.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>In simple language, the model improved probabilistic forecasting by sharing patterns across related series and producing calibrated forecast distributions. The architecture is designed to help because the shared recurrent core learns common dynamics while the likelihood head produces uncertainty, not just a point forecast.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>So when you look at the website&#39;s fan chart, do not read it as decoration. The width of the fan is the story. A narrow fan means the model sees less uncertainty. A wide fan means the model sees more possible outcomes. The business decision should respond to that uncertainty.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Weights&quot; tab. Open &quot;Equation.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The negative log-likelihood measures whether the observed demand was probable under the forecast distribution. Theta is learned. Lambda values are researcher-selected horizon weights. The cost quantile q equals shortage cost divided by shortage plus overstock cost. If shortage cost rises, q rises, and the selected inventory quantity usually rises.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click the lab. Set &quot;Shortage cost&quot; to 7 and &quot;Overstock cost&quot; to 3.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Classroom illustration: before I reverse the costs, did the forecast distribution change, or only the decision point?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: only the decision point. If partly correct, say: &quot;Yes. The model output stays the distribution; the business rule chooses where to act.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Set &quot;Shortage cost&quot; to 3 and &quot;Overstock cost&quot; to 7. Change product selector once.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The same forecast can lead to a different inventory decision under different costs.</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>What the result does not prove: it does not guarantee calibration under promotions, supply shocks, new products, missing covariates, or regime change. Calibration means predicted probabilities match observed frequencies. The external validation is monitoring forecast coverage, bias, and decision cost after deployment.</span></p>
+<div class="blank"></div>
+<p class="line takeaway"><span class="tag">MUST SAY</span><span>So the main point is this: DeepAR predicts a demand distribution, and the business chooses the action from that distribution.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Recap after six cases. Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Before GraphCast, let us compare formal proof and demand forecasting. Which case has an external verifier that can say accepted or rejected, and which case outputs uncertainty for a later business decision?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: theorem proving has the verifier; DeepAR outputs the demand distribution.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Right. Lean verification is a hard correctness check for an encoded theorem. A demand forecast is probabilistic evidence for inventory. One is about formal acceptance. The other is about calibrated uncertainty and cost-sensitive action. This is why the same word, model, is not enough. We need to name the output and the downstream decision.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Next case.&quot;)</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line section"><span class="tag">SECTION</span><span>CASE 7: GRAPHCAST WEATHER FORECASTING</span></p>
+<div class="rule"></div>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Point to the objective banner.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The seventh case is GraphCast. The real problem is global weather prediction. Weather is local and global at the same time. A storm front needs local detail, while atmospheric waves connect distant regions.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is a good final case because everyone has an intuition for weather. Weather near you depends on nearby conditions, but it also depends on large systems moving across the planet. A model that only sees the local neighborhood may miss long-range influence. A model that only sees the globe coarsely may miss local detail.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>Reported by the paper: GraphCast was trained directly from ERA5 reanalysis data. Reanalysis means a physically consistent reconstruction of past weather built by combining observations with numerical weather prediction. The model predicts the next six-hour atmospheric state, then rolls forward repeatedly. Rollout means feeding a prediction back in to make the next prediction.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Reanalysis is not just raw thermometer readings. It is a carefully reconstructed historical weather record. It combines observations with physics-based weather models to estimate the full atmospheric state. GraphCast learns from that reconstructed history.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Two recent global weather grids.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The input is two recent global weather states. The model operates at 0.25 degree latitude-longitude resolution, with 37 vertical levels and six-hour time steps.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Resolution means how fine the grid is. A 0.25 degree grid is a global grid with many points. Vertical levels mean the model represents the atmosphere at different heights, not only at the surface.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>If every location could communicate only with its immediate neighbor, what happens when information must travel across the globe?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: it takes many steps. If partly correct, say: &quot;Yes, and too many steps can blur local detail.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Grid-to-mesh encoder.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The encoder moves grid information onto a graph. A graph is a set of nodes and edges. A node is a computational location. An edge is an allowed path for information.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This graph is not a chart. It is a network. Nodes hold information. Edges say which nodes can communicate. If two places are connected by an edge, information can pass between them during message passing.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Multimesh message passing.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Message passing means a node receives information from connected nodes, updates itself, and passes information onward. Multimesh means the graph has multiple scales of connections. Fine edges preserve local detail. Coarse edges move information farther.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The normal-language analogy is a communication network. Local roads are good for nearby neighborhoods. Highways move information farther. The multimesh gives the model both kinds of routes, so distant weather patterns can influence one another without requiring hundreds of tiny local hops.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Mesh-to-grid decoder&quot;, then &quot;Next six-hour atmospheric state.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The decoder returns the processed information to the weather grid. This gives the next six-hour state.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Autoregressive rollout and decisions.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Autoregressive rollout repeats the model. Four six-hour steps are one day. Ten days means many repeated steps, so small errors can compound.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Compounding means one small mistake can become the input to the next forecast. If a model is slightly wrong at six hours, that slightly wrong state helps produce the twelve-hour forecast, and so on. That is why rollout stability matters.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Evidence&quot; tab.)</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>The comparison is specific. HRES is ECMWF&#39;s high-resolution deterministic forecast system. Deterministic means one main forecast path, not a distribution of many possible futures. Reported by the Science paper: GraphCast outperformed HRES on 90.3 percent of 1,380 verification targets, and significantly outperformed HRES on 89.9 percent of targets. The 1,380 targets are combinations of variables, atmospheric levels, lead times, and metrics in the paper&#39;s scorecard. The paper also reports ten-day global forecasts at 0.25 degree resolution in under one minute.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>In plain language, on most tested medium-range forecast targets, the learned graph model had lower error than the operational deterministic baseline. The architecture is designed to help because multimesh message passing moves atmospheric information both locally and over long distances.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>The word &quot;targets&quot; here does not mean places the model aimed at. It means evaluation items: combinations of variables, heights, lead times, and metrics. The claim is broad across those tested items, but it is still a measured benchmark claim, not a statement that every possible weather question is solved.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Weights&quot; tab. Open &quot;Equation.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The loss is a weighted squared-error objective. Theta is learned. Variable weights keep one variable from dominating. Latitude weights correct grid-area imbalance. Downstream warning thresholds and false-alarm costs are not learned by this core forecast loss.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click the lab. Set &quot;Connection type&quot; to local, then multiscale. Raise &quot;Message-passing depth.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Classroom illustration: before I increase rollout step, what do you expect to happen to error risk?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: it increases because predictions feed later predictions. If partly correct, say: &quot;Yes. Longer rollout exposes feedback error.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Increase &quot;Rollout step.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The teaching model shows why rollout matters. A one-step model can look good but still drift when repeatedly used.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>If GraphCast gives one accurate trajectory, does that automatically give the probability of an extreme event?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answer: no.)</span></p>
+<div class="blank"></div>
+<p class="line action question"><span class="tag">ASK / PAUSE</span><span>Correct. This version is deterministic. The paper itself notes that ECMWF&#39;s ensemble system is important because weather uncertainty grows at longer lead times. Ensembles generate multiple forecasts to estimate a distribution. GraphCast&#39;s deterministic accuracy does not replace calibration, ensembles, warning thresholds, or human operational systems.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Deterministic means one forecast path. An ensemble means many forecast paths, often with slightly different starting points or model variations. For warnings, the range of possible futures matters. A single accurate-looking path may not tell us how likely a rare extreme event is.</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>So the main point is this: GraphCast&#39;s multiscale graph architecture supports strong deterministic medium-range forecasts, but operational warnings still need uncertainty and decision systems.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Supplements&quot; in the top navigation.)</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line section"><span class="tag">SECTION</span><span>ARCHITECTURE SUPPLEMENTS: REUSABLE MECHANISMS</span></p>
+<div class="rule"></div>
+<div class="blank"></div>
+<p class="line normal"><span>The seven cases used recurring mechanisms. The supplements separate those mechanisms from the paper-specific stories.</span></p>
+<div class="blank"></div>
+<p class="line skip"><span class="tag">SKIPPABLE</span><span>This section is not meant to introduce six brand-new topics. It is a translation key. We have already seen these ideas inside the cases. Now we name them directly so the audience can recognize them later.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;RNN.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>A vanilla recurrent neural network carries one hidden state through time. The 1986 back-propagation paper is foundational for learning representations by propagating errors backward through a network. The supplement result is qualitative: recurrence shows why shared transition weights matter, but plain RNN memory can fade or become unstable over long spans.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>Hidden state means the model&#39;s current memory. It is not memory like a database. It is a compressed numerical summary of what the model thinks matters so far. Vanilla RNNs are simple, which is useful for teaching, but simplicity can make long-term memory hard.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Move the RNN memory interaction once.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is classroom illustration. It shows how current input and retained state combine.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;LSTM.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>LSTM stands for long short-term memory. Its 1997 paper introduced gates and constant-error flow to address long-lag learning. A gate is a learned control that decides whether information is written, forgotten, or exposed.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The everyday idea is a notebook with controls. The forget gate decides what old notes to erase. The input gate decides what new notes to write. The output gate decides what part of the notes to show to the next step. This is why LSTMs are often easier to explain than they are to pronounce.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;GRU&quot;, then click &quot;RNN/LSTM/GRU compare.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>GRU is a gated recurrent unit. The 2014 encoder-decoder paper introduced update and reset gates in neural machine translation. The point is not that RNN, LSTM, or GRU is always best. The design question is how much explicit memory control the task needs.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>GRU is like a simpler gated memory system. It has fewer moving parts than an LSTM. That can make it easier to train or faster to run, but it also gives the model less explicit control over memory.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the audience.)</span></p>
+<div class="blank"></div>
+<p class="line action question"><span class="tag">ASK / PAUSE</span><span>Which flagship cases depended most directly on sequence memory?</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 6 seconds. Expected answers: quantum decoding, DeepAR, deep hedging, GraphCast rollouts. If partly correct, say: &quot;Yes, any case where the current state depends on previous states.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Actor-Critic.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line caution"><span class="tag">CAUTION</span><span>Actor-critic separates action selection from value estimation. The actor chooses an action. The critic estimates expected future value. The 2016 asynchronous methods paper is a key deep reinforcement-learning source. The limitation is that a biased critic can push the actor confidently in the wrong direction.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>A simple analogy is a performer and a coach. The actor performs the action. The critic judges whether that action seems to improve future outcome. If the coach is wrong, the performer can practice the wrong behavior very efficiently.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Formal Search.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>LLM-guided formal search separates probability, budget, and verification. It reuses the same distinction from DeepSeek-Prover-V2: model probability ranks attempts, but a verifier accepts or rejects formal steps.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>This is the proof-search lesson in one sentence: probability helps decide what to try first, but verification decides what is true.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Click &quot;Self-Supervised.&quot;)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Self-supervised pretraining hides part of an input, learns to reconstruct it, and then fine-tunes on a downstream task. The masked-autoencoder paper showed scalable representation learning for vision encoders. The caution is task alignment: becoming good at reconstruction does not automatically prove usefulness for the scientific task.</span></p>
+<div class="blank"></div>
+<p class="line definition"><span class="tag">EXPLAIN</span><span>The normal-person version is practice before specialization. The model first practices understanding structure without labels. Then it specializes to a task with labels. This helps when labels are expensive, but the practice task must be related to the real task.</span></p>
+<div class="blank"></div>
+<p class="line takeaway"><span class="tag">MUST SAY</span><span>So the main point is this: the supplements are reusable mechanisms. The flagship cases show when each mechanism actually matches a real bottleneck.</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line section"><span class="tag">SECTION</span><span>CROSS-CASE CONCLUSION</span></p>
+<div class="rule"></div>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Return to Cases or remain on Supplements.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Let us make the entire field manual simple.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Quantum error correction needed to connect warning evidence across qubits and time, so it used attention and recurrence. Mineral prospectivity had many maps and few labels, so it learned from unlabeled maps first. Deep hedging needed a path of actions after costs, so it learned a sequential policy. MatterGen needed atom types, coordinates, lattice, and target property to stay physically coupled, so it used diffusion over crystal variables. Theorem proving needed to separate plausible text from formal truth, so it combined a language model with search and a verifier. DeepAR needed shared history and uncertainty, so it predicted distributions. GraphCast needed local and global weather communication, so it used multiscale message passing.</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Ask the final audience question.)</span></p>
+<div class="blank"></div>
+<p class="line action question"><span class="tag">ASK / PAUSE</span><span>If you evaluate a new machine-learning system tomorrow, which question should come first: &quot;Is this the most advanced model?&quot; or &quot;What information relationship is the current approach failing to capture?&quot;</span></p>
+<div class="blank"></div>
+<p class="line action"><span class="tag">DO</span><span>(Pause 8 seconds. Take two responses.)</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>The second question is usually more useful.</span></p>
+<div class="blank"></div>
+<p class="line evidence"><span class="tag">PAPER EVIDENCE</span><span>The last distinction I want you to keep is this. Reported paper results belong to specific datasets, benchmarks, metrics, and test settings. Interpretation helps us understand why the architecture fits. Classroom labs help us reason. Analogies help us remember. Those four things are connected, but they are not the same kind of evidence.</span></p>
+<div class="blank"></div>
+<p class="line normal"><span>Thank you. I am happy to go back to any case, equation, source, or architecture component.</span></p>
+<div class="blank"></div>
+<div class="rule"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>OPTIONAL 3-5 MINUTE QUESTION BUFFER</span></p>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>============================================================</span></p>
+<div class="blank"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>If asked what a weight means:</span></p>
+<div class="blank"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>(Open &quot;What does weight mean?&quot;)</span></p>
+<div class="blank"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>A learned parameter is stored inside the model and updated by gradients. A dynamic weight, such as attention, is calculated for the current input. A training weight is chosen by researchers to control which errors matter. A decision cost is chosen after prediction to convert information into action.</span></p>
+<div class="blank"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>If asked what a gradient means:</span></p>
+<div class="blank"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>A gradient tells the optimizer how a small parameter change would change the training loss. It updates learned parameters. It does not choose the field budget, synthesis threshold, inventory cost, or warning policy.</span></p>
+<div class="blank"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>If asked whether equations reproduce the papers:</span></p>
+<div class="blank"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>The equations on the site are compact teaching forms. They show ownership and tradeoffs. They do not reproduce every implementation detail in the original code or paper.</span></p>
+<div class="blank"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>If asked which architecture is best:</span></p>
+<div class="blank"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>There is no best model for every problem. A model is useful when its design matches the hard information relationship, its output fits the real decision, and the evidence still holds outside the training setting.</span></p>
+<div class="blank"></div>
+<p class="line skip optional"><span class="tag">OPTIONAL</span><span>============================================================</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>PRIVATE PRESENTER-ONLY SOURCE APPENDIX</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Do not render this appendix on the public website.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>============================================================</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>1. Quantum error correction</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: Learning to Decode the Surface Code with a Recurrent, Transformer-Based Neural Network</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: Google DeepMind and Google Quantum AI, 2023</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://arxiv.org/abs/2310.05900</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: real Sycamore surface-code data at distance 3 and distance 5; ML decoder logical error rate 2.901 +/- 0.023% at distance 3 and 2.748 +/- 0.015% at distance 5, compared with tensor-network decoder 3.028 +/- 0.023% and 2.915 +/- 0.016%. Simulated larger settings up to distance 11 included realistic noise; distance 11 result included 5.37 +/- 0.01 x 10^-6 logical error per round versus 6.74 +/- 0.02 x 10^-6 for MWPM-Corr under the cited setup.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Where it appears: abstract and main results around Fig. 2 and scaling discussion.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: say &quot;evaluated real Sycamore data for distance 3 and 5&quot; and &quot;simulated data up to distance 11.&quot; Do not imply large-distance hardware deployment.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Old-script correction/narrowing: kept the &quot;lower logical error rate&quot; claim but added exact comparator values and separated real hardware from simulated scaling.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>2. Critical-mineral prospectivity</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: GFM4MPM: Towards Geospatial Foundation Models for Mineral Prospectivity Mapping</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: SRI International and collaborators, 2024</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://arxiv.org/abs/2406.12756</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: MVT and CD lead-zinc tasks in North America and Australia; five baselines were WoE, GBM, ANN, CNN, and ViT; metrics included F1, MCC, AUPRC, balanced accuracy, AUROC, and accuracy. MVT: proposed model F1 80.3 +/- 6.6 and AUPRC 84.3 +/- 7.6; strongest F1 baseline GBM 76.0 +/- 3.1. CD: proposed model AUPRC 93.7 +/- 5.1; CNN AUPRC 84.7 +/- 4.9.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Where it appears: Tables 2 and 3, experimental setup, and conclusion.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: say &quot;ranked prospectivity locations&quot; and &quot;improved evaluated prediction metrics.&quot; Do not say the model discovered deposits.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Old-script correction/narrowing: replaced &quot;more robust features&quot; alone with the specific deposit types, regions, baselines, and metrics.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>3. Deep hedging</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: Deep Hedging</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: J.P. Morgan research and collaborators, 2018</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://arxiv.org/abs/1802.03042</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: synthetic Heston-market demonstration with transaction costs; paper reports the method outperformed the standard complete-market solution under terminal convex-risk objectives in that setting.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Where it appears: abstract and numerical experiments section.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: the paper does not provide one universal percentage improvement for live markets. Do not claim market profitability.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Old-script correction/narrowing: kept the after-cost hedging message but explicitly named Heston simulation, transaction costs, complete-market comparison, and simulator-mismatch limitation.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>4. Inverse materials design</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: A generative model for inorganic materials design</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: Microsoft Research and collaborators, Nature 2025</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://www.nature.com/articles/s41586-025-08628-5</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Open preprint: https://arxiv.org/abs/2312.03687</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: Nature paper reports MatterGen structures more than twice as likely to be new and stable and more than ten times closer to the local energy minimum than previous generative models; proof-of-concept synthesis measured a generated material property within 20% of target. The Nature text defines stable, unique, and new materials using DFT-relaxed energy, duplicate matching, and known-structure matching.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Where it appears: Nature abstract, main text around Figs. 1-6.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: the arXiv preprint says more than 15 times closer; the published Nature article says more than ten times closer. Use the published Nature wording in the spoken script.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Old-script correction/narrowing: kept the 20% synthesis claim but clarified DFT and synthesis as external validation.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>5. Formal theorem proving</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: DeepSeek-Prover-V2: Advancing Formal Mathematical Reasoning via Reinforcement Learning for Subgoal Decomposition</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: DeepSeek, 2025</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://arxiv.org/abs/2504.21801</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: latest arXiv record reports 88.9% pass ratio on MiniF2F-test and 49 of 658 PutnamBench problems solved. The paper also reports 82.4% on MiniF2F-test with Pass@32, improving to 88.9% with Pass@8192.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Where it appears: arXiv abstract and MiniF2F results table/discussion.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: some older or cached PDF text reports 47 of 658; current arXiv record and user brief specify 49. State &quot;latest arXiv record reports&quot; if challenged.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Old-script correction/narrowing: retained 88.9% and 49/658, added Pass@k definition and formalization/library/search-budget limitation.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>6. Probabilistic demand forecasting</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: DeepAR: Probabilistic Forecasting with Autoregressive Recurrent Networks</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: Amazon, 2017</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://arxiv.org/abs/1704.04110</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: paper reports around 15% forecasting accuracy improvement over state-of-the-art methods across real-world datasets. Datasets included parts, electricity, traffic, and Amazon ec/ec-sub. Table 1 reports DeepAR average relative accuracy 0.85 versus strongest previously published baseline normalized to 1.00. Table 2 reports DeepAR normalized deviation 0.07 versus MatFact 0.16 on electricity and 0.17 versus 0.20 on traffic.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Where it appears: abstract and Tables 1-2.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: the website shortage/overstock slider is a classroom decision example, not a reported DeepAR experiment.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Old-script correction/narrowing: kept the 15% claim but added datasets, baselines, and relative metric context.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>7. GraphCast weather forecasting</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: GraphCast: Learning skillful medium-range global weather forecasting</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: Google DeepMind, Science 2023</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://www.science.org/doi/10.1126/science.adi2336</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Open preprint: https://arxiv.org/abs/2212.12794</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: GraphCast predicts over 10 days at 0.25 degree resolution globally in under one minute and outperformed HRES on 90.3% of 1,380 verification targets, with significant outperformance on 89.9% of targets. Model operated at 0.25 degree resolution, 37 vertical levels, and six-hour time steps.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Where it appears: abstract, scorecard results, and limitations discussion.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: GraphCast is deterministic; do not claim it provides a full uncertainty distribution or replaces ensembles and human warning systems.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Old-script correction/narrowing: kept &quot;more than 90%&quot; but added HRES definition, target meaning, deterministic limitation, and ensemble caution.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>8. Vanilla RNN supplement</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: Learning representations by back-propagating errors</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: Rumelhart, Hinton, Williams, 1986</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://www.nature.com/articles/323533a0</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: qualitative supplement claim only: back-propagation enabled learning internal representations; the site uses RNN recurrence as a teaching mechanism.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: do not claim this paper by itself solved long sequence memory.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>9. LSTM supplement</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: Long Short-Term Memory</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: Hochreiter and Schmidhuber, 1997</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://www.bioinf.jku.at/publications/older/2604.pdf</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: qualitative supplement claim: gates and constant-error flow were introduced to address long-lag learning failures.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: say &quot;introduced a mechanism&quot; rather than &quot;universally solves memory.&quot;</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>10. GRU supplement</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: Cho et al., 2014</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://arxiv.org/abs/1406.1078</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: qualitative supplement claim: update and reset gates formed a compact gated recurrent model in neural machine translation experiments.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: do not say GRU is always better than LSTM.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>11. Actor-Critic supplement</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: Asynchronous Methods for Deep Reinforcement Learning</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: Google DeepMind, 2016</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://arxiv.org/abs/1602.01783</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: qualitative supplement claim: actor-critic separates policy/action selection from value estimation and advantage-based updates.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: avoid claiming actor-critic alone guarantees stable learning.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>12. LLM-guided formal search supplement</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: DeepSeek-Prover-V2</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: DeepSeek, 2025</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://arxiv.org/abs/2504.21801</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: same verifier-grounded benchmark evidence as Case 5.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: model probability ranks attempts; Lean verification decides correctness.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>13. Self-supervised pretraining supplement</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Paper: Masked Autoencoders Are Scalable Vision Learners</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Organization/authors: Meta AI, 2021</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Primary source: https://arxiv.org/abs/2111.06377</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Exact result used: qualitative supplement claim: masked reconstruction pretraining can learn scalable visual representations that are fine-tuned downstream.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>Wording caution: reconstruction skill does not guarantee downstream scientific usefulness unless the task aligns.</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>QUALITY-CONTROL CHECKLIST</span></p>
+<div class="blank"></div>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Every numerical result matches the primary source or is flagged with a source-version caution.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Every result includes metric and evaluation setting.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Every comparison names its baseline or comparison group.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Every direct conclusion is explained in plain language.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Every limitation is specific.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Every architecture-to-result connection is careful and non-causal unless supported.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Every flagship case contains an audience question.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Every lab contains a prediction question before the control change.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Every equation is explained by ownership and effect.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Presenter directions match the current website controls.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Script is no longer time-boxed and prioritizes plain-language explanation over runtime.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] Presenter material remains outside the public application.</span></p>
+<p class="line skip appendix"><span class="tag">SKIP / PRIVATE</span><span>[x] No script content is imported into the audience website.</span></p>
+<div class="blank"></div>
+</main>
+</body>
+</html>
