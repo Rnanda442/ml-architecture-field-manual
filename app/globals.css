@@ -2520,12 +2520,23 @@ p {
   .case-heading button { display: none; }
 }
 
-/* Final cascade guards for the seven-stage lecture controls. */
+/* Final cascade guards for the continuous lecture controls. */
 .lesson-progress {
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 6px;
   padding: 7px;
 }
+
+.component-progress { display: grid; grid-template-columns: auto 1fr; gap: .75rem; align-items: center; margin-bottom: .7rem; color: var(--muted); font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+.component-progress progress { width: 100%; accent-color: var(--accent); }
+.selected-vocabulary { display: grid; gap: .55rem; margin: .8rem 0; }
+.selected-vocabulary > span { color: var(--muted); font-size: .72rem; font-weight: 900; letter-spacing: .08em; }
+.selected-vocabulary article { border-left: 3px solid var(--accent); padding: .55rem .7rem; background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.selected-vocabulary article p, .selected-vocabulary article small { display: block; margin: .2rem 0 0; line-height: 1.45; }
+.equation-connection { background: var(--panel-strong); }
+.equation-connection p { margin: .45rem 0 0; color: var(--muted); line-height: 1.45; }
+.component-step-controls { display: flex; justify-content: space-between; gap: .7rem; margin-top: .8rem; }
+.component-step-controls button:disabled { opacity: .38; cursor: not-allowed; }
 
 .floating-weight-help {
   right: 12px;
