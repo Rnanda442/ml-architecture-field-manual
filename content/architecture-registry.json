@@ -854,29 +854,43 @@
     "canonical_name": "Recurrent neural network",
     "aliases": [],
     "architecture_family": "Time-series architectures",
-    "chapter_group": "case-06-probabilistic-demand-forecasting",
-    "sector": [],
-    "data_type": [
-      "Time-series architectures"
+    "chapter_group": "supplement-vanilla-rnn",
+    "sector": [
+      "Time-series modeling",
+      "Sequence learning"
     ],
-    "output_type": [],
-    "learning_paradigm": [],
-    "dominant_bottleneck": [],
+    "data_type": [
+      "ordered sequence",
+      "hidden state"
+    ],
+    "output_type": [
+      "next-step prediction",
+      "sequence representation"
+    ],
+    "learning_paradigm": [
+      "supervised sequence learning"
+    ],
+    "dominant_bottleneck": [
+      "temporal dependence",
+      "vanishing gradients"
+    ],
     "weighting_mechanisms": [
-      "recurrent gates"
+      "input weights",
+      "recurrent weights",
+      "output weights"
     ],
     "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
+      "title": "Learning representations by back-propagating errors",
+      "year": "1986",
+      "url": "https://www.nature.com/articles/323533a0"
     },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-06-probabilistic-demand-forecasting",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "featured_organization": "Foundational neural-network research",
+    "relationship_classification": "complete supplement lesson",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive chapter",
+    "visual_status": "full chapter visuals",
+    "interaction_status": "interactive chapter explorer",
+    "source_verification_status": "primary source linked",
     "last_reviewed": "2026-07-14"
   },
   {
@@ -884,29 +898,42 @@
     "canonical_name": "LSTM",
     "aliases": [],
     "architecture_family": "Time-series architectures",
-    "chapter_group": "case-06-probabilistic-demand-forecasting",
-    "sector": [],
-    "data_type": [
-      "Time-series architectures"
+    "chapter_group": "supplement-lstm",
+    "sector": [
+      "Time-series modeling",
+      "Sequence learning"
     ],
-    "output_type": [],
-    "learning_paradigm": [],
-    "dominant_bottleneck": [],
+    "data_type": [
+      "ordered sequence",
+      "cell state"
+    ],
+    "output_type": [
+      "memory-controlled prediction"
+    ],
+    "learning_paradigm": [
+      "supervised sequence learning"
+    ],
+    "dominant_bottleneck": [
+      "long-range memory",
+      "vanishing gradients"
+    ],
     "weighting_mechanisms": [
-      "recurrent gates"
+      "forget gate",
+      "input gate",
+      "output gate"
     ],
     "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
+      "title": "Long Short-Term Memory",
+      "year": "1997",
+      "url": "https://www.bioinf.jku.at/publications/older/2604.pdf"
     },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-06-probabilistic-demand-forecasting",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "featured_organization": "Foundational neural-network research",
+    "relationship_classification": "complete supplement lesson",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive chapter",
+    "visual_status": "full chapter visuals",
+    "interaction_status": "interactive chapter explorer",
+    "source_verification_status": "primary source linked",
     "last_reviewed": "2026-07-14"
   },
   {
@@ -914,29 +941,42 @@
     "canonical_name": "GRU",
     "aliases": [],
     "architecture_family": "Time-series architectures",
-    "chapter_group": "case-06-probabilistic-demand-forecasting",
-    "sector": [],
-    "data_type": [
-      "Time-series architectures"
+    "chapter_group": "supplement-gru",
+    "sector": [
+      "Time-series modeling",
+      "Sequence learning"
     ],
-    "output_type": [],
-    "learning_paradigm": [],
-    "dominant_bottleneck": [],
+    "data_type": [
+      "ordered sequence",
+      "hidden state"
+    ],
+    "output_type": [
+      "compact gated sequence prediction"
+    ],
+    "learning_paradigm": [
+      "supervised sequence learning"
+    ],
+    "dominant_bottleneck": [
+      "long-range memory",
+      "model compactness"
+    ],
     "weighting_mechanisms": [
-      "recurrent gates"
+      "update gate",
+      "reset gate",
+      "candidate state"
     ],
     "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
+      "title": "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation",
+      "year": "2014",
+      "url": "https://arxiv.org/abs/1406.1078"
     },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-06-probabilistic-demand-forecasting",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "featured_organization": "Foundational neural-network research",
+    "relationship_classification": "complete supplement lesson",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive chapter",
+    "visual_status": "full chapter visuals",
+    "interaction_status": "interactive chapter explorer",
+    "source_verification_status": "primary source linked",
     "last_reviewed": "2026-07-14"
   },
   {
@@ -1793,30 +1833,44 @@
     "canonical_name": "Actor-critic",
     "aliases": [],
     "architecture_family": "Reinforcement-learning architectures",
-    "chapter_group": "case-03-deep-hedging",
-    "sector": [],
-    "data_type": [
-      "Reinforcement-learning architectures"
+    "chapter_group": "supplement-actor-critic",
+    "sector": [
+      "Reinforcement learning",
+      "Operations"
     ],
-    "output_type": [],
-    "learning_paradigm": [],
-    "dominant_bottleneck": [],
+    "data_type": [
+      "state",
+      "action",
+      "reward"
+    ],
+    "output_type": [
+      "policy action",
+      "state value"
+    ],
+    "learning_paradigm": [
+      "reinforcement learning"
+    ],
+    "dominant_bottleneck": [
+      "credit assignment",
+      "exploration"
+    ],
     "weighting_mechanisms": [
       "policy weights",
-      "value weights"
+      "value weights",
+      "advantage weights"
     ],
     "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
+      "title": "Asynchronous Methods for Deep Reinforcement Learning",
+      "year": "2016",
+      "url": "https://arxiv.org/abs/1602.01783"
     },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-03-deep-hedging",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "featured_organization": "Google DeepMind",
+    "relationship_classification": "complete supplement lesson",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive chapter",
+    "visual_status": "full chapter visuals",
+    "interaction_status": "interactive chapter explorer",
+    "source_verification_status": "primary source linked",
     "last_reviewed": "2026-07-14"
   },
   {
@@ -2604,30 +2658,46 @@
     "canonical_name": "LLM-guided formal search",
     "aliases": [],
     "architecture_family": "Search, discovery, and optimization",
-    "chapter_group": "case-05-formal-theorem-proving",
-    "sector": [],
-    "data_type": [
-      "Search, discovery, and optimization"
+    "chapter_group": "supplement-llm-guided-formal-search",
+    "sector": [
+      "Mathematics",
+      "Computer science"
     ],
-    "output_type": [],
-    "learning_paradigm": [],
-    "dominant_bottleneck": [],
+    "data_type": [
+      "formal statement",
+      "proof state",
+      "candidate branches"
+    ],
+    "output_type": [
+      "ranked proof branch",
+      "verified proof attempt"
+    ],
+    "learning_paradigm": [
+      "search",
+      "supervised learning",
+      "reinforcement learning"
+    ],
+    "dominant_bottleneck": [
+      "long-horizon credit assignment",
+      "formal verification"
+    ],
     "weighting_mechanisms": [
       "token probabilities",
-      "search scores"
+      "search scores",
+      "branch budget"
     ],
     "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
+      "title": "DeepSeek-Prover-V2: Advancing Formal Mathematical Reasoning via Reinforcement Learning for Subgoal Decomposition",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2504.21801"
     },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-05-formal-theorem-proving",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "featured_organization": "DeepSeek",
+    "relationship_classification": "complete supplement lesson",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive chapter",
+    "visual_status": "full chapter visuals",
+    "interaction_status": "interactive chapter explorer",
+    "source_verification_status": "primary source linked",
     "last_reviewed": "2026-07-14"
   },
   {
@@ -2817,29 +2887,45 @@
     "canonical_name": "Self-supervised pretraining pipeline",
     "aliases": [],
     "architecture_family": "Anomaly, representation, and limited-label learning",
-    "chapter_group": "case-02-critical-mineral-prospectivity",
-    "sector": [],
-    "data_type": [
-      "Anomaly, representation, and limited-label learning"
+    "chapter_group": "supplement-self-supervised-pretraining",
+    "sector": [
+      "Representation learning",
+      "Limited-label learning"
     ],
-    "output_type": [],
-    "learning_paradigm": [],
-    "dominant_bottleneck": [],
+    "data_type": [
+      "unlabeled examples",
+      "masked inputs",
+      "few labels"
+    ],
+    "output_type": [
+      "pretrained encoder",
+      "fine-tuned predictor"
+    ],
+    "learning_paradigm": [
+      "self-supervised pretraining",
+      "supervised fine-tuning"
+    ],
+    "dominant_bottleneck": [
+      "limited labels",
+      "transfer"
+    ],
     "weighting_mechanisms": [
-      "mask weights"
+      "mask weights",
+      "encoder weights",
+      "fine-tuning weights"
     ],
     "primary_paper": {
-      "title": "",
-      "year": "",
-      "url": ""
+      "title": "Masked Autoencoders Are Scalable Vision Learners",
+      "year": "2021",
+      "url": "https://arxiv.org/abs/2111.06377"
     },
-    "featured_organization": "",
-    "relationship_classification": "",
-    "coverage_status": "PARTIAL",
-    "chapter_status": "mentioned or partially explained in case-02-critical-mineral-prospectivity",
-    "visual_status": "partial",
-    "interaction_status": "partial",
-    "source_verification_status": "needs dedicated primary-source verification",
+    "featured_organization": "Meta AI",
+    "relationship_classification": "complete supplement lesson",
+    "coverage_status": "COMPLETE",
+    "chapter_status": "complete interactive chapter",
+    "visual_status": "full chapter visuals",
+    "interaction_status": "interactive chapter explorer",
+    "source_verification_status": "primary source linked",
     "last_reviewed": "2026-07-14"
   },
   {
