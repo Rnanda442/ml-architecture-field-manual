@@ -1,38 +1,25 @@
-"""Streamlit Community Cloud entry point for the ML Architecture Field Manual."""
-
 import streamlit as st
-import streamlit.components.v1 as components
 
-MANUAL_URL = "https://ml-architecture-field-manual.rnanda442.chatgpt.site"
+PUBLIC_MANUAL_URL = "https://ml-architecture-field-manual.rnanda442.chatgpt.site"
+GITHUB_URL = "https://github.com/Rnanda442/ml-architecture-field-manual"
 
 st.set_page_config(
     page_title="ML Architecture Field Manual",
-    page_icon="🧠",
-    layout="wide",
-    initial_sidebar_state="collapsed",
+    page_icon="ML",
+    layout="centered",
 )
 
-st.markdown(
-    """
-    <style>
-      .stApp { background: #f3f0e7; }
-      .block-container { max-width: 1500px; padding: 0.75rem 1rem 2rem; }
-      header[data-testid="stHeader"] { background: transparent; }
-      .manual-note {
-        display:flex; align-items:center; justify-content:space-between; gap:16px;
-        padding:10px 14px; margin:0 0 10px; border:1px solid #d7d4ca;
-        border-radius:10px; background:#fff; color:#24302b; font:14px Arial,sans-serif;
-      }
-      .manual-note a { color:#163d34; font-weight:700; }
-    </style>
-    <div class="manual-note">
-      <span><b>ML Architecture Field Manual</b> · interactive DOE fellowship edition</span>
-      <a href="https://ml-architecture-field-manual.rnanda442.chatgpt.site" target="_blank">Open full screen ↗</a>
-    </div>
-    """,
-    unsafe_allow_html=True,
+st.title("ML Architecture Field Manual")
+st.caption(
+    "Compact interactive presentation workspace for the public ML Architecture Field Manual."
 )
 
-components.iframe(MANUAL_URL, height=1150, scrolling=True)
+st.write(
+    "Open the canonical website for the full case explorer, architecture supplements, and source list."
+)
 
-st.caption("If browser privacy settings block the embedded manual, use “Open full screen” above.")
+col1, col2 = st.columns(2)
+with col1:
+    st.link_button("Open interactive manual", PUBLIC_MANUAL_URL, use_container_width=True)
+with col2:
+    st.link_button("GitHub", GITHUB_URL, use_container_width=True)
