@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { weightDictionary } from "../data/vocabulary";
+import { weightDictionaryScript } from "../data/scripts";
 import { VocabularyVisual } from "./VocabularyVisual";
 
 export function WeightHelpDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -32,6 +33,12 @@ export function WeightHelpDrawer({ open, onClose }: { open: boolean; onClose: ()
         <article className="training"><b>WHAT THE RESEARCHER CHOOSES</b><p>Loss coefficients, class weights, regularization, and training horizon.</p></article>
         <article className="decision"><b>WHAT THE OPERATOR CHOOSES</b><p>Risk tolerance, action threshold, survey cost, shortage cost, or false-alarm cost.</p></article>
       </div>
+      <details className="weight-script-notes">
+        <summary>3–4 minute presenter script</summary>
+        <div className="script-copy">
+          {weightDictionaryScript.map((line) => <p key={line}><span>{line}</span></p>)}
+        </div>
+      </details>
     </aside>
   );
 }
