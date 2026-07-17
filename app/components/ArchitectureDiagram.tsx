@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { DiagramEdge, DiagramNode, DiagramSpec } from "../data/types";
+import type { DiagramEdge, DiagramNode, DiagramSpec, VocabularyTerm } from "../data/types";
 import { Latex } from "./Latex";
 
 type RevealMode = "process" | "weights" | "feedback";
@@ -17,10 +17,28 @@ function nodeById(nodes: DiagramNode[], id: string) {
   return nodes.find((node) => node.id === id);
 }
 
-export function ArchitectureDiagram({ spec }: { spec: DiagramSpec }) {
-  const [selectedId, setSelectedId] = useState(spec.nodes[1]?.id ?? spec.nodes[0].id);
+const weightControl = (node: DiagramNode) => {
+  if (node.weightClass === "LEARNED PARAMETER") return "Training stores and adjusts this value so the component reduces prediction loss.";
+  if (node.weightClass === "DYNAMIC WEIGHT") return "For this input, it controls which current signals influence the update most strongly.";
+  if (node.weightClass === "DATA WEIGHT") return "It controls how strongly this input, example, location, or time step contributes.";
+  if (node.weightClass === "HUMAN-SELECTED OBJECTIVE") return "The researcher selects it to control how strongly this error or target affects training.";
+  return "The operator selects it to control how a prediction becomes a real-world action.";
+};
+
+export function ArchitectureDiagram({
+  spec,
+  selectedId,
+  onSelectNode,
+  vocabulary,
+}: {
+  spec: DiagramSpec;
+  selectedId: string;
+  onSelectNode: (id: string) => void;
+  vocabulary: VocabularyTerm[];
+}) {
   const [mode, setMode] = useState<RevealMode>("process");
   const selected = nodeById(spec.nodes, selectedId) ?? spec.nodes[0];
+  const relatedTerm = vocabulary.find((term) => term.nodeIds.includes(selected.id));
   const connectedIds = useMemo(() => {
     const ids = new Set([selectedId]);
     spec.edges.forEach((edge) => {
@@ -34,6 +52,10 @@ export function ArchitectureDiagram({ spec }: { spec: DiagramSpec }) {
 
   return (
     <section className={`diagram-panel accent-${spec.accent}`} aria-label="Clickable architecture pipeline">
+      <div className="section-heading-row">
+        <div><span className="section-kicker">PAPER ARCHITECTURE</span><h2>Follow the information</h2></div>
+        <p>Click each box from left to right. The explanation beside it tells you what that component contributes to the paper.</p>
+      </div>
       <div className="diagram-toolbar" role="tablist" aria-label="Diagram reveal controls">
         {[
           ["process", "Process"],
@@ -50,6 +72,9 @@ export function ArchitectureDiagram({ spec }: { spec: DiagramSpec }) {
             {label}
           </button>
         ))}
+        <div className="weight-legend" aria-label="Weight color legend">
+          <span className="learned">Learned</span><span className="dynamic">Dynamic</span><span className="data">Data</span><span className="objective">Objective</span><span className="decision">Decision</span>
+        </div>
       </div>
 
       <div className="diagram-body">
@@ -110,11 +135,11 @@ export function ArchitectureDiagram({ spec }: { spec: DiagramSpec }) {
                   className={`diagram-node ${node.role} ${active ? "active" : ""} ${
                     dim ? "dimmed" : ""
                   }`}
-                  onClick={() => setSelectedId(node.id)}
+                  onClick={() => onSelectNode(node.id)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
                       event.preventDefault();
-                      setSelectedId(node.id);
+                      onSelectNode(node.id);
                     }
                   }}
                 >
@@ -139,7 +164,18 @@ export function ArchitectureDiagram({ spec }: { spec: DiagramSpec }) {
         <aside className="node-detail" aria-live="polite">
           <span className="eyebrow">Selected component</span>
           <h3>{selected.label}</h3>
-          <p>{selected.description}</p>
+          <div className="selected-explanation">
+            <span>WHAT IT MEANS</span>
+            <p>{relatedTerm?.meaning ?? selected.description}</p>
+          </div>
+          <div className="selected-explanation example">
+            <span>SIMPLE EXAMPLE</span>
+            <p>{relatedTerm?.example ?? `Think of ${selected.shortLabel.toLowerCase()} as one stage that receives information, changes it, and passes a more useful form onward.`}</p>
+          </div>
+          <div className="selected-explanation paper-use">
+            <span>IN THIS PAPER</span>
+            <p>{relatedTerm?.paperLink ?? selected.description}</p>
+          </div>
           <dl>
             <div>
               <dt>Input</dt>
@@ -150,13 +186,17 @@ export function ArchitectureDiagram({ spec }: { spec: DiagramSpec }) {
               <dd>{selected.output}</dd>
             </div>
             <div className={`weight-class ${classForWeight(selected.weightClass)}`}>
-              <dt>{selected.weightClass}</dt>
+              <dt>WEIGHT TYPE · {selected.weightClass}</dt>
               <dd>
                 <Latex>{selected.weight}</Latex>
               </dd>
             </div>
             <div>
-              <dt>If misweighted</dt>
+              <dt>WHAT THE WEIGHT CONTROLS</dt>
+              <dd>{weightControl(selected)}</dd>
+            </div>
+            <div>
+              <dt>IF MISWEIGHTED</dt>
               <dd>{selected.failure}</dd>
             </div>
           </dl>
