@@ -718,6 +718,7 @@ p {
 
 .lab-control input {
   width: 100%;
+  min-width: 0;
   accent-color: var(--green);
 }
 
@@ -1229,19 +1230,19 @@ p {
   top: 0;
   right: 0;
   z-index: 50;
+  display: none;
   width: min(440px, 92vw);
   height: 100vh;
   padding: 18px;
   overflow-y: auto;
-  transform: translateX(104%);
-  transition: transform 180ms ease;
+  transform: translateX(0);
   border-left: 1px solid var(--line);
   background: var(--paper);
   box-shadow: -20px 0 50px rgba(21, 35, 30, 0.16);
 }
 
 .drawer.open {
-  transform: translateX(0);
+  display: block;
 }
 
 .drawer-head {
