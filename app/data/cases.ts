@@ -52,6 +52,8 @@ export const caseLessons: CaseLesson[] = [
       result:
         "The paper reports lower logical error rate than leading algorithmic decoders on real Sycamore surface-code data and generalization beyond the 25-cycle training setting.",
       metric: "Logical error rate on distance-3 and distance-5 surface-code data",
+      setting: "Real Google Sycamore surface-code measurements at the code sizes and cycle settings evaluated in the paper.",
+      operationalInterpretation: "Better probability estimates can support a controller choosing a correction rule, but the controller still supplies the action threshold and cost tradeoff.",
       limitation:
         "Small-code, hardware-specific demonstrations still need validation before broad operational deployment.",
       url: "https://arxiv.org/abs/2310.05900"
@@ -101,6 +103,8 @@ export const caseLessons: CaseLesson[] = [
       result:
         "The paper reports that self-supervised pretraining produced more robust features and improved lead-zinc prospectivity predictions across North America and Australia.",
       metric: "Prospectivity performance and geological interpretability",
+      setting: "Lead-zinc prospectivity mapping from aligned geospatial evidence and sparse known deposits across North America and Australia.",
+      operationalInterpretation: "Use prospectivity and uncertainty to rank field targets; mapping, sampling, and drilling remain the validation steps.",
       limitation:
         "Known deposits are sparse and spatially biased; predictions still need field validation.",
       url: "https://arxiv.org/abs/2406.12756"
@@ -149,6 +153,8 @@ export const caseLessons: CaseLesson[] = [
       result:
         "The paper reports efficient high-dimensional hedging and better terminal convex risk after costs than the standard complete-market solution in a synthetic Heston market with transaction costs.",
       metric: "Terminal convex risk after costs",
+      setting: "A synthetic Heston-market experiment with transaction costs and terminal portfolio-risk evaluation.",
+      operationalInterpretation: "Judge the complete hedge path after costs, not whether each individual trade looked locally attractive.",
       limitation:
         "Simulator assumptions and market regime shift can make a learned policy brittle.",
       url: "https://arxiv.org/abs/1802.03042"
@@ -197,6 +203,8 @@ export const caseLessons: CaseLesson[] = [
       result:
         "The paper reports generated structures more than twice as likely to be stable, unique, and new than prior models and more than ten times closer to a local energy minimum; one synthesized material was within 20% of its target property.",
       metric: "Stable-unique-new rate under DFT budget",
+      setting: "Generated inorganic crystal candidates screened with physics calculations, with experimental synthesis used for a reported validation case.",
+      operationalInterpretation: "Generation narrows the candidate set; DFT and laboratory synthesis decide whether a candidate survives physical validation.",
       limitation:
         "DFT and synthesis remain outside the generator and can reject plausible samples.",
       url: "https://www.nature.com/articles/s41586-025-08628-5"
@@ -246,6 +254,8 @@ export const caseLessons: CaseLesson[] = [
       result:
         "The paper reports an 88.9% pass ratio on MiniF2F-test and 49 of 658 PutnamBench problems solved.",
       metric: "Verified pass@k and solved formal benchmark problems",
+      setting: "Formal Lean problems from MiniF2F-test and PutnamBench under a finite proof-search budget.",
+      operationalInterpretation: "Language-model proposals become proof artifacts only after every accepted step and the completed branch pass Lean verification.",
       limitation:
         "Verifier success depends on formalization, search budget, and benchmark scope.",
       url: "https://arxiv.org/abs/2504.21801"
@@ -294,6 +304,8 @@ export const caseLessons: CaseLesson[] = [
       result:
         "The paper reports forecasting-accuracy improvements of around 15% over then-state-of-the-art methods across several real-world datasets.",
       metric: "Probabilistic forecast accuracy plus decision cost framing",
+      setting: "Several real-world multi-series forecasting datasets evaluated with a shared autoregressive recurrent model.",
+      operationalInterpretation: "The forecast distribution supports choosing an inventory quantile that reflects shortage and overstock costs.",
       limitation:
         "Distribution choice, covariate quality, and regime changes affect tail calibration.",
       url: "https://arxiv.org/abs/1704.04110"
@@ -342,6 +354,8 @@ export const caseLessons: CaseLesson[] = [
       result:
         "The Science paper reports lower error than HRES on more than 90% of 1380 verification targets and a 10-day global forecast at 0.25 degree resolution in under one minute.",
       metric: "Share of variables and lead times with lower forecast error than HRES",
+      setting: "Global medium-range forecasting from reanalysis weather states, evaluated against HRES across variables and lead times.",
+      operationalInterpretation: "The deterministic rollout supplies a fast forecast trajectory; uncertainty and warning policy still require downstream systems.",
       limitation:
         "GraphCast is deterministic and trained from reanalysis, so operational uncertainty still needs ensembles or calibration.",
       url: "https://www.science.org/doi/10.1126/science.adi2336",
