@@ -4,6 +4,8 @@ These files are private repository material. They are intentionally outside `app
 
 Use `complete-presenter-script.ts` as the complete speaker script for all seven flagship cases, the six architecture supplements, and the reusable weight dictionary.
 
+Use `ML_Architecture_Field_Manual_50_Minute_Presentation_Script.txt` for the complete live website presentation. It follows the site from the Home screen through all seven cases, supplements, conclusion, and question buffer, with click, pause, audience-question, slider, and transition cues in parentheses.
+
 ## Delivery order
 
 For every flagship case, teach in this order: objective, bottleneck, architecture, lab, then result and limitation.
