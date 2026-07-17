@@ -135,24 +135,25 @@ function LabShell({
         <div><span className="section-kicker">TRY THE IDEA</span><h2>Change a weighting decision</h2></div>
         <button onClick={onReset}>Reset</button>
       </div>
-      <p className="lab-disclaimer"><b>Classroom simulation:</b> This interaction explains the paper&apos;s reasoning. It does not reproduce the researchers&apos; data or reported experiment.</p>
+      <p className="lab-disclaimer"><b>ILLUSTRATIVE CLASSROOM EXAMPLE</b> This interaction explains the paper&apos;s reasoning. It does not reproduce the researchers&apos; data, fitted parameters, or reported experiment.</p>
       <div className="lab-grid">
         <div className="lab-card ask">
           <span>QUESTION</span>
           <p>{ask}</p>
         </div>
         <div className="lab-card adjust">
-          <span>CHANGE THESE ASSUMPTIONS</span>
+          <span>CONTROL + SETTING</span>
           {controls}
         </div>
         <div className="lab-card observe">
-          <span>WHAT CHANGES?</span>
+          <span>VISIBLE CONSEQUENCE</span>
           {visual}
           <p>{observe}</p>
         </div>
         <div className="lab-card why">
-          <span>CONNECTION TO THE PAPER</span>
+          <span>EXPLANATION + PAPER CONNECTION</span>
           <p>{why}</p>
+          <small>LIMITATION: the control demonstrates a qualitative relationship only; it is not a paper-reported sensitivity test.</small>
         </div>
       </div>
     </section>
