@@ -45,11 +45,13 @@ export function AppShell() {
         setCompletedOpen(false);
       }
       if (view !== "cases") return;
-      if (event.key === "ArrowRight") {
+      const target = event.target as HTMLElement | null;
+      if (target?.matches("input, select, textarea")) return;
+      if (event.shiftKey && event.key === "ArrowRight") {
         event.preventDefault();
         openCase(caseLessons[(activeIndex + 1) % caseLessons.length].id);
       }
-      if (event.key === "ArrowLeft") {
+      if (event.shiftKey && event.key === "ArrowLeft") {
         event.preventDefault();
         openCase(caseLessons[(activeIndex - 1 + caseLessons.length) % caseLessons.length].id);
       }
@@ -72,7 +74,7 @@ export function AppShell() {
   };
 
   return (
-    <main className={`app-shell ${presentationMode ? "presentation-mode" : "explore-mode"}`}>
+    <main className={`app-shell view-${view} ${presentationMode ? "presentation-mode" : "explore-mode"}`}>
       <header className="top-bar">
         <button className="brand-button" onClick={() => setView("home")} aria-label="Open home">
           <span>ML</span>
@@ -154,7 +156,7 @@ export function AppShell() {
       ) : null}
 
       <button className="floating-weight-help" onClick={() => setWeightHelpOpen(true)}>
-        What does weight mean?
+        Weight key
       </button>
       <WeightHelpDrawer open={weightHelpOpen} onClose={() => setWeightHelpOpen(false)} />
       <CompletedLessonsDrawer
