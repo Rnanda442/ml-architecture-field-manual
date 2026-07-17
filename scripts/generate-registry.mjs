@@ -223,7 +223,17 @@ const overrides = {
   }),
   "Masked autoencoder": overlapping("case-02-critical-mineral-prospectivity", ["Spatial and image architectures"], ["mask sampling weights"]),
   "Diffusion model": overlapping("case-04-inverse-materials-design", ["Generative architectures"], ["noise schedule", "score weights"]),
-  "LLM-guided formal search": partial("case-05-formal-theorem-proving", ["Search, discovery, and optimization"], ["token probabilities", "search scores"]),
+  "LLM-guided formal search": supplement({
+    chapter: "supplement-llm-guided-formal-search",
+    sector: ["Mathematics", "Computer science"],
+    data: ["formal statement", "proof state", "candidate branches"],
+    output: ["ranked proof branch", "verified proof attempt"],
+    paradigm: ["search", "supervised learning", "reinforcement learning"],
+    bottleneck: ["long-horizon credit assignment", "formal verification"],
+    weights: ["token probabilities", "search scores", "branch budget"],
+    paper: ["DeepSeek-Prover-V2: Advancing Formal Mathematical Reasoning via Reinforcement Learning for Subgoal Decomposition", "2025", "https://arxiv.org/abs/2504.21801"],
+    org: "DeepSeek"
+  }),
   "Policy-gradient network": complete({
     aliases: ["time-unrolled neural policy", "deep hedging"],
     chapter: "case-03-deep-hedging",
@@ -237,11 +247,61 @@ const overrides = {
     org: "J.P. Morgan research",
     relation: "authored by organization researchers"
   }),
-  "Actor-critic": partial("case-03-deep-hedging", ["Reinforcement-learning architectures"], ["policy weights", "value weights"]),
-  "Recurrent neural network": partial("case-06-probabilistic-demand-forecasting", ["Time-series architectures"], ["recurrent gates"]),
-  "LSTM": partial("case-06-probabilistic-demand-forecasting", ["Time-series architectures"], ["recurrent gates"]),
-  "GRU": partial("case-06-probabilistic-demand-forecasting", ["Time-series architectures"], ["recurrent gates"]),
-  "Self-supervised pretraining pipeline": partial("case-02-critical-mineral-prospectivity", ["Anomaly, representation, and limited-label learning"], ["mask weights"])
+  "Actor-critic": supplement({
+    chapter: "supplement-actor-critic",
+    sector: ["Reinforcement learning", "Operations"],
+    data: ["state", "action", "reward"],
+    output: ["policy action", "state value"],
+    paradigm: ["reinforcement learning"],
+    bottleneck: ["credit assignment", "exploration"],
+    weights: ["policy weights", "value weights", "advantage weights"],
+    paper: ["Asynchronous Methods for Deep Reinforcement Learning", "2016", "https://arxiv.org/abs/1602.01783"],
+    org: "Google DeepMind"
+  }),
+  "Recurrent neural network": supplement({
+    chapter: "supplement-vanilla-rnn",
+    sector: ["Time-series modeling", "Sequence learning"],
+    data: ["ordered sequence", "hidden state"],
+    output: ["next-step prediction", "sequence representation"],
+    paradigm: ["supervised sequence learning"],
+    bottleneck: ["temporal dependence", "vanishing gradients"],
+    weights: ["input weights", "recurrent weights", "output weights"],
+    paper: ["Learning representations by back-propagating errors", "1986", "https://www.nature.com/articles/323533a0"],
+    org: "Foundational neural-network research"
+  }),
+  "LSTM": supplement({
+    chapter: "supplement-lstm",
+    sector: ["Time-series modeling", "Sequence learning"],
+    data: ["ordered sequence", "cell state"],
+    output: ["memory-controlled prediction"],
+    paradigm: ["supervised sequence learning"],
+    bottleneck: ["long-range memory", "vanishing gradients"],
+    weights: ["forget gate", "input gate", "output gate"],
+    paper: ["Long Short-Term Memory", "1997", "https://www.bioinf.jku.at/publications/older/2604.pdf"],
+    org: "Foundational neural-network research"
+  }),
+  "GRU": supplement({
+    chapter: "supplement-gru",
+    sector: ["Time-series modeling", "Sequence learning"],
+    data: ["ordered sequence", "hidden state"],
+    output: ["compact gated sequence prediction"],
+    paradigm: ["supervised sequence learning"],
+    bottleneck: ["long-range memory", "model compactness"],
+    weights: ["update gate", "reset gate", "candidate state"],
+    paper: ["Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation", "2014", "https://arxiv.org/abs/1406.1078"],
+    org: "Foundational neural-network research"
+  }),
+  "Self-supervised pretraining pipeline": supplement({
+    chapter: "supplement-self-supervised-pretraining",
+    sector: ["Representation learning", "Limited-label learning"],
+    data: ["unlabeled examples", "masked inputs", "few labels"],
+    output: ["pretrained encoder", "fine-tuned predictor"],
+    paradigm: ["self-supervised pretraining", "supervised fine-tuning"],
+    bottleneck: ["limited labels", "transfer"],
+    weights: ["mask weights", "encoder weights", "fine-tuning weights"],
+    paper: ["Masked Autoencoders Are Scalable Vision Learners", "2021", "https://arxiv.org/abs/2111.06377"],
+    org: "Meta AI"
+  })
 };
 
 const registry = [];
@@ -322,22 +382,20 @@ function overlapping(chapter, families, weights) {
   };
 }
 
-function partial(chapter, families, weights) {
-  return {
-    aliases: [],
-    chapter_group: chapter,
-    sector: [],
-    learning_paradigm: [],
-    dominant_bottleneck: [],
-    weighting_mechanisms: weights,
-    coverage_status: "PARTIAL",
-    chapter_status: `mentioned or partially explained in ${chapter}`,
-    visual_status: "partial",
-    interaction_status: "partial",
-    source_verification_status: "needs dedicated primary-source verification",
-    data_type: families,
-    output_type: []
-  };
+function supplement({ aliases = [], chapter, sector, data, output, paradigm, bottleneck, weights, paper, org }) {
+  return complete({
+    aliases,
+    chapter,
+    sector,
+    data,
+    output,
+    paradigm,
+    bottleneck,
+    weights,
+    paper,
+    org,
+    relation: "complete supplement lesson"
+  });
 }
 
 function libraryOnly({ aliases = [], bottleneck = [], weights = [] } = {}) {

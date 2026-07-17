@@ -1,0 +1,607 @@
+ML ARCHITECTURE FIELD MANUAL
+COMPLETE INTERACTIVE PRESENTATION SCRIPT
+Target length: 48–52 minutes
+
+HOW TO READ THIS FILE
+
+Words outside parentheses are spoken aloud.
+Directions in parentheses are presenter actions and are not spoken.
+If the audience gives a long answer, acknowledge it briefly and use the transition provided so the presentation stays on time.
+Keep Presentation Mode on. Follow the directions in order. Do not rush to the next screen. First tell the audience what they are looking at, then explain it, then click. Use the left and right arrow keys only when a direction below tells you to change stages. Use Shift plus the arrow keys only when moving between cases.
+
+Use this simple speaking pattern throughout:
+1. “Look here.” Point to the part of the screen that matters.
+2. “In simple terms…” Explain it without jargon.
+3. “For example…” Give the example in the script.
+4. “Why this matters…” Connect it to the paper.
+5. “So the main point is…” Give the one-sentence recap before moving on.
+
+============================================================
+0:00–3:30 — OPENING: HOW TO READ THE WEBSITE
+============================================================
+
+(Begin on the Home page. Keep the cursor away from the main text while speaking.)
+
+Good morning. I want to begin with one simple idea. We should not choose a machine-learning model just because it is popular. We should choose it because its design matches the hard part of the problem.
+
+When I say architecture, I mean the parts inside the model and how information moves between them. When I say information bottleneck, I mean the part of the problem that is hardest for the model to understand. Sometimes information must be remembered over time. Sometimes several map layers must be combined. Sometimes a model can suggest an answer, but another system must check whether it is actually correct.
+
+(Point to the title and then the seven case cards.)
+
+We will test that idea in seven very different fields: quantum computing, mineral exploration, finance, materials science, formal mathematics, supply chains, and weather forecasting.
+
+(Ask the audience.)
+
+Before we begin, when you hear the phrase “model weight,” what do you think it means?
+
+(Pause for two or three responses. If no one answers, say: “Most people think it always means a number learned inside the neural network.”)
+
+That is a reasonable answer, but it is incomplete. Today, I will separate three things that are often mixed together. First, the model has parameters learned during training. Second, researchers choose how training errors are weighted. Third, operators choose costs and thresholds after the model predicts. Those three kinds of control do not belong to the same person or the same part of the pipeline.
+
+(Click “New to machine learning? Open the plain-language key.” Point briefly to Input, Model, Architecture, Training, Weight, Prediction, Uncertainty, and Metric. Do not open every question mark.)
+
+This key stays available throughout the presentation. An input is the information given to the model. A prediction is what the model produces before a person or operating system chooses an action. A metric is the measurement used to evaluate performance under a stated test setting. A reported metric is evidence; it is not a guarantee that the system will work everywhere.
+
+(Close the key. Click “Start guided tour,” or click the Quantum case.)
+
+For every case, I will guide you through the same five questions. What is the goal? What makes the problem difficult? How does information move through the model? What happens when we change an important setting? And finally, what did the paper actually show—and what did it not show?
+
+============================================================
+3:30–9:15 — CASE 1: QUANTUM ERROR CORRECTION
+============================================================
+
+(Click Objective.)
+
+Our first case is quantum error correction from Google Quantum AI. A physical qubit is the real hardware element. It is fragile. A logical qubit is protected information encoded across several physical qubits so that errors can be detected without directly reading and destroying the protected quantum state.
+
+(Point from Input to Architecture to Exact Output to Practical Use.)
+
+The input is a sequence of syndrome events. A syndrome event is warning evidence that a relationship among qubits changed. The architecture is a recurrent transformer. The exact output is a set of logical-error probabilities. Only after those probabilities exist does a controller choose a correction.
+
+Notice the separation: the model estimates the chance of an error. It does not automatically decide the cost of a false correction or a missed error.
+
+(Click Bottleneck.)
+
+Here is the hard part. The decoder must connect warnings across both space and time. One warning does not reveal the full error. It has to decide which warnings from different qubits belong together and whether warnings from earlier measurement cycles are still important.
+
+(Ask the audience.)
+
+If you heard a smoke alarm once, would that tell you exactly where the fire started and how large it is?
+
+(Pause. Accept one answer.)
+
+No. It is evidence, not a complete diagnosis. Syndrome events work similarly. The architecture must combine scattered evidence before acting.
+
+(Click Component walkthrough. Click “Syndrome events.”)
+
+We begin with syndrome events across qubits and time. What enters is repeated measurement evidence. What leaves is a structured representation of where and when changes occurred.
+
+(Click “Spatial attention.”)
+
+Spatial attention compares the qubits in the current cycle. In simple terms, it asks, “Which warnings seem connected right now?” One event may strongly affect how another event is understood. The model calculates these relationships again for every new pattern.
+
+(Click “Recurrent memory.”)
+
+Recurrent memory carries unfinished evidence into the next cycle. Think of the hidden state as the model’s short set of notes about what happened earlier. If those notes fade too quickly, the first warning may disappear before the final warning arrives.
+
+(Click “Decoder head,” then “Error probabilities.”)
+
+The decoder head converts the internal representation into logical-error probabilities. Probability here is a calibrated score we hope corresponds to observed frequency over comparable examples. It is not certainty.
+
+(Click “Correction.”)
+
+The correction step comes after the prediction. A threshold is simply a cutoff used to decide when to act. For example, the model may report an 85 percent chance of an error, but the controller still decides whether 85 percent is high enough to apply a correction.
+
+(Point to the related training equation.)
+
+In this equation, theta represents learned model parameters. The lambda values are researcher-selected coefficients controlling how strongly logical-error loss and regularization contribute. Regularization discourages extreme or overly memorized parameter settings. Correction costs are chosen downstream, not learned by this equation.
+
+(Click Lab.)
+
+Try this with me. We will change one control at a time.
+
+(Set Memory retention near 25.)
+
+At low memory retention, older evidence fades before the pattern is complete. The decoder becomes overly dependent on the newest event.
+
+(Move Memory retention near 75. Then move Attention concentration from low to high.)
+
+Now older evidence persists. Raising attention concentration makes a smaller group of qubit relationships dominate. Too diffuse can mix noise; too narrow can miss a distributed pattern.
+
+(Ask the audience.)
+
+Which error would you consider worse: applying an unnecessary correction or missing a real error?
+
+(Take one or two answers. Move the false-correction versus missed-error control while summarizing.)
+
+There is no single correct answer for every system. The people operating the system must decide which mistake has the worse consequence.
+
+So the main point is this: the model connects warning evidence and produces probabilities. People still choose when those probabilities justify a correction.
+
+(Click Result.)
+
+The paper reports lower logical error rate than leading algorithmic decoders on the evaluated real Sycamore surface-code data and generalization beyond the 25-cycle training setting. The boundary is equally important: these are small-code, hardware-specific demonstrations. They do not establish broad deployment readiness for every quantum device.
+
+(Click Next case.)
+
+The quantum case needed memory across space and time. The next case needs representation learning across map layers when labels are scarce.
+
+============================================================
+9:15–15:00 — CASE 2: CRITICAL-MINERAL PROSPECTIVITY
+============================================================
+
+(Click Objective.)
+
+Mineral prospectivity means how favorable a location appears for containing a mineral deposit. It is not proof that a deposit exists. The model combines geology, geophysics, and geochemistry, produces a prospectivity ranking, and helps geoscientists prioritize limited field surveys and drilling.
+
+(Click Bottleneck.)
+
+Here is the hard part. The evidence comes from several different kinds of maps, but there are very few confirmed deposits. “Multimodal” only means that the inputs describe the same place in different ways. Geology shows rocks and structures. Geophysics measures physical differences. Geochemistry shows chemical evidence. These layers do not always line up perfectly, and some are more reliable than others.
+
+The positive class—confirmed deposits—is extremely rare. Imagine 20 deposit cells and 9,980 background cells. A useless model that predicts background everywhere would appear 99.8 percent accurate. This is class imbalance: ordinary accuracy can reward a model for ignoring the thing we actually care about.
+
+(Ask the audience.)
+
+If most known deposits occur near roads and older surveys, what accidental pattern might the model learn?
+
+(Pause. If needed, prompt: “Could it learn where people looked rather than where geology is favorable?”)
+
+Exactly. Spatial sampling bias can make exploration history look like geology.
+
+(Click Component walkthrough. Click “Aligned map layers.”)
+
+The first component aligns geology, magnetics, gravity, and geochemistry into common map patches. A map patch is one local tile used by the model. Alignment matters because layers describing the same location must actually overlap.
+
+(Click “Masked encoder.”)
+
+During self-supervised learning, part of a map patch is hidden, and the encoder tries to reconstruct the missing structure. Self-supervised means the data creates its own learning task; it does not mean humans disappear from the research design. Researchers still choose the mask strategy, data mixture, objective, and validation.
+
+(Click “Rare labels.”)
+
+Fine-tuning introduces the few confirmed deposit labels. Fine-tuning means adapting the broadly pretrained representation to this specific prospectivity task. Rare-positive class weights make missing a known deposit count more strongly during training.
+
+(Click “Prospectivity map,” then “Top targets.”)
+
+The output is a prospectivity and uncertainty map. Uncertainty is not simply one minus prospectivity. A site can have a moderate predicted probability and high uncertainty because evidence is incomplete. The exploration ranking then combines geological prediction with access, survey cost, and field priorities.
+
+(Point to the equation.)
+
+The first part of the equation teaches the model to understand general map patterns. The second part teaches it from the few known deposits. The third part checks whether its probability values are believable. The researchers choose how much each part matters. Field-survey cost is added later, after the model predicts.
+
+(Click Lab. Reduce Geology reliability, raise Magnetic reliability, and leave Geochemistry near the middle.)
+
+The question is which evidence layer the model should trust. These sliders are an illustration, not values reported by the paper. Lowering geology reliability increases uncertainty and changes the priority pattern. Raising magnetic reliability makes magnetic evidence contribute more strongly.
+
+(Raise Rare-deposit class weight. Then raise Survey-cost weight.)
+
+The rare-deposit weight changes what the model pays attention to during training. Survey cost changes where people choose to investigate. A location can still look geologically promising but receive a lower field priority because it is expensive or difficult to reach.
+
+So the main point is this: the model helps rank where to look. It does not prove that a deposit is present, and it does not replace fieldwork.
+
+(Click Result.)
+
+The paper reports that self-supervised pretraining produced more robust features and improved lead-zinc prospectivity predictions across evaluated regions in North America and Australia. The limitation is that known deposits are sparse and spatially biased. Mapping, sampling, and drilling remain the external validation.
+
+(Click Next case.)
+
+Here the architecture learned from abundant unlabeled structure before using scarce labels. Our next architecture learns a sequence of actions whose costs accumulate through time.
+
+============================================================
+15:00–20:30 — CASE 3: DEEP HEDGING
+============================================================
+
+(Click Objective.)
+
+Deep hedging is not simply predicting whether a stock price rises tomorrow. A hedge is a position chosen to reduce unwanted exposure. The input is the market and portfolio state. The output is a sequence of hedge actions. The system is evaluated by terminal portfolio risk after transaction costs.
+
+(Click Bottleneck.)
+
+Here is the hard part. Every trade affects what happens next, and every trade costs money. Ten small trades may each look helpful by themselves, but their combined fees can make the final result worse.
+
+(Ask the audience.)
+
+Would you prefer a model that predicts tomorrow’s direction correctly, or one that leaves you with lower risk after all trading costs?
+
+(Pause.)
+
+For hedging, the second is the actual objective. A locally accurate prediction is not enough.
+
+(Click Component walkthrough. Click “Market state.”)
+
+The market and portfolio state includes prices, time, holdings, cash, and current exposure.
+
+(Click “Policy.”)
+
+A policy is a state-to-action rule. The policy parameters are learned. Given the current state, it proposes the next hedge position.
+
+(Click “Hedge action,” then “Cost.”)
+
+The action changes the position. Transaction cost represents fees, spread, and market impact associated with changing that position. Cost is part of the environment and decision problem; it is not a price prediction.
+
+(Click “Portfolio,” then “Risk score.”)
+
+The updated portfolio becomes the next input, so the architecture forms a loop. After the final step, a terminal-risk objective evaluates the complete profit-and-loss distribution. Tail risk refers to rare but severe loss.
+
+(Point to the equation.)
+
+Theta represents learned policy parameters. Gamma represents the selected risk preference, and c weights turnover cost. Increasing c discourages frequent trading. Increasing risk aversion can justify paying more transaction cost to reduce severe terminal losses.
+
+(Click Lab. Set Transaction cost low, then high.)
+
+At low transaction cost, the illustrative policy changes positions more often. As cost rises, the model tolerates more exposure rather than paying repeatedly.
+
+(Raise Risk aversion and Stress-scenario weight.)
+
+Risk aversion increases the penalty on damaging uncertainty. Stress-scenario weight makes extreme simulated paths more influential during training.
+
+(Ask the audience.)
+
+What happens if the real market crisis looks nothing like the simulated stress scenarios?
+
+(Pause.)
+
+The learned policy may be confidently wrong. That is simulator mismatch.
+
+So the main point is this: the model is learning a complete trading strategy after costs, not simply guessing tomorrow’s price direction.
+
+(Click Result.)
+
+In the paper’s simulated market, the method handled many risk factors and produced lower final risk after trading costs than the comparison method. But this was still a simulation. Real markets can change, trading can become difficult, and the model can fail if the real market behaves differently from its training environment.
+
+(Click Next case.)
+
+Deep hedging optimized an action path. The next case generates physical candidates but still needs external physics and laboratory validation.
+
+============================================================
+20:30–26:00 — CASE 4: INVERSE MATERIALS DESIGN
+============================================================
+
+(Click Objective.)
+
+Inverse materials design reverses the usual question. Instead of asking what properties a known crystal has, we ask what crystal structure could produce a desired property. MatterGen uses a conditional diffusion model to generate candidate inorganic crystal structures.
+
+(Click Bottleneck.)
+
+Here is the hard part. The atom types, atom positions, crystal shape, and requested property must all agree with each other. A crystal can look convincing to the model and still be physically unstable.
+
+(Ask the audience.)
+
+If a model draws a realistic-looking bridge, does that prove the bridge can stand?
+
+(Pause.)
+
+No. Generative plausibility is not physical validation. The same distinction matters for crystals.
+
+(Click Component walkthrough. Click “Noisy crystal.”)
+
+The process begins with noisy atom types, coordinates, and lattice variables. Diffusion generation learns to reverse a gradual noising process.
+
+(Click “Score network.”)
+
+The score network learns how to remove the noise. It is geometry-aware. That means rotating or moving the crystal should not make the model treat it as a completely different material. The physical arrangement stays meaningful even when its viewing direction changes.
+
+(Click “Channel balance.”)
+
+Atom, coordinate, and lattice losses must be balanced. If coordinate error dominates the objective, the model may improve positions while neglecting incorrect atom identities or lattice geometry. The lambda values determine how these training errors compete.
+
+(Click “Guidance.”)
+
+Property conditioning tells the model what type of candidate is requested. Guidance strength changes how aggressively generation follows that target. Stronger guidance can improve target alignment but may reduce diversity or produce unrealistic structures.
+
+(Click “Candidate,” then “Triage.”)
+
+The output is an ordered candidate crystal, not a confirmed material. Simulation and synthesis triage decide which candidates deserve density-functional-theory calculations and laboratory work.
+
+(Click Lab. Raise Guidance strength, then separately move Atom-channel weight, Coordinate-channel weight, and Lattice-channel weight.)
+
+Move one channel at a time. Each setting changes what kind of reconstruction error receives emphasis. This illustrates why one aggregate loss number can hide a failure in one part of a structured object.
+
+(Ask the audience.)
+
+Would you spend an expensive synthesis budget on the candidate with the highest model score alone?
+
+(Pause.)
+
+The safer answer is no. Use model score for triage, then require physics-based screening.
+
+So the main point is this: the generator suggests candidates. Physics calculations and laboratory work decide whether those candidates are real materials.
+
+(Click Result.)
+
+The paper reports candidates more than twice as likely to be stable, unique, and new than prior models, more than ten times closer to a local energy minimum, and a synthesized material within 20 percent of its target property. The limitation is that DFT and synthesis remain outside the generator and can reject plausible samples.
+
+(Click Next case.)
+
+The materials case separated generation from physical validation. The theorem case makes the same separation even sharper: plausible language is not formal correctness.
+
+============================================================
+26:00–31:30 — CASE 5: FORMAL THEOREM PROVING
+============================================================
+
+(Click Objective.)
+
+This system takes a formal theorem, the current proof state, and available lemmas. A language model proposes Lean proof steps, a search procedure explores branches, and the Lean verifier accepts only formally valid steps.
+
+(Click Bottleneck.)
+
+Here is the hard part. A language model can suggest a proof step that sounds right but is formally wrong. The model’s probability decides what to try first. The verifier decides whether the step is actually valid.
+
+(Ask the audience.)
+
+If a mathematical explanation sounds convincing, is that the same as every step being formally valid?
+
+(Pause.)
+
+No. That difference is the reason this architecture includes both a generator and a verifier.
+
+(Click Component walkthrough. Click “Proof state.”)
+
+The proof state describes what has already been established and what goals remain.
+
+(Click “Model proposes.”)
+
+The language model proposes tactics, lemmas, or subgoals. Its learned parameters rank likely continuations. Likelihood is useful for prioritization but is not a proof certificate.
+
+(Click “Search tree.”)
+
+Branching proof search keeps several possibilities alive. The branch budget is the finite number of attempts assigned across those paths. Spending the entire budget on one plausible but wrong branch can hide a lower-probability valid proof.
+
+(Click “Verifier.”)
+
+Lean checks each formal step exactly under the encoded rules and definitions. The verifier is external to the language model’s confidence.
+
+(Click “Accepted proof,” then “Retry/prune.”)
+
+An accepted branch becomes a formal proof artifact. Rejected branches are pruned or retried, and verifier feedback changes where search effort goes next.
+
+(Point to the equation.)
+
+The supervised term teaches from existing formal proofs. The reinforcement term uses advantage, meaning whether an outcome was better or worse than expected. KL control discourages the updated policy from moving too far from a reference model. Beta and kappa are researcher-selected; theta is learned.
+
+(Click Lab. Select a promising branch and set a small Proof-attempt budget. Then raise the budget.)
+
+With a small budget, a wrong high-probability branch can consume the search. A larger budget explores more alternatives, but computation increases.
+
+(Ask the audience.)
+
+Should the model’s confidence ever override a verifier rejection?
+
+(Pause.)
+
+In formal proof, no. Confidence ranks attempts; the verifier determines acceptance.
+
+So the main point is this: the language model helps search, but it does not get to declare its own answer correct.
+
+(Click Result.)
+
+DeepSeek-Prover-V2 reports an 88.9 percent pass ratio on MiniF2F-test and 49 of 658 PutnamBench problems solved. Those are benchmark results under finite search budgets. Success still depends on formalization quality, available libraries, search budget, and benchmark scope.
+
+(Click Next case.)
+
+Formal search outputs a verified artifact. The next system outputs a probability distribution, and a business cost rule chooses an action from that distribution.
+
+============================================================
+31:30–37:00 — CASE 6: PROBABILISTIC DEMAND FORECASTING
+============================================================
+
+(Click Objective.)
+
+DeepAR predicts demand for many products. It does not give only one best guess. It gives a range of possible demand levels and shows which parts of that range are more likely.
+
+(Click Bottleneck.)
+
+Here is the hard part. Products can share useful patterns, but each product may have only a small amount of history. The model also needs to show uncertainty. One number, such as “100 units,” does not show whether demand is tightly centered near 100 or could realistically range from 60 to 160.
+
+(Ask the audience.)
+
+If the best guess is 100 units, should the business always order exactly 100?
+
+(Pause.)
+
+Not necessarily. The answer depends on forecast uncertainty and whether shortage or overstock is more costly.
+
+(Click Component walkthrough. Click “Histories.”)
+
+The inputs are product histories and covariates. A covariate is additional information related to demand, such as price, promotion, season, or holiday timing.
+
+(Click “Shared RNN.”)
+
+The shared recurrent core learns patterns across many products. Autoregressive means the model uses previous observed or predicted values to help forecast the next value.
+
+(Click “Distribution head.”)
+
+The distribution head turns the model’s memory into a range of possible future demand. During training, likelihood asks a simple question: “Did the model assign high probability to the demand that actually happened?”
+
+(Click “Forecast fan.”)
+
+The forecast fan shows P10, P50, and P90. These are positions inside the predicted range. P50 is the middle. P90 is a higher-demand planning level. It does not mean the forecast is “90 percent accurate.” It means the model expects demand to stay below that level about 90 percent of the time under similar conditions.
+
+(Click “Cost quantile,” then “Inventory.”)
+
+The business chooses a point from that forecast range after the model predicts. If running out is much worse than having leftovers, the business orders closer to the high end of the range. The order quantity is a business decision, not something hidden inside the neural network.
+
+(Point to the equation.)
+
+Theta represents learned recurrent and distribution-head parameters. Lambda weights decide how forecast horizons contribute to training. The ratio q uses shortage cost over total shortage plus overstock cost. Increasing shortage cost raises q and usually raises the selected inventory quantity.
+
+(Click Lab. Set Shortage cost to 7 and Overstock cost to 3.)
+
+The selected quantile rises above the median because stocking out is more expensive.
+
+(Reverse the values: Shortage 3, Overstock 7.)
+
+Now the decision moves lower because leftover inventory is more expensive.
+
+(Ask the audience.)
+
+Did the model’s forecast distribution change when I changed the costs?
+
+(Pause.)
+
+No. The forecast stayed the same. Only the order decision changed. That is the key lesson: a model prediction and a real-world action are not the same thing.
+
+So the main point is this: DeepAR predicts a range of possible demand. The business chooses where inside that range to order.
+
+(Click Result.)
+
+The paper reports about a 15 percent forecasting improvement over leading methods at that time across several real datasets. But the high and low ends of the forecast can still be unreliable when the extra input information is poor, the assumed distribution does not fit, or customer behavior suddenly changes.
+
+(Click Next case.)
+
+Demand forecasting shares patterns across products and time. Our final case moves information across a spherical, multiscale representation of the entire atmosphere.
+
+============================================================
+37:00–43:00 — CASE 7: GRAPHCAST WEATHER FORECASTING
+============================================================
+
+(Click Objective.)
+
+GraphCast reads two recent global weather states, predicts the next atmospheric state six hours ahead, and repeatedly rolls that forecast forward. The architecture is a message-passing graph neural network built on a spherical multimesh.
+
+(Click Bottleneck.)
+
+Weather is local and global at the same time. A front requires fine regional detail, while planetary waves connect distant locations. A latitude-longitude grid also represents physical area unevenly near the poles and equator.
+
+(Ask the audience.)
+
+If every location could communicate only with its immediate neighbor, what would happen when information needed to travel across the globe?
+
+(Pause.)
+
+It would require many processing steps. Too many steps can also over-smooth the representation, meaning distinct locations become too similar.
+
+(Click Component walkthrough. Click “Weather grid.”)
+
+The input is two recent global weather grids plus graph geometry. A weather state includes variables such as wind, pressure, temperature, and humidity across locations.
+
+(Click “Encode graph.”)
+
+The grid-to-mesh encoder converts grid values into features on graph nodes and edges. A node is one computational location. An edge is an allowed information path.
+
+(Click “Message passing.”)
+
+Message passing lets each node receive, transform, and combine information from connected nodes. Fine edges preserve local detail. Coarse edges allow information to travel farther in fewer steps. Multimesh means multiple connection scales coexist.
+
+(Click “Decode grid.”)
+
+The mesh-to-grid decoder turns processed graph features back into the next regular weather grid.
+
+(Click “Next 6h state,” then “Rollout/use.”)
+
+The predicted six-hour weather state is fed back into the model to predict the following six hours. This repeated process is called a rollout. Four steps equal one day. Because each prediction helps create the next one, small errors can build over time. Warning rules are still chosen later by weather agencies and operators.
+
+(Point to the equation.)
+
+Theta represents learned network parameters. Lambda balances variables so one quantity or unit scale does not dominate training. Latitude weight omega corrects geographic area imbalance. Gradients update theta; researchers select the objective weights.
+
+(Click Lab. Compare local-only connections with multiscale connections. Raise Message-passing depth.)
+
+Coarse connections move information farther at the same depth. Increasing depth too far raises the risk of over-smoothing.
+
+(Increase Rollout step.)
+
+Longer rollout means one-step errors can accumulate because each forecast becomes a later input.
+
+(Ask the audience.)
+
+If GraphCast produces one very accurate trajectory, does that automatically tell us the probability of an extreme event?
+
+(Pause.)
+
+No. GraphCast gives one main forecast path in this version. Even if that path is very accurate, it does not show the full range of possible outcomes.
+
+So the main point is this: GraphCast moves weather information efficiently across the globe, but other systems are still needed to describe uncertainty and issue warnings.
+
+(Click Result.)
+
+The Science paper reports lower error than HRES on more than 90 percent of 1,380 tested targets. It also produced a ten-day global forecast at quarter-degree resolution in under one minute. But one forecast path is not enough for every warning decision. Rare extremes still need uncertainty estimates, comparison forecasts, and human operational systems.
+
+============================================================
+43:00–48:00 — SUPPLEMENTS: REUSABLE MECHANISMS
+============================================================
+
+(Click Supplements in the top navigation.)
+
+The seven flagship cases use recurring architectural ideas. These supplements separate those reusable mechanisms from the paper-specific stories.
+
+(Click RNN.)
+
+A vanilla recurrent neural network carries one hidden state through time. The same transition weights are reused at every step. It is simple, but long-term information can fade or unstable gradients can grow.
+
+(Move the Memory strength slider once.)
+
+This is the basic recurrence idea used in sequence problems: current input plus retained state produces the next state.
+
+(Click LSTM.)
+
+An LSTM adds a separate cell state and three gates. The forget gate decides what prior memory remains. The input gate decides what new information is written. The output gate decides what memory is exposed.
+
+(Click GRU, then click “RNN/LSTM/GRU compare.”)
+
+A GRU uses reset and update gates in a more compact state. The comparison is not that one architecture is universally best. The design question is how much explicit memory control the problem requires and what complexity the data can support.
+
+(Ask the audience.)
+
+Which flagship cases depended most directly on sequence memory?
+
+(Pause. Expected answers include quantum error correction and demand forecasting.)
+
+(Click Actor-Critic.)
+
+Actor-critic separates action selection from value estimation. The actor chooses an action. The critic estimates expected future value. An advantage signal asks whether the outcome was better or worse than the critic expected. A biased critic can push the actor in the wrong direction.
+
+(Click Formal Search.)
+
+Formal search separates probability, budget, and verification. Model probability ranks proof moves. Search budget allocates attempts. The verifier alone determines formal acceptance.
+
+(Click Self-Supervised.)
+
+Self-supervised pretraining hides part of an unlabeled input, learns to reconstruct it, and then fine-tunes the encoder with scarce labels. The important limitation is task alignment: becoming good at reconstruction does not guarantee the representation is useful for the downstream scientific question.
+
+(Return to Cases or remain on Supplements for the conclusion.)
+
+============================================================
+48:00–51:00 — CONCLUSION AND FINAL AUDIENCE QUESTION
+============================================================
+
+Let us make the whole presentation simple. In every case, the model design followed the hardest information problem.
+
+Quantum decoding needed to connect warnings across qubits and time, so it used attention and memory. Mineral prospectivity had many maps but few known deposits, so it learned from unlabeled maps first. Deep hedging needed to judge a full sequence of trades after costs, so it learned an action policy. MatterGen needed atom types, positions, and crystal shape to stay physically connected, so it used geometry-aware generation. Formal theorem proving needed to separate a likely answer from a correct answer, so it combined a language model with search and a verifier. DeepAR needed shared product patterns and uncertainty, so it predicted a range before the business chose an order quantity. GraphCast needed weather information to move both locally and globally, so it used a multiscale graph.
+
+(Pause, then ask the final question.)
+
+If you were evaluating a new machine-learning system tomorrow, what would you ask first: “Which model is most advanced?” or “What information relationship is the current approach failing to capture?”
+
+(Invite two responses.)
+
+The second question is usually more useful. First identify what information the current method is missing. Then choose the model design.
+
+There is one final distinction I want you to retain. The model learns parameters. Researchers choose data handling and training priorities. Operators choose costs, thresholds, and actions. A clear technical explanation shows who controls each value, what changes when it moves, and what external validation still remains.
+
+(Point to the current limitation or source link.)
+
+Every reported result today belongs to a specific paper, dataset, metric, and test setting. None of the classroom sliders reproduces a paper experiment. The labs expose relationships so we can reason about them. The paper sources and limitations define what the evidence actually supports.
+
+Thank you. I am happy to go back to any case, equation, or architecture component for questions.
+
+============================================================
+OPTIONAL 3–5 MINUTE QUESTION BUFFER
+============================================================
+
+If the audience asks what a weight means:
+
+(Open the Weight key.)
+
+A learned parameter is stored inside the model and updated by gradients. A dynamic weight, such as attention, is calculated for the current input. A data or loss weight is chosen by researchers to control training emphasis. A decision cost or threshold is chosen after prediction to convert information into action.
+
+If the audience asks what a gradient means:
+
+A gradient indicates how a small change in a learned parameter would change the training loss. The optimizer uses that information to update parameters. The gradient does not choose the scientific goal, the field budget, the inventory cost, or the warning policy.
+
+If the audience asks whether the equations are complete reproductions:
+
+The equations on this site are compact teaching representations. They identify the important ownership and tradeoffs, but they do not reproduce every implementation detail in the original code or paper. The primary paper links define the complete research method.
+
+If the audience asks which architecture is best:
+
+There is no model that is best for every problem. A model is useful when its design matches the hard part of the task, its output helps the real decision, and it still works when tested outside its training examples.
