@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { CaseLesson, PresentationStageId } from "../data/types";
 import { vocabularyByCase } from "../data/vocabulary";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
+import { BeginnerKey } from "./BeginnerKey";
 import { ContextualVocabulary } from "./ContextualVocabulary";
 import { ExplanationTabs } from "./ExplanationTabs";
 import { InteractiveLab } from "./InteractiveLab";
@@ -78,6 +79,7 @@ export function CaseWorkspace({
         </div>
         <button onClick={onOpenWeightHelp}>Open weight key</button>
       </header>
+      <BeginnerKey />
 
       {presentationMode ? (
         <nav className="lesson-progress" aria-label="Presentation lesson stages">
