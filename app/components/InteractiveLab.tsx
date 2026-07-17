@@ -132,25 +132,26 @@ function LabShell({
   return (
     <section className="lab-panel" aria-label="Interactive teaching model">
       <div className="lab-topline">
-        <span>Illustrative teaching model -- not a reproduction of the paper&apos;s experiment.</span>
+        <div><span className="section-kicker">TRY THE IDEA</span><h2>Change a weighting decision</h2></div>
         <button onClick={onReset}>Reset</button>
       </div>
+      <p className="lab-disclaimer"><b>Classroom simulation:</b> This interaction explains the paper&apos;s reasoning. It does not reproduce the researchers&apos; data or reported experiment.</p>
       <div className="lab-grid">
         <div className="lab-card ask">
-          <span>ASK</span>
+          <span>QUESTION</span>
           <p>{ask}</p>
         </div>
         <div className="lab-card adjust">
-          <span>ADJUST</span>
+          <span>CHANGE THESE ASSUMPTIONS</span>
           {controls}
         </div>
         <div className="lab-card observe">
-          <span>OBSERVE</span>
+          <span>WHAT CHANGES?</span>
           {visual}
           <p>{observe}</p>
         </div>
         <div className="lab-card why">
-          <span>WHY</span>
+          <span>CONNECTION TO THE PAPER</span>
           <p>{why}</p>
         </div>
       </div>
