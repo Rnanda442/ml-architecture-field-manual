@@ -690,6 +690,16 @@ p {
   min-height: 188px;
 }
 
+.lab-card.adjust {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 10px;
+  align-content: start;
+}
+
+.lab-card.adjust > span {
+  grid-column: 1 / -1;
+}
+
 .lab-control,
 .lab-select {
   display: grid;
@@ -1526,6 +1536,10 @@ p {
   }
 
   .lab-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-card.adjust {
     grid-template-columns: 1fr;
   }
 
