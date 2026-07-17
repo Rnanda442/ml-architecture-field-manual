@@ -1,15 +1,28 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import type { CaseLesson } from "../data/types";
+import { useEffect, useMemo, useState } from "react";
+import type { CaseLesson, PresentationStageId } from "../data/types";
 import { vocabularyByCase } from "../data/vocabulary";
+import { caseScripts } from "../data/scripts";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import { ContextualVocabulary } from "./ContextualVocabulary";
-import { EvidencePanel } from "./EvidencePanel";
 import { ExplanationTabs } from "./ExplanationTabs";
 import { InteractiveLab } from "./InteractiveLab";
 import { ObjectiveBanner } from "./ObjectiveBanner";
+import { PresenterScriptPanel } from "./PresenterScriptPanel";
+import { ResultStage } from "./ResultStage";
 import { StudentGuide } from "./StudentGuide";
+import { WeightsStage } from "./WeightsStage";
+
+const stages: { id: PresentationStageId; label: string }[] = [
+  { id: "objective", label: "Objective" },
+  { id: "bottleneck", label: "Bottleneck" },
+  { id: "architecture", label: "Architecture" },
+  { id: "vocabulary", label: "Vocabulary" },
+  { id: "weights", label: "Weights" },
+  { id: "lab", label: "Lab" },
+  { id: "result", label: "Result" },
+];
 
 export function CaseWorkspace({
   lesson,
@@ -28,7 +41,7 @@ export function CaseWorkspace({
 }) {
   const [resetToken, setResetToken] = useState(0);
   const [selectedNodeId, setSelectedNodeId] = useState(lesson.diagram.nodes[1]?.id ?? lesson.diagram.nodes[0].id);
-  const [presentationStage, setPresentationStage] = useState(2);
+  const [presentationStage, setPresentationStage] = useState<PresentationStageId>("architecture");
   const index = cases.findIndex((item) => item.id === lesson.id);
   const previous = cases[(index - 1 + cases.length) % cases.length];
   const next = cases[(index + 1) % cases.length];
@@ -37,6 +50,26 @@ export function CaseWorkspace({
   const architecture = <ArchitectureDiagram key={`${lesson.id}-${resetToken}-diagram`} spec={lesson.diagram} selectedId={selectedNodeId} onSelectNode={setSelectedNodeId} vocabulary={vocabulary} />;
   const vocabularyPanel = <ContextualVocabulary terms={vocabulary} diagram={lesson.diagram} onSelectNode={setSelectedNodeId} />;
   const lab = <InteractiveLab key={`${lesson.id}-${resetToken}-lab`} caseId={lesson.id} />;
+  const script = caseScripts[lesson.id];
+
+  useEffect(() => {
+    if (!presentationMode) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.matches("input, select, textarea") || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      const currentIndex = stages.findIndex((item) => item.id === presentationStage);
+      const nextIndex = event.key === "ArrowRight" ? Math.min(stages.length - 1, currentIndex + 1) : Math.max(0, currentIndex - 1);
+      if (nextIndex !== currentIndex) {
+        event.preventDefault();
+        setPresentationStage(stages[nextIndex].id);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [presentationMode, presentationStage]);
+
+  const activeStageIndex = stages.findIndex((item) => item.id === presentationStage);
 
   return (
     <section
@@ -47,24 +80,30 @@ export function CaseWorkspace({
         <div>
           <span className="eyebrow">Case {lesson.number} · {lesson.field} · {lesson.organization}</span>
           <h1 id="case-title">{lesson.name}</h1>
-          <p className="architecture-label">Architecture used: <b>{lesson.architecture}</b></p>
+          <p className="architecture-label"><b>{lesson.architecture}</b> · {lesson.objective.sentence}</p>
         </div>
-        <button onClick={onOpenWeightHelp}>What does weight mean?</button>
+        <button onClick={onOpenWeightHelp}>Open weight key</button>
       </header>
 
       {presentationMode ? (
         <nav className="lesson-progress" aria-label="Presentation lesson stages">
-          {["Objective", "Bottleneck", "Architecture", "Weights", "Result"].map((label, indexValue) => (
-            <button key={label} className={presentationStage === indexValue ? "active" : ""} onClick={() => setPresentationStage(indexValue)}><span>{indexValue + 1}</span>{label}</button>
+          {stages.map((item, indexValue) => (
+            <button key={item.id} className={`${presentationStage === item.id ? "active" : ""} ${indexValue < activeStageIndex ? "complete" : ""}`} onClick={() => setPresentationStage(item.id)} aria-current={presentationStage === item.id ? "step" : undefined}><span>{indexValue < activeStageIndex ? "✓" : indexValue + 1}</span>{item.label}</button>
           ))}
         </nav>
       ) : null}
 
-      {!presentationMode || presentationStage === 0 ? <ObjectiveBanner objective={lesson.objective} /> : null}
-      {!presentationMode || presentationStage === 1 ? <StudentGuide lesson={lesson} /> : null}
-      {!presentationMode || presentationStage === 2 ? <>{architecture}{vocabularyPanel}</> : null}
-      {!presentationMode || presentationStage === 3 ? <>{lab}<ExplanationTabs key={lesson.id} lesson={lesson} technicalDetail={technicalDetail && !presentationMode} /></> : null}
-      {presentationMode && presentationStage === 4 ? <section className="presentation-result"><div className="section-heading-row"><div><span className="section-kicker">FROM THE PAPER</span><h2>Reported result and limitation</h2></div><p>Paper evidence is separated from the classroom demonstrations used in the lab.</p></div><EvidencePanel evidence={lesson.evidence} /></section> : null}
+      {presentationMode ? <div className="keyboard-hint">← / → stages · Shift + ← / → cases · Esc closes drawers</div> : null}
+      {presentationMode && script ? <PresenterScriptPanel script={script} stage={presentationStage} onStageChange={setPresentationStage} /> : null}
+
+      {!presentationMode || presentationStage === "objective" ? <ObjectiveBanner objective={lesson.objective} /> : null}
+      {!presentationMode || presentationStage === "bottleneck" ? <StudentGuide lesson={lesson} /> : null}
+      {!presentationMode || presentationStage === "architecture" ? architecture : null}
+      {!presentationMode || presentationStage === "vocabulary" ? vocabularyPanel : null}
+      {!presentationMode || presentationStage === "weights" ? <WeightsStage lesson={lesson} /> : null}
+      {!presentationMode || presentationStage === "lab" ? lab : null}
+      {!presentationMode || presentationStage === "result" ? <ResultStage lesson={lesson} /> : null}
+      {!presentationMode ? <ExplanationTabs key={lesson.id} lesson={lesson} technicalDetail={technicalDetail} /> : null}
 
       {lesson.id === "graphcast" ? (
         <details className="technical-drawer" open={technicalDetail && !presentationMode}>
@@ -79,7 +118,7 @@ export function CaseWorkspace({
 
       <footer className="case-controls">
         <button onClick={() => onSelectCase(previous.id)}>Previous case</button>
-        <button onClick={() => { setResetToken((value) => value + 1); setSelectedNodeId(lesson.diagram.nodes[1]?.id ?? lesson.diagram.nodes[0].id); }}>Reset</button>
+        <button onClick={() => { setResetToken((value) => value + 1); setSelectedNodeId(lesson.diagram.nodes[1]?.id ?? lesson.diagram.nodes[0].id); setPresentationStage("architecture"); }}>Reset</button>
         <button className="primary-action" onClick={() => onSelectCase(next.id)}>
           Next case
         </button>
