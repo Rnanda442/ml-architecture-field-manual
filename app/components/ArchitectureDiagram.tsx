@@ -32,15 +32,22 @@ export function ArchitectureDiagram({
   selectedId,
   onSelectNode,
   vocabulary,
+  equation,
+  equationNote,
 }: {
   spec: DiagramSpec;
   selectedId: string;
   onSelectNode: (id: string) => void;
   vocabulary: VocabularyTerm[];
+  equation: string;
+  equationNote: string;
 }) {
   const [mode, setMode] = useState<RevealMode>("process");
   const selected = nodeById(spec.nodes, selectedId) ?? spec.nodes[0];
-  const relatedTerm = vocabulary.find((term) => term.nodeIds.includes(selected.id));
+  const relatedTerms = vocabulary.filter((term) => term.nodeIds.includes(selected.id));
+  const relatedTerm = relatedTerms[0];
+  const selectedIndex = spec.nodes.findIndex((node) => node.id === selected.id);
+  const selectAt = (index: number) => onSelectNode(spec.nodes[Math.max(0, Math.min(spec.nodes.length - 1, index))].id);
   const connectedIds = useMemo(() => {
     const ids = new Set([selectedId]);
     spec.edges.forEach((edge) => {
@@ -56,7 +63,7 @@ export function ArchitectureDiagram({
     <section className={`diagram-panel accent-${spec.accent}`} aria-label="Clickable architecture pipeline">
       <div className="section-heading-row">
         <div><span className="section-kicker">PAPER ARCHITECTURE</span><h2>Follow the information</h2></div>
-        <p>Click each box from left to right. The explanation beside it tells you what that component contributes to the paper.</p>
+        <p>Move from left to right. Each component explains its input, action, vocabulary, weight, equation connection, and output before you continue.</p>
       </div>
       <div className="diagram-toolbar" role="tablist" aria-label="Diagram reveal controls">
         {[
@@ -164,12 +171,17 @@ export function ArchitectureDiagram({
         </div>
 
         <aside className="node-detail" aria-live="polite">
-          <span className="eyebrow">Selected component</span>
+          <div className="component-progress"><span>Component {selectedIndex + 1} of {spec.nodes.length}</span><progress value={selectedIndex + 1} max={spec.nodes.length} /></div>
+          <span className="eyebrow">Component</span>
           <h3>{selected.label}</h3>
+          <dl>
+            <div><dt>WHAT ENTERS</dt><dd>{selected.input}</dd></div>
+          </dl>
           <div className="selected-explanation">
-            <span>WHAT IT MEANS</span>
-            <p>{relatedTerm?.meaning ?? selected.description}</p>
+            <span>WHAT IT DOES</span>
+            <p>{selected.description}</p>
           </div>
+          {relatedTerms.length ? <div className="selected-vocabulary"><span>VOCABULARY TO KNOW HERE</span>{relatedTerms.map((term) => <article key={term.term}><b>{term.term}</b><p>{term.meaning}</p><small>Example: {term.example}</small></article>)}</div> : null}
           <div className="selected-explanation example">
             <span>SIMPLE EXAMPLE</span>
             <p>{relatedTerm?.example ?? `Think of ${selected.shortLabel.toLowerCase()} as one stage that receives information, changes it, and passes a more useful form onward.`}</p>
@@ -180,23 +192,20 @@ export function ArchitectureDiagram({
           </div>
           <dl>
             <div>
-              <dt>Input</dt>
-              <dd>{selected.input}</dd>
-            </div>
-            <div>
-              <dt>Output</dt>
+              <dt>WHAT LEAVES</dt>
               <dd>{selected.output}</dd>
             </div>
             <div className={`weight-class ${classForWeight(selected.weightClass)}`}>
-              <dt>WEIGHT TYPE · {selected.weightClass}</dt>
+              <dt>WEIGHT OR SETTING · {selected.weightClass}</dt>
               <dd>
                 <Latex>{selected.weight}</Latex>
               </dd>
             </div>
             <div>
-              <dt>WHAT THE WEIGHT CONTROLS</dt>
+              <dt>WHO CONTROLS IT · WHAT IT CHANGES</dt>
               <dd>{weightControl(selected)}</dd>
             </div>
+            <div className="equation-connection"><dt>RELATED TRAINING EQUATION</dt><dd><Latex block>{equation}</Latex><p>{equationNote}</p></dd></div>
             <div>
               <dt>IF MISWEIGHTED</dt>
               <dd>{selected.failure}</dd>
@@ -206,6 +215,7 @@ export function ArchitectureDiagram({
               <dd>Point to <b>{selected.shortLabel}</b> and follow the highlighted edge from its input toward its output.</dd>
             </div>
           </dl>
+          <div className="component-step-controls"><button disabled={selectedIndex === 0} onClick={() => selectAt(selectedIndex - 1)}>Previous component</button><button className="primary-action" disabled={selectedIndex === spec.nodes.length - 1} onClick={() => selectAt(selectedIndex + 1)}>Next component</button></div>
         </aside>
       </div>
 
