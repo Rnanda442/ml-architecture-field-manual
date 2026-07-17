@@ -2,7 +2,6 @@
 
 import { useState, type CSSProperties } from "react";
 import { supplementLessons } from "../data/supplements";
-import { supplementScripts } from "../data/scripts";
 import type { SupplementLesson } from "../data/types";
 import { Latex } from "./Latex";
 
@@ -94,20 +93,8 @@ export function SupplementWorkspace({
   onSelect: (id: string) => void;
 }) {
   const [compare, setCompare] = useState(false);
-  const [presenterView, setPresenterView] = useState(false);
-  const [scriptLength, setScriptLength] = useState<"quick" | "full">("quick");
-  const [copied, setCopied] = useState(false);
   const lesson =
     supplementLessons.find((item) => item.id === activeId) ?? supplementLessons[0];
-  const script = supplementScripts[lesson.id];
-
-  const copyScript = async () => {
-    if (!script) return;
-    const lines = scriptLength === "quick" ? script.quick : script.full;
-    await navigator.clipboard.writeText(`${lesson.name}\n\n${lines.join("\n\n")}\n\nEquation note: ${script.equationNote}\nFailure mode: ${script.failureMode}`);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
-  };
 
   return (
     <section className="supplement-workspace" aria-labelledby="supplement-title">
@@ -137,24 +124,6 @@ export function SupplementWorkspace({
         </button>
       </div>
 
-      <div className="presenter-controls audience-controls" aria-label="Supplement speaker notes controls">
-        <span><b>{presenterView ? "Presenter view" : "Audience view"}</b> · {presenterView ? "speaker notes visible" : "speaker notes hidden"}</span>
-        <button onClick={() => setPresenterView((value) => !value)}>{presenterView ? "Audience View" : "Open Presenter View"}</button>
-      </div>
-
-      {presenterView && script ? (
-        <section className="supplement-script" aria-label={`${lesson.name} presenter script`}>
-          <div className="script-toolbar">
-            <div role="group" aria-label="Supplement script length">
-              <button className={scriptLength === "quick" ? "active" : ""} onClick={() => setScriptLength("quick")}>45–60 sec</button>
-              <button className={scriptLength === "full" ? "active" : ""} onClick={() => setScriptLength("full")}>2–3 min</button>
-            </div>
-            <button onClick={copyScript}>{copied ? "Copied" : "Copy Script"}</button>
-          </div>
-          <div className="script-copy">{(scriptLength === "quick" ? script.quick : script.full).map((line) => <p key={line}><span>{line}</span></p>)}</div>
-        </section>
-      ) : null}
-
       {compare ? (
         <RnnComparison />
       ) : (
@@ -169,7 +138,7 @@ export function SupplementWorkspace({
           <div className="supplement-equation">
             <span>CORE EQUATION</span>
             <Latex block>{lesson.equation}</Latex>
-            {script ? <div className="supplement-equation-note"><b>Spoken interpretation</b><p>{script.equationNote}</p></div> : null}
+            <div className="supplement-equation-note"><b>What the equation says</b><p>The terms show how this mechanism transforms its current input and retained state. Learned symbols are adjusted during training; settings such as horizons, loss balance, and decision rules are chosen by people.</p></div>
           </div>
           <div className="supplement-weight-list">
             <span>THREE IMPORTANT WEIGHTS</span>
@@ -203,7 +172,6 @@ export function SupplementWorkspace({
               <p>{lesson.limitation}</p>
             </div>
           </div>
-          {script ? <div className="supplement-teaching-summary"><article><span>COMMON FAILURE MODE</span><p>{script.failureMode}</p></article><article><span>FLAGSHIP CONNECTION</span><p>{script.flagshipLinks.join(" · ")}</p></article></div> : null}
         </article>
       )}
     </section>
