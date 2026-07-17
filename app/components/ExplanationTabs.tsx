@@ -20,9 +20,9 @@ export function ExplanationTabs({
     <section className="explanation-tabs" aria-label="Case explanation tabs">
       <div className="tab-list" role="tablist">
         {[
-          ["why", "Why this model"],
-          ["weights", "Weights"],
-          ["evidence", "Evidence"]
+          ["why", "Reasoning"],
+          ["weights", "What the weights mean"],
+          ["evidence", "Paper & results"]
         ].map(([id, label]) => (
           <button
             key={id}
@@ -39,15 +39,15 @@ export function ExplanationTabs({
       {tab === "why" ? (
         <div className="why-strip" role="tabpanel">
           <article>
-            <span>PROBLEM</span>
+            <span>WHY THE OLD APPROACH STRUGGLES</span>
             <p>{lesson.problem}</p>
           </article>
           <article>
-            <span>BOTTLENECK</span>
+            <span>THE INFORMATION BOTTLENECK</span>
             <p>{lesson.bottleneck}</p>
           </article>
           <article>
-            <span>ARCHITECTURE RESPONSE</span>
+            <span>WHY THIS ARCHITECTURE FITS</span>
             <p>{lesson.response}</p>
           </article>
         </div>
