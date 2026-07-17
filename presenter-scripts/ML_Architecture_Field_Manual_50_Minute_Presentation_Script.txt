@@ -1,0 +1,761 @@
+ML ARCHITECTURE FIELD MANUAL
+SOURCE-GROUNDED 50-MINUTE PRESENTATION SCRIPT
+
+Target runtime: 48-55 minutes, with a 3-5 minute question buffer.
+
+HOW TO READ THIS FILE
+
+Words outside parentheses are spoken aloud.
+Directions in parentheses are presenter actions and are not spoken.
+Keep Presentation Mode on.
+Do not treat the classroom labs as paper experiments.
+Whenever a number is used, it belongs to the primary paper named in that case.
+
+The four claim labels used in this script are:
+Reported by the paper: a direct paper result or setup.
+Interpretation supported by the paper: a careful explanation of why the result matters.
+Classroom illustration on the website: an interaction built to teach the idea.
+Presenter analogy only: a simple analogy, not a scientific claim.
+
+TIMING TABLE
+
+Section | Planned minutes | Approximate spoken words | Interactions | Audience questions
+Opening | 3.5 | 430 | 2 | 1
+Case 1: Quantum error correction | 6.5 | 790 | 8 | 2
+Case 2: Critical-mineral prospectivity | 6.5 | 790 | 8 | 2
+Case 3: Deep hedging | 5.5 | 670 | 7 | 2
+Case 4: MatterGen inverse materials design | 6.0 | 730 | 8 | 2
+Case 5: Formal theorem proving | 5.5 | 680 | 7 | 2
+Case 6: DeepAR demand forecasting | 5.5 | 680 | 7 | 2
+Case 7: GraphCast weather forecasting | 6.0 | 740 | 8 | 2
+Architecture supplements | 4.0 | 500 | 6 | 1
+Cross-case conclusion | 2.5 | 310 | 1 | 1
+Question buffer | 3-5 | flexible | as needed | as needed
+
+Actual spoken word count, excluding headings, timing table, parenthetical directions, and source appendix: 5,216 words. At 115-130 spoken words per minute, that is about 40.1-45.4 minutes of speech before scripted pauses, questions, clicks, and the 3-5 minute question buffer.
+
+============================================================
+0:00-3:30 - OPENING: HOW TO READ THE MANUAL
+============================================================
+
+(Begin on Home. Confirm Presentation mode is on. Keep the cursor away from the title.)
+
+Good morning. The whole presentation begins with one sentence: architecture follows the bottleneck.
+
+By architecture, I mean the design of the model and the path information takes through it. By bottleneck, I mean the part of the problem that makes ordinary prediction or ordinary automation fail.
+
+(Point to the four-step flow.)
+
+Look here: real problem, information bottleneck, architecture, decision or scientific output. That is the structure for today. I will not ask, "Which model is trendy?" I will ask, "What information relationship is hard, and what model design is built for that relationship?"
+
+Machine learning is the part of AI that learns relationships and decision rules from data. The architecture determines how information is allowed to move, combine, and persist.
+
+(Point to the seven flagship case buttons.)
+
+We will move through seven cases: quantum error correction, mineral prospectivity, deep hedging, inverse materials design, theorem proving, demand forecasting, and GraphCast weather forecasting.
+
+(Ask the audience.)
+
+Before we begin, when you hear the phrase "model weight," what do you think it means?
+
+(Pause 8 seconds. If nobody answers, say: "Most people think it means a number learned inside the neural network.")
+
+That answer is partly right. Today I will separate three places weighting happens. The model learns parameters. Researchers choose training objectives and data weights. Operators choose decision costs and thresholds. Not every weight is a neural-network parameter.
+
+(Click "Start guided tour.")
+
+For every case, I will use the same teaching pattern. First, what real problem is being solved? Second, why does a simpler approach struggle? Third, what did the paper test? Fourth, how does the architecture move information? Fifth, what did the paper actually report, and where does the evidence stop?
+
+The classroom labs are here to make the tradeoff visible. They are not reproductions of the papers' experiments.
+
+There is a practical reason for being this careful. In applied machine learning, the dangerous mistake is not only choosing the wrong architecture. It is also using a good paper result outside the setting where it was tested. So today, every claim will stay attached to its data, benchmark, metric, and limitation.
+
+============================================================
+3:30-10:00 - CASE 1: QUANTUM ERROR CORRECTION
+============================================================
+
+(Case 1 should be visible. Point to the objective banner.)
+
+Our first case is quantum error correction. The real problem is that physical qubits are fragile. A logical qubit stores information across several physical qubits, but errors still occur. The system needs a decoder that reads warning evidence and estimates which logical error is likely.
+
+Reported by the paper: Google Quantum AI and DeepMind tested a recurrent transformer decoder for the surface code. A surface code is a way to arrange physical qubits so errors can be detected through repeated measurements. Code distance is a rough measure of physical protection. In this paper, distance 3 and distance 5 are the real Sycamore hardware settings, and distances up to 11 are simulated larger settings.
+
+(Point to "Syndrome events" on the diagram. Click "Syndrome events across qubits and time.")
+
+The input is syndrome events. A syndrome event is not the error itself. It is warning evidence that a measurement relationship changed. Presenter analogy only: it is like hearing a smoke alarm. It tells you something is wrong, but it does not tell you exactly where the fire began.
+
+(Ask the audience.)
+
+If a smoke alarm rings once, do you know the exact source and severity of the fire?
+
+(Pause 6 seconds. Expected answer: no. If someone says "it gives a clue," say: "Exactly. It is evidence, not the full diagnosis.")
+
+That is why the old approach is hard. Algorithmic decoders such as minimum-weight perfect matching, correlated matching, belief-propagation matching, and tensor-network decoding encode assumptions about how errors connect. Real hardware has correlated noise, leakage, crosstalk, and analog readout signals. The paper's research question was whether a learned recurrent transformer could decode better by learning those patterns directly from data.
+
+(Click "Spatial attention over qubit relationships.")
+
+Spatial attention asks which qubit warnings in the current cycle should influence one another. Dynamic attention weights are calculated from the current input. They are not fixed knowledge written by a human.
+
+(Click "Recurrent memory across measurement cycles.")
+
+Recurrent memory carries unresolved evidence forward. Measurement cycle means one round of repeated error-checking measurements. The paper trained on sequences up to 25 cycles, then tested whether the decoder sustained accuracy beyond that. Generalizing beyond 25 cycles means the model did not only memorize a fixed short sequence length.
+
+(Click "Logical-error probabilities.")
+
+The exact output is logical-error probability. Logical error rate means the fraction of runs in which the protected logical information fails after decoding. Lower is better.
+
+(Click "Weights" tab. Open "Equation.")
+
+Do not read the equation all at once. Look first at ownership. Theta is learned by gradients inside the recurrent transformer. Lambda-logical and lambda-regularization are researcher-selected training settings. The downstream correction cost is selected by the operator. If missed errors are more dangerous, the correction threshold can change after the probability is produced.
+
+(Click back to "Why this model.")
+
+Now the evidence. Reported by the paper: on real Sycamore surface-code data, the machine-learning decoder achieved logical error rates of 2.901 plus or minus 0.023 percent at distance 3 and 2.748 plus or minus 0.015 percent at distance 5. The tensor-network decoder comparison was 3.028 percent at distance 3 and 2.915 percent at distance 5. The paper also compared against MWPM-style decoders, including PyMatching, correlated matching, and belief-propagation matching.
+
+In plain language, the learned decoder made fewer logical mistakes on those evaluated hardware datasets. The architecture is designed to help because attention connects spatial warning patterns and recurrence keeps temporal evidence alive. This is an interpretation supported by the paper, not a proof that every component independently caused the gain.
+
+(Click the lab. Set Memory retention low, near 25.)
+
+Classroom illustration on the website: before I move the slider again, what output do you expect to change if old evidence fades too fast?
+
+(Pause 6 seconds. Expected answer: the correction choice or logical-error probability becomes more dependent on recent warnings. If partly correct, say: "Yes, the model can still see new evidence, but the old chain weakens.")
+
+(Move Memory retention to about 75. Move Attention concentration from low to high.)
+
+Now older evidence remains. Attention concentration makes the model focus on a smaller set of spatial relationships. Too diffuse can mix noise. Too narrow can miss distributed patterns.
+
+(Move "False-correction vs missed-error cost" upward.)
+
+This last slider is not a paper result. It is a classroom decision-cost illustration. The same probability can produce a different action if the cost of missing an error is higher than the cost of a false correction.
+
+What the result does not prove: it does not prove broad deployment readiness for all quantum processors. The real-hardware result is limited to small distance 3 and distance 5 Sycamore data. The larger distances are simulated, although the simulation included realistic leakage, crosstalk, and analog readout. The required next validation is continued testing on larger devices, longer operational runs, and hardware-specific noise that changes over time.
+
+So the main point is this: the recurrent transformer produced lower logical error rates in the paper's evaluated settings because it was designed to connect syndrome evidence across qubits and time.
+
+(Click "Next case.")
+
+============================================================
+10:00-16:30 - CASE 2: CRITICAL-MINERAL PROSPECTIVITY
+============================================================
+
+(Point to the objective banner.)
+
+The second case is mineral prospectivity. The real problem is not "find a deposit with magic." The practical problem is ranking map cells so geoscientists can decide where limited surveys and drilling should go.
+
+Reported by the paper: GFM4MPM evaluated Mississippi Valley Type and Clastic-Dominated lead-zinc deposits in North America and Australia. The data setting used large multimodal geospatial layers with few historical positive labels. Multimodal means different map types describe the same place, such as geology, geophysics, and geochemistry.
+
+(Click "Geology, magnetics, gravity, geochemistry.")
+
+The input layers must be aligned. If the geology map and magnetic map are shifted, the model can learn a false relationship. This is a practical data problem before it is a modeling problem.
+
+(Ask the audience.)
+
+If most known deposits are near roads and old surveys, what accidental pattern might a model learn?
+
+(Pause 8 seconds. Expected answer: where people searched, not where deposits are. If partly correct, say: "Yes. The model can confuse exploration history with geology.")
+
+That is class imbalance and sampling bias. Class imbalance means the positive class is rare. If only a tiny number of cells are known deposits, ordinary accuracy can look high while missing what matters. Sampling bias means the labels reflect where humans looked, not only where minerals exist.
+
+(Click "Masked self-supervised learning.")
+
+The paper's research question was whether self-supervised pretraining could learn robust map features before fine-tuning on scarce deposit labels. Pretraining means learning a broad representation first. Self-supervised means the training task is created from the data itself. Here the model masks part of the geospatial input and learns to reconstruct it.
+
+(Click "Few confirmed deposit labels.")
+
+Fine-tuning means adapting that pretrained representation to the specific prospectivity task. The paper treats the problem as positive-unlabeled classification, because unlabeled cells are not guaranteed to be true negatives. The paper also uses an undersampling idea to reduce the risk of calling unknown true positives negative.
+
+(Click "Prospectivity and uncertainty map", then "Exploration ranking.")
+
+The output is prospectivity and uncertainty. It ranks places to investigate. It does not discover a deposit by itself. The external validation is mapping, sampling, and drilling.
+
+(Click "Evidence" tab.)
+
+The comparison is specific. The paper compared against five baselines: weights of evidence, gradient boosting, artificial neural networks, convolutional neural networks, and a vision transformer. The metrics included F1, Matthews correlation coefficient, area under the precision-recall curve, balanced accuracy, AUROC, and accuracy. A baseline means a comparison method used to judge whether the new method improves on existing approaches.
+
+Reported by the paper: for the MVT task, the proposed model reached F1 of 80.3 plus or minus 6.6 and AUPRC of 84.3 plus or minus 7.6. The strongest F1 baseline in the table was gradient boosting at 76.0 plus or minus 3.1. For the CD task, the proposed model reached AUPRC of 93.7 plus or minus 5.1, compared with 84.7 plus or minus 4.9 for the CNN baseline.
+
+In simple language, the model improved the ranking quality on the evaluated lead-zinc prospectivity tasks, especially where rare positives make ordinary accuracy misleading. The architecture is designed to help because masked pretraining can learn reusable spatial features from unlabeled maps before scarce labels are used.
+
+(Click "Weights" tab. Open "Equation.")
+
+Do not read the whole equation. The reconstruction term belongs to self-supervised pretraining. The prospectivity term belongs to supervised fine-tuning with rare labels. Calibration asks whether predicted probabilities behave like frequencies. The model learns encoder parameters, but researchers choose mask strategy, loss weighting, and sampling design. Survey cost is an operational decision after prediction.
+
+(Click the lab. Lower "Geology reliability" and raise "Magnetic reliability.")
+
+Classroom illustration: before I change rare-deposit weight, what do you think should happen if the model is told rare positives matter more?
+
+(Pause 6 seconds. Expected answer: it should stop ignoring possible deposit cells. If partly correct, say: "Yes, it makes missing rare positives more costly in the teaching model.")
+
+(Raise "Rare-deposit class weight." Then raise "Survey-cost weight.")
+
+Notice the distinction. Rare-deposit class weight affects the probability map. Survey-cost weight affects the operational priority. A cell can be geologically promising and still be lower priority because it is expensive to survey.
+
+What the result does not prove: it does not prove the model found new deposits. It evaluated ranking performance against known labels and geospatial data. The main limitation is that known deposits are sparse and spatially biased. External validation still requires geoscience review, field surveys, and drilling.
+
+So the main point is this: GFM4MPM uses unlabeled map structure to support rare-label prospectivity ranking, but the final claim is a ranking claim, not a confirmed-discovery claim.
+
+(Recap after the first two cases. Ask the audience.)
+
+Quick check before we leave the first pair. In the quantum case, what was the model output: a correction action or a probability used before correction?
+
+(Pause 5 seconds. Expected answer: a probability used before correction.)
+
+And in the mineral case, what was the model output: a discovered deposit or a ranked prospectivity map?
+
+(Pause 5 seconds. Expected answer: a ranked prospectivity map.)
+
+Good. Those distinctions matter because they stop us from overstating the papers. The first paper improved a decoder's error estimate under tested code settings. The second improved prospectivity ranking under evaluated map and label settings. In both cases, the architecture helps before the final real-world action.
+
+(Click "Next case.")
+
+============================================================
+16:30-22:00 - CASE 3: DEEP HEDGING
+============================================================
+
+(Point to the objective banner.)
+
+The third case is deep hedging. The real problem is not predicting tomorrow's stock direction. It is choosing a sequence of hedge positions that leaves a portfolio with lower terminal risk after trading costs.
+
+Reported by the paper: the Deep Hedging paper tested the framework in a synthetic market driven by the Heston model. A Heston model is a simulated market model where volatility changes randomly over time. The paper included market frictions such as transaction costs, and it compared the learned strategy against the standard complete-market solution.
+
+(Click "Market and portfolio state.")
+
+The input is market and portfolio state. State means the information available before choosing an action: prices, positions, time, and exposure.
+
+(Ask the audience.)
+
+Would you rather have a model that predicts tomorrow's direction, or a model that leaves you with lower final risk after costs?
+
+(Pause 6 seconds. Expected answer: lower final risk after costs. If someone says "both," say: "Yes, direction can help, but the metric here is the final risk after the whole sequence.")
+
+(Click "Sequential hedge policy.")
+
+A policy is a rule that maps state to action. In this architecture, the policy is represented by neural-network parameters. The learned output is a hedge action.
+
+(Click "Hedge action", then "Transaction cost.")
+
+Every action changes the next state and incurs cost. Transaction cost means the penalty for changing position, including fees, spread, and market impact in simplified form.
+
+(Click "Updated portfolio", then "Terminal risk objective.")
+
+The paper evaluates terminal convex risk. Terminal means at the end of the hedging period. Convex risk is a mathematical way to penalize undesirable outcome distributions, especially losses. The important point is that the metric is path-level risk after costs, not one-step accuracy.
+
+(Click "Weights" tab. Open "Equation.")
+
+Look first at ownership. Theta is the learned policy. Gamma or the chosen risk measure expresses risk preference. The cost term prices turnover. If transaction cost increases, frequent trading becomes less attractive. If risk aversion increases, the policy may accept more cost to reduce severe tail outcomes.
+
+(Click "Evidence" tab.)
+
+The exact evidence is narrower than a market claim. Reported by the paper: in the synthetic Heston-market demonstration with transaction costs, deep hedging outperformed the standard complete-market solution under the paper's terminal convex-risk objective. The paper does not report a single universal percentage improvement that applies to live markets.
+
+In plain language, when trading is costly, a frictionless textbook hedge is no longer the right target. The architecture is designed to help because it optimizes the whole action sequence under the same kind of costs that affect the final portfolio.
+
+(Click the lab. Set "Transaction cost" low, then high.)
+
+Classroom illustration: before I raise transaction cost, what do you expect to happen to trading frequency?
+
+(Pause 6 seconds. Expected answer: it should fall. If partly correct, say: "Right. The policy should trade only when the risk benefit is worth the cost.")
+
+(Raise "Risk aversion" and "Stress-scenario weight.")
+
+Now the teaching model shows a different tradeoff. Higher risk aversion and stress weight can justify stronger hedging even when turnover is expensive.
+
+(Ask the audience.)
+
+What happens if the real market crisis looks unlike the simulated Heston paths?
+
+(Pause 6 seconds. Expected answer: the learned policy may fail. If partly correct, say: "Yes. That is simulator mismatch.")
+
+What the result does not prove: it does not prove live-market profitability or robustness under regime change. The main limitation is simulator mismatch. The external validation would be stress testing, out-of-sample historical replay, transaction-cost realism, risk controls, and live governance.
+
+So the main point is this: deep hedging learns a sequential risk-management policy after costs, not a stock-price prediction rule.
+
+(Click "Next case.")
+
+============================================================
+22:00-28:00 - CASE 4: MATTERGEN INVERSE MATERIALS DESIGN
+============================================================
+
+(Point to the objective banner.)
+
+The fourth case is inverse materials design. The real problem is that researchers want materials with target properties, but brute-force simulation and synthesis are expensive.
+
+Reported by the paper: MatterGen is a conditional diffusion model for inorganic crystal structures. Diffusion means generation by reversing a corruption process. The model gradually refines atom types, coordinates, and lattice variables. Lattice means the repeating geometry of the crystal unit cell.
+
+(Click "Noisy crystal variables.")
+
+The input begins as noisy crystal variables plus a requested property. Presenter analogy only: this is like beginning with a blurred blueprint. But unlike a picture, a crystal must obey periodic geometry and physical chemistry.
+
+(Ask the audience.)
+
+If a model draws a realistic-looking bridge, does that prove the bridge can stand?
+
+(Pause 6 seconds. Expected answer: no. If partly correct, say: "Yes, it can be promising, but it needs structural validation.")
+
+(Click "Equivariant score network.")
+
+The score network learns how to denoise. Equivariance means that if the crystal is rotated or translated, the model's geometric reasoning changes consistently rather than treating it as a totally unrelated object. In this paper, that matters because atom positions and lattice geometry are not arbitrary pixels.
+
+(Click "Atom, coordinate, lattice balance.")
+
+The architecture must keep atom identity, coordinates, and lattice coupled. If the model gets the coordinates right but the atoms wrong, the material can fail. If the lattice is wrong, the same atoms can form a different physical structure.
+
+(Click "Property conditioning and guidance.")
+
+Property conditioning tells the generator what target is requested. Guidance strength pushes generation toward that condition. This can improve compliance, but too much pressure can reduce diversity or produce implausible structures.
+
+(Click "Ordered candidate crystal", then "Simulation and synthesis triage.")
+
+The output is a candidate. It is not proof of a real material. DFT, or density functional theory, is a physics-based calculation used to evaluate structures computationally. Synthesis is the laboratory attempt to make the material. Those are external validation steps.
+
+(Click "Evidence" tab.)
+
+The paper's comparison is specific. MatterGen was compared with previous state-of-the-art generative models including CDVAE and DiffCSP, with metrics based on stable, unique, and new materials and distance to the DFT-relaxed structure. Stable means within the paper's energy-above-hull criterion after DFT relaxation. Unique means not a duplicate among generated samples. New means not matching known structures in the reference databases.
+
+Reported by the Nature paper: MatterGen more than doubled the percentage of stable, unique, and new materials, generated structures more than ten times closer to the DFT local energy minimum, and synthesized one generated material whose measured property was within 20 percent of the target.
+
+In simple language, the generator was better at producing candidates that survived computational screening and one proof-of-concept synthesis. The architecture is designed to help because the diffusion process jointly denoises the coupled crystal variables, and adapters allow property conditioning.
+
+(Click "Weights" tab. Open "Equation.")
+
+Do not read every symbol. The atom, coordinate, and lattice losses are researcher-selected training balances. The score-network parameters are learned. Guidance strength is a generation setting. Screening thresholds and DFT budget are decision settings after generation.
+
+(Click the lab. Raise "Guidance strength.")
+
+Classroom illustration: before I raise guidance, what do you expect to happen to property compliance and diversity?
+
+(Pause 7 seconds. Expected answer: compliance up, diversity or stability risk may worsen. If partly correct, say: "Yes. More target pressure can narrow the search.")
+
+(Move "Atom-channel weight", "Coordinate-channel weight", and "Lattice-channel weight" one at a time.)
+
+The teaching point is balance. A single overall loss can hide that one part of the crystal is failing.
+
+What the result does not prove: it does not prove every generated candidate is synthesizable. It does not replace DFT. It does not replace laboratory synthesis. The main limitation is that the generator proposes; physics and lab systems validate.
+
+So the main point is this: MatterGen improves candidate generation for inorganic materials, but the evidence becomes strongest only after external DFT and synthesis checks.
+
+(Recap after four cases. Ask the audience.)
+
+Now compare the finance and materials cases. Which one learned an action policy, and which one generated a candidate object?
+
+(Pause 6 seconds. Expected answer: deep hedging learned the action policy; MatterGen generated candidate crystal structures.)
+
+Exactly. Deep hedging is evaluated by terminal risk after costs. MatterGen is evaluated by candidate quality under DFT and one synthesis proof of concept. The architecture-to-result link is different. In finance, the loop matters because each trade changes the next state. In materials, the coupled denoising matters because atom identity, position, lattice, and target property must agree.
+
+(Click "Next case.")
+
+============================================================
+28:00-33:30 - CASE 5: FORMAL THEOREM PROVING
+============================================================
+
+(Point to the objective banner.)
+
+The fifth case is formal theorem proving. The real problem is that a language model can write something mathematically plausible that is still formally wrong.
+
+Reported by the paper: DeepSeek-Prover-V2 is a Lean 4 formal theorem-proving model. Lean is a proof assistant. It checks whether every step follows from the encoded definitions and rules.
+
+(Click "Formal theorem and proof state.")
+
+The input is a formal theorem, the current proof state, and available lemmas. A lemma is a smaller proven result that can help prove a larger result.
+
+(Ask the audience.)
+
+If a proof explanation sounds convincing in English, is that the same as a formal proof?
+
+(Pause 6 seconds. Expected answer: no. If partly correct, say: "Exactly. Plausible language is not the same as verifier acceptance.")
+
+(Click "Language model proposes steps.")
+
+The model proposes tactics and subgoals. Likelihood means the model's learned probability for a possible continuation. It is useful for ranking what to try. It is not a correctness certificate.
+
+(Click "Branching proof search.")
+
+Search means the system keeps multiple possible proof paths alive. Pass@k means success when the system is allowed up to k attempts or samples under a finite budget. More budget can help, but it costs compute and still may miss a valid low-probability path.
+
+(Click "Lean verifier.")
+
+The verifier is the hard boundary. The model proposes. Lean verifies. That distinction is the architecture.
+
+(Click "Accepted formal proof", then "Retry or prune branch.")
+
+Rejected branches are pruned or retried. Accepted branches become formal proof artifacts, but only for the encoded theorem and library context.
+
+(Click "Evidence" tab.)
+
+The benchmarks are specific. MiniF2F-test contains formalized competition-style mathematics problems. PutnamBench contains formalized Putnam-style problems. Reported by the latest arXiv record: DeepSeek-Prover-V2-671B reached an 88.9 percent pass ratio on MiniF2F-test and solved 49 of 658 PutnamBench problems. The paper also reports 82.4 percent on MiniF2F-test at Pass@32, improving to 88.9 percent at Pass@8192.
+
+In plain language, allowing a larger search budget raised the chance of finding a verified proof on that benchmark. The architecture is designed to help because the model generates promising subgoals and proof branches, while the verifier filters correctness.
+
+(Click "Weights" tab. Open "Equation.")
+
+Look at the three parts. The supervised term learns from formal proof examples. The reinforcement term rewards proof-search outcomes. KL control discourages the updated model from drifting too far from a reference model. Theta is learned. Beta and kappa are researcher-selected. The branch budget is a search decision.
+
+(Click the lab. Select "lemma" branch. Set "Proof-attempt budget" low, then high.)
+
+Classroom illustration: before I increase the budget, what do you think will happen to lower-probability branches?
+
+(Pause 6 seconds. Expected answer: they get more chances. If partly correct, say: "Yes. Budget controls whether the search can explore beyond the most likely path.")
+
+(Ask the audience.)
+
+Should the model's confidence ever override a Lean rejection?
+
+(Pause 5 seconds. Expected answer: no.)
+
+What the result does not prove: it does not prove general human-level mathematics. It depends on formalization, available libraries, Lean version, benchmark scope, and compute budget. A formally verified solution is stronger than a plausible natural-language answer, but it is only a proof of the encoded theorem.
+
+So the main point is this: DeepSeek-Prover-V2 uses language-model probability to guide search, but formal verification decides correctness.
+
+(Click "Next case.")
+
+============================================================
+33:30-39:00 - CASE 6: DEEPAR PROBABILISTIC DEMAND FORECASTING
+============================================================
+
+(Point to the objective banner.)
+
+The sixth case is demand forecasting. The real problem is that a business needs decisions under uncertainty. A single number, like 100 units, is not enough if demand might plausibly be 60 or 160.
+
+Reported by the paper: DeepAR evaluated several real-world forecasting datasets. The public datasets included parts, electricity, and traffic. Parts was monthly sales for 1,046 automobile parts. Electricity was hourly consumption for 370 customers. Traffic was hourly occupancy for 963 San Francisco Bay Area freeway lanes. The paper also used Amazon weekly item-sales datasets called ec and ec-sub.
+
+(Click "Product histories and covariates.")
+
+The input is product history plus covariates. A covariate is extra information related to demand, such as season, price, holiday, or promotion. If covariates are wrong or missing, the forecast can be miscalibrated.
+
+(Ask the audience.)
+
+If the best guess is 100 units, should the business always stock exactly 100?
+
+(Pause 6 seconds. Expected answer: no. If partly correct, say: "Right. The cost of being short and the cost of overstock are different.")
+
+(Click "Shared recurrent core.")
+
+Autoregressive means the model uses previous values to help predict future values. Recurrent means it carries a hidden state through time. DeepAR uses one global model across many related time series, instead of fitting a separate model for each product.
+
+(Click "Probabilistic likelihood head.")
+
+Likelihood asks whether the model assigned high probability to what actually happened. For count data, the paper used a negative-binomial likelihood. That matters because demand is often intermittent and non-Gaussian.
+
+(Click "Forecast distribution P10/P50/P90.")
+
+The output is a distribution. A quantile is a point in that distribution. P50 is the median. P90 means the model expects demand to be below that level about 90 percent of the time under similar conditions. It does not mean "90 percent accurate."
+
+(Click "Business-cost quantile", then "Inventory decision.")
+
+The business chooses an inventory quantity after the forecast. Shortage cost and overstock cost select a quantile. That cost rule is a classroom decision example on the website, not necessarily one of the paper's experiments.
+
+(Click "Evidence" tab.)
+
+Reported by the paper: across several real-world forecasting datasets, DeepAR reported accuracy improvements of around 15 percent compared with state-of-the-art methods. For the parts and Amazon ec/ec-sub datasets, baselines included Croston, ETS, Snyder, ISSM, and RNN variants. Table 1 reports DeepAR average relative accuracy of 0.85, where the strongest previously published method is normalized to 1.00, and lower is better. For electricity and traffic, the paper compared point forecast accuracy with a matrix factorization method and reported DeepAR normalized deviation of 0.07 versus 0.16 on electricity, and 0.17 versus 0.20 on traffic.
+
+In simple language, the model improved probabilistic forecasting by sharing patterns across related series and producing calibrated forecast distributions. The architecture is designed to help because the shared recurrent core learns common dynamics while the likelihood head produces uncertainty, not just a point forecast.
+
+(Click "Weights" tab. Open "Equation.")
+
+The negative log-likelihood measures whether the observed demand was probable under the forecast distribution. Theta is learned. Lambda values are researcher-selected horizon weights. The cost quantile q equals shortage cost divided by shortage plus overstock cost. If shortage cost rises, q rises, and the selected inventory quantity usually rises.
+
+(Click the lab. Set "Shortage cost" to 7 and "Overstock cost" to 3.)
+
+Classroom illustration: before I reverse the costs, did the forecast distribution change, or only the decision point?
+
+(Pause 6 seconds. Expected answer: only the decision point. If partly correct, say: "Yes. The model output stays the distribution; the business rule chooses where to act.")
+
+(Set "Shortage cost" to 3 and "Overstock cost" to 7. Change product selector once.)
+
+The same forecast can lead to a different inventory decision under different costs.
+
+What the result does not prove: it does not guarantee calibration under promotions, supply shocks, new products, missing covariates, or regime change. Calibration means predicted probabilities match observed frequencies. The external validation is monitoring forecast coverage, bias, and decision cost after deployment.
+
+So the main point is this: DeepAR predicts a demand distribution, and the business chooses the action from that distribution.
+
+(Recap after six cases. Ask the audience.)
+
+Before GraphCast, let us compare formal proof and demand forecasting. Which case has an external verifier that can say accepted or rejected, and which case outputs uncertainty for a later business decision?
+
+(Pause 6 seconds. Expected answer: theorem proving has the verifier; DeepAR outputs the demand distribution.)
+
+Right. Lean verification is a hard correctness check for an encoded theorem. A demand forecast is probabilistic evidence for inventory. One is about formal acceptance. The other is about calibrated uncertainty and cost-sensitive action. This is why the same word, model, is not enough. We need to name the output and the downstream decision.
+
+(Click "Next case.")
+
+============================================================
+39:00-45:00 - CASE 7: GRAPHCAST WEATHER FORECASTING
+============================================================
+
+(Point to the objective banner.)
+
+The seventh case is GraphCast. The real problem is global weather prediction. Weather is local and global at the same time. A storm front needs local detail, while atmospheric waves connect distant regions.
+
+Reported by the paper: GraphCast was trained directly from ERA5 reanalysis data. Reanalysis means a physically consistent reconstruction of past weather built by combining observations with numerical weather prediction. The model predicts the next six-hour atmospheric state, then rolls forward repeatedly. Rollout means feeding a prediction back in to make the next prediction.
+
+(Click "Two recent global weather grids.")
+
+The input is two recent global weather states. The model operates at 0.25 degree latitude-longitude resolution, with 37 vertical levels and six-hour time steps.
+
+(Ask the audience.)
+
+If every location could communicate only with its immediate neighbor, what happens when information must travel across the globe?
+
+(Pause 6 seconds. Expected answer: it takes many steps. If partly correct, say: "Yes, and too many steps can blur local detail.")
+
+(Click "Grid-to-mesh encoder.")
+
+The encoder moves grid information onto a graph. A graph is a set of nodes and edges. A node is a computational location. An edge is an allowed path for information.
+
+(Click "Multimesh message passing.")
+
+Message passing means a node receives information from connected nodes, updates itself, and passes information onward. Multimesh means the graph has multiple scales of connections. Fine edges preserve local detail. Coarse edges move information farther.
+
+(Click "Mesh-to-grid decoder", then "Next six-hour atmospheric state.")
+
+The decoder returns the processed information to the weather grid. This gives the next six-hour state.
+
+(Click "Autoregressive rollout and decisions.")
+
+Autoregressive rollout repeats the model. Four six-hour steps are one day. Ten days means many repeated steps, so small errors can compound.
+
+(Click "Evidence" tab.)
+
+The comparison is specific. HRES is ECMWF's high-resolution deterministic forecast system. Deterministic means one main forecast path, not a distribution of many possible futures. Reported by the Science paper: GraphCast outperformed HRES on 90.3 percent of 1,380 verification targets, and significantly outperformed HRES on 89.9 percent of targets. The 1,380 targets are combinations of variables, atmospheric levels, lead times, and metrics in the paper's scorecard. The paper also reports ten-day global forecasts at 0.25 degree resolution in under one minute.
+
+In plain language, on most tested medium-range forecast targets, the learned graph model had lower error than the operational deterministic baseline. The architecture is designed to help because multimesh message passing moves atmospheric information both locally and over long distances.
+
+(Click "Weights" tab. Open "Equation.")
+
+The loss is a weighted squared-error objective. Theta is learned. Variable weights keep one variable from dominating. Latitude weights correct grid-area imbalance. Downstream warning thresholds and false-alarm costs are not learned by this core forecast loss.
+
+(Click the lab. Set "Connection type" to local, then multiscale. Raise "Message-passing depth.")
+
+Classroom illustration: before I increase rollout step, what do you expect to happen to error risk?
+
+(Pause 6 seconds. Expected answer: it increases because predictions feed later predictions. If partly correct, say: "Yes. Longer rollout exposes feedback error.")
+
+(Increase "Rollout step.")
+
+The teaching model shows why rollout matters. A one-step model can look good but still drift when repeatedly used.
+
+(Ask the audience.)
+
+If GraphCast gives one accurate trajectory, does that automatically give the probability of an extreme event?
+
+(Pause 6 seconds. Expected answer: no.)
+
+Correct. This version is deterministic. The paper itself notes that ECMWF's ensemble system is important because weather uncertainty grows at longer lead times. Ensembles generate multiple forecasts to estimate a distribution. GraphCast's deterministic accuracy does not replace calibration, ensembles, warning thresholds, or human operational systems.
+
+So the main point is this: GraphCast's multiscale graph architecture supports strong deterministic medium-range forecasts, but operational warnings still need uncertainty and decision systems.
+
+(Click "Supplements" in the top navigation.)
+
+============================================================
+45:00-49:00 - ARCHITECTURE SUPPLEMENTS: REUSABLE MECHANISMS
+============================================================
+
+The seven cases used recurring mechanisms. The supplements separate those mechanisms from the paper-specific stories.
+
+(Click "RNN.")
+
+A vanilla recurrent neural network carries one hidden state through time. The 1986 back-propagation paper is foundational for learning representations by propagating errors backward through a network. The supplement result is qualitative: recurrence shows why shared transition weights matter, but plain RNN memory can fade or become unstable over long spans.
+
+(Move the RNN memory interaction once.)
+
+This is classroom illustration. It shows how current input and retained state combine.
+
+(Click "LSTM.")
+
+LSTM stands for long short-term memory. Its 1997 paper introduced gates and constant-error flow to address long-lag learning. A gate is a learned control that decides whether information is written, forgotten, or exposed.
+
+(Click "GRU", then click "RNN/LSTM/GRU compare.")
+
+GRU is a gated recurrent unit. The 2014 encoder-decoder paper introduced update and reset gates in neural machine translation. The point is not that RNN, LSTM, or GRU is always best. The design question is how much explicit memory control the task needs.
+
+(Ask the audience.)
+
+Which flagship cases depended most directly on sequence memory?
+
+(Pause 6 seconds. Expected answers: quantum decoding, DeepAR, deep hedging, GraphCast rollouts. If partly correct, say: "Yes, any case where the current state depends on previous states.")
+
+(Click "Actor-Critic.")
+
+Actor-critic separates action selection from value estimation. The actor chooses an action. The critic estimates expected future value. The 2016 asynchronous methods paper is a key deep reinforcement-learning source. The limitation is that a biased critic can push the actor confidently in the wrong direction.
+
+(Click "Formal Search.")
+
+LLM-guided formal search separates probability, budget, and verification. It reuses the same distinction from DeepSeek-Prover-V2: model probability ranks attempts, but a verifier accepts or rejects formal steps.
+
+(Click "Self-Supervised.")
+
+Self-supervised pretraining hides part of an input, learns to reconstruct it, and then fine-tunes on a downstream task. The masked-autoencoder paper showed scalable representation learning for vision encoders. The caution is task alignment: becoming good at reconstruction does not automatically prove usefulness for the scientific task.
+
+So the main point is this: the supplements are reusable mechanisms. The flagship cases show when each mechanism actually matches a real bottleneck.
+
+============================================================
+49:00-52:00 - CROSS-CASE CONCLUSION
+============================================================
+
+(Return to Cases or remain on Supplements.)
+
+Let us make the entire field manual simple.
+
+Quantum error correction needed to connect warning evidence across qubits and time, so it used attention and recurrence. Mineral prospectivity had many maps and few labels, so it learned from unlabeled maps first. Deep hedging needed a path of actions after costs, so it learned a sequential policy. MatterGen needed atom types, coordinates, lattice, and target property to stay physically coupled, so it used diffusion over crystal variables. Theorem proving needed to separate plausible text from formal truth, so it combined a language model with search and a verifier. DeepAR needed shared history and uncertainty, so it predicted distributions. GraphCast needed local and global weather communication, so it used multiscale message passing.
+
+(Ask the final audience question.)
+
+If you evaluate a new machine-learning system tomorrow, which question should come first: "Is this the most advanced model?" or "What information relationship is the current approach failing to capture?"
+
+(Pause 8 seconds. Take two responses.)
+
+The second question is usually more useful.
+
+The last distinction I want you to keep is this. Reported paper results belong to specific datasets, benchmarks, metrics, and test settings. Interpretation helps us understand why the architecture fits. Classroom labs help us reason. Analogies help us remember. Those four things are connected, but they are not the same kind of evidence.
+
+Thank you. I am happy to go back to any case, equation, source, or architecture component.
+
+============================================================
+OPTIONAL 3-5 MINUTE QUESTION BUFFER
+============================================================
+
+If asked what a weight means:
+
+(Open "What does weight mean?")
+
+A learned parameter is stored inside the model and updated by gradients. A dynamic weight, such as attention, is calculated for the current input. A training weight is chosen by researchers to control which errors matter. A decision cost is chosen after prediction to convert information into action.
+
+If asked what a gradient means:
+
+A gradient tells the optimizer how a small parameter change would change the training loss. It updates learned parameters. It does not choose the field budget, synthesis threshold, inventory cost, or warning policy.
+
+If asked whether equations reproduce the papers:
+
+The equations on the site are compact teaching forms. They show ownership and tradeoffs. They do not reproduce every implementation detail in the original code or paper.
+
+If asked which architecture is best:
+
+There is no best model for every problem. A model is useful when its design matches the hard information relationship, its output fits the real decision, and the evidence still holds outside the training setting.
+
+============================================================
+PRIVATE PRESENTER-ONLY SOURCE APPENDIX
+Do not render this appendix on the public website.
+============================================================
+
+1. Quantum error correction
+Paper: Learning to Decode the Surface Code with a Recurrent, Transformer-Based Neural Network
+Organization/authors: Google DeepMind and Google Quantum AI, 2023
+Primary source: https://arxiv.org/abs/2310.05900
+Exact result used: real Sycamore surface-code data at distance 3 and distance 5; ML decoder logical error rate 2.901 +/- 0.023% at distance 3 and 2.748 +/- 0.015% at distance 5, compared with tensor-network decoder 3.028 +/- 0.023% and 2.915 +/- 0.016%. Simulated larger settings up to distance 11 included realistic noise; distance 11 result included 5.37 +/- 0.01 x 10^-6 logical error per round versus 6.74 +/- 0.02 x 10^-6 for MWPM-Corr under the cited setup.
+Where it appears: abstract and main results around Fig. 2 and scaling discussion.
+Wording caution: say "evaluated real Sycamore data for distance 3 and 5" and "simulated data up to distance 11." Do not imply large-distance hardware deployment.
+Old-script correction/narrowing: kept the "lower logical error rate" claim but added exact comparator values and separated real hardware from simulated scaling.
+
+2. Critical-mineral prospectivity
+Paper: GFM4MPM: Towards Geospatial Foundation Models for Mineral Prospectivity Mapping
+Organization/authors: SRI International and collaborators, 2024
+Primary source: https://arxiv.org/abs/2406.12756
+Exact result used: MVT and CD lead-zinc tasks in North America and Australia; five baselines were WoE, GBM, ANN, CNN, and ViT; metrics included F1, MCC, AUPRC, balanced accuracy, AUROC, and accuracy. MVT: proposed model F1 80.3 +/- 6.6 and AUPRC 84.3 +/- 7.6; strongest F1 baseline GBM 76.0 +/- 3.1. CD: proposed model AUPRC 93.7 +/- 5.1; CNN AUPRC 84.7 +/- 4.9.
+Where it appears: Tables 2 and 3, experimental setup, and conclusion.
+Wording caution: say "ranked prospectivity locations" and "improved evaluated prediction metrics." Do not say the model discovered deposits.
+Old-script correction/narrowing: replaced "more robust features" alone with the specific deposit types, regions, baselines, and metrics.
+
+3. Deep hedging
+Paper: Deep Hedging
+Organization/authors: J.P. Morgan research and collaborators, 2018
+Primary source: https://arxiv.org/abs/1802.03042
+Exact result used: synthetic Heston-market demonstration with transaction costs; paper reports the method outperformed the standard complete-market solution under terminal convex-risk objectives in that setting.
+Where it appears: abstract and numerical experiments section.
+Wording caution: the paper does not provide one universal percentage improvement for live markets. Do not claim market profitability.
+Old-script correction/narrowing: kept the after-cost hedging message but explicitly named Heston simulation, transaction costs, complete-market comparison, and simulator-mismatch limitation.
+
+4. Inverse materials design
+Paper: A generative model for inorganic materials design
+Organization/authors: Microsoft Research and collaborators, Nature 2025
+Primary source: https://www.nature.com/articles/s41586-025-08628-5
+Open preprint: https://arxiv.org/abs/2312.03687
+Exact result used: Nature paper reports MatterGen structures more than twice as likely to be new and stable and more than ten times closer to the local energy minimum than previous generative models; proof-of-concept synthesis measured a generated material property within 20% of target. The Nature text defines stable, unique, and new materials using DFT-relaxed energy, duplicate matching, and known-structure matching.
+Where it appears: Nature abstract, main text around Figs. 1-6.
+Wording caution: the arXiv preprint says more than 15 times closer; the published Nature article says more than ten times closer. Use the published Nature wording in the spoken script.
+Old-script correction/narrowing: kept the 20% synthesis claim but clarified DFT and synthesis as external validation.
+
+5. Formal theorem proving
+Paper: DeepSeek-Prover-V2: Advancing Formal Mathematical Reasoning via Reinforcement Learning for Subgoal Decomposition
+Organization/authors: DeepSeek, 2025
+Primary source: https://arxiv.org/abs/2504.21801
+Exact result used: latest arXiv record reports 88.9% pass ratio on MiniF2F-test and 49 of 658 PutnamBench problems solved. The paper also reports 82.4% on MiniF2F-test with Pass@32, improving to 88.9% with Pass@8192.
+Where it appears: arXiv abstract and MiniF2F results table/discussion.
+Wording caution: some older or cached PDF text reports 47 of 658; current arXiv record and user brief specify 49. State "latest arXiv record reports" if challenged.
+Old-script correction/narrowing: retained 88.9% and 49/658, added Pass@k definition and formalization/library/search-budget limitation.
+
+6. Probabilistic demand forecasting
+Paper: DeepAR: Probabilistic Forecasting with Autoregressive Recurrent Networks
+Organization/authors: Amazon, 2017
+Primary source: https://arxiv.org/abs/1704.04110
+Exact result used: paper reports around 15% forecasting accuracy improvement over state-of-the-art methods across real-world datasets. Datasets included parts, electricity, traffic, and Amazon ec/ec-sub. Table 1 reports DeepAR average relative accuracy 0.85 versus strongest previously published baseline normalized to 1.00. Table 2 reports DeepAR normalized deviation 0.07 versus MatFact 0.16 on electricity and 0.17 versus 0.20 on traffic.
+Where it appears: abstract and Tables 1-2.
+Wording caution: the website shortage/overstock slider is a classroom decision example, not a reported DeepAR experiment.
+Old-script correction/narrowing: kept the 15% claim but added datasets, baselines, and relative metric context.
+
+7. GraphCast weather forecasting
+Paper: GraphCast: Learning skillful medium-range global weather forecasting
+Organization/authors: Google DeepMind, Science 2023
+Primary source: https://www.science.org/doi/10.1126/science.adi2336
+Open preprint: https://arxiv.org/abs/2212.12794
+Exact result used: GraphCast predicts over 10 days at 0.25 degree resolution globally in under one minute and outperformed HRES on 90.3% of 1,380 verification targets, with significant outperformance on 89.9% of targets. Model operated at 0.25 degree resolution, 37 vertical levels, and six-hour time steps.
+Where it appears: abstract, scorecard results, and limitations discussion.
+Wording caution: GraphCast is deterministic; do not claim it provides a full uncertainty distribution or replaces ensembles and human warning systems.
+Old-script correction/narrowing: kept "more than 90%" but added HRES definition, target meaning, deterministic limitation, and ensemble caution.
+
+8. Vanilla RNN supplement
+Paper: Learning representations by back-propagating errors
+Organization/authors: Rumelhart, Hinton, Williams, 1986
+Primary source: https://www.nature.com/articles/323533a0
+Exact result used: qualitative supplement claim only: back-propagation enabled learning internal representations; the site uses RNN recurrence as a teaching mechanism.
+Wording caution: do not claim this paper by itself solved long sequence memory.
+
+9. LSTM supplement
+Paper: Long Short-Term Memory
+Organization/authors: Hochreiter and Schmidhuber, 1997
+Primary source: https://www.bioinf.jku.at/publications/older/2604.pdf
+Exact result used: qualitative supplement claim: gates and constant-error flow were introduced to address long-lag learning failures.
+Wording caution: say "introduced a mechanism" rather than "universally solves memory."
+
+10. GRU supplement
+Paper: Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation
+Organization/authors: Cho et al., 2014
+Primary source: https://arxiv.org/abs/1406.1078
+Exact result used: qualitative supplement claim: update and reset gates formed a compact gated recurrent model in neural machine translation experiments.
+Wording caution: do not say GRU is always better than LSTM.
+
+11. Actor-Critic supplement
+Paper: Asynchronous Methods for Deep Reinforcement Learning
+Organization/authors: Google DeepMind, 2016
+Primary source: https://arxiv.org/abs/1602.01783
+Exact result used: qualitative supplement claim: actor-critic separates policy/action selection from value estimation and advantage-based updates.
+Wording caution: avoid claiming actor-critic alone guarantees stable learning.
+
+12. LLM-guided formal search supplement
+Paper: DeepSeek-Prover-V2
+Organization/authors: DeepSeek, 2025
+Primary source: https://arxiv.org/abs/2504.21801
+Exact result used: same verifier-grounded benchmark evidence as Case 5.
+Wording caution: model probability ranks attempts; Lean verification decides correctness.
+
+13. Self-supervised pretraining supplement
+Paper: Masked Autoencoders Are Scalable Vision Learners
+Organization/authors: Meta AI, 2021
+Primary source: https://arxiv.org/abs/2111.06377
+Exact result used: qualitative supplement claim: masked reconstruction pretraining can learn scalable visual representations that are fine-tuned downstream.
+Wording caution: reconstruction skill does not guarantee downstream scientific usefulness unless the task aligns.
+
+QUALITY-CONTROL CHECKLIST
+
+[x] Every numerical result matches the primary source or is flagged with a source-version caution.
+[x] Every result includes metric and evaluation setting.
+[x] Every comparison names its baseline or comparison group.
+[x] Every direct conclusion is explained in plain language.
+[x] Every limitation is specific.
+[x] Every architecture-to-result connection is careful and non-causal unless supported.
+[x] Every flagship case contains an audience question.
+[x] Every lab contains a prediction question before the control change.
+[x] Every equation is explained by ownership and effect.
+[x] Presenter directions match the current website controls.
+[x] Script remains at least 40 minutes.
+[x] Presenter material remains outside the public application.
+[x] No script content is imported into the audience website.
