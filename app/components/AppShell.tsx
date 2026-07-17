@@ -134,6 +134,7 @@ export function AppShell() {
         <div className="case-shell">
           <CaseNavigation cases={caseLessons} activeId={activeCaseId} onSelect={openCase} />
           <CaseWorkspace
+            key={activeCase.id}
             lesson={activeCase}
             cases={caseLessons}
             presentationMode={presentationMode}
