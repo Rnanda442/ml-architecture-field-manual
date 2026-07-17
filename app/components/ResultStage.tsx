@@ -1,4 +1,5 @@
 import type { CaseLesson } from "../data/types";
+import { TermHelp } from "./TermHelp";
 
 export function ResultStage({ lesson }: { lesson: CaseLesson }) {
   return (
@@ -13,8 +14,8 @@ export function ResultStage({ lesson }: { lesson: CaseLesson }) {
             <div><dt>Research question</dt><dd>{lesson.objective.sentence}</dd></div>
             <div><dt>Dataset or experimental setting</dt><dd>{lesson.evidence.setting}</dd></div>
             <div><dt>Architecture</dt><dd>{lesson.architecture}</dd></div>
-            <div><dt>Training objective</dt><dd>{lesson.weights.training}</dd></div>
-            <div><dt>Evaluation metric</dt><dd>{lesson.evidence.metric}</dd></div>
+            <div><dt>Training objective <TermHelp term="training objective" meaning="The measured error or reward that guides parameter updates during training." /></dt><dd>{lesson.weights.training}</dd></div>
+            <div><dt>Evaluation metric <TermHelp term="evaluation metric" meaning="A measurement used to judge performance on a stated test setting. It is evidence, not a guarantee for every deployment." /></dt><dd>{lesson.evidence.metric}</dd></div>
           </dl>
         </div>
         <article className="reported-result">
