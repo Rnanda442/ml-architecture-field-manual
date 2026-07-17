@@ -2,6 +2,30 @@
 
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { Latex } from "./Latex";
+import { TermHelp } from "./TermHelp";
+
+const controlHelp: Record<string, string> = {
+  "Memory retention": "How strongly evidence from earlier time steps remains available. Higher means older evidence fades more slowly.",
+  "Attention concentration": "How narrowly the model focuses influence on a few relationships. Higher means fewer connections dominate.",
+  "False-correction vs missed-error cost": "The relative consequence assigned to acting incorrectly versus failing to act on a real error.",
+  "Geology reliability": "How trustworthy the geological layer is treated in this illustration.",
+  "Magnetic reliability": "How trustworthy the magnetic survey layer is treated in this illustration.",
+  "Geochemistry reliability": "How trustworthy the chemical evidence layer is treated in this illustration.",
+  "Rare-deposit class weight": "How strongly missing a scarce positive example counts during training. Higher makes rare deposits harder to ignore.",
+  "Survey-cost weight": "How strongly field expense reduces operational priority after prediction.",
+  "Transaction cost": "The fee or market impact caused by changing a hedge. Higher discourages frequent trading.",
+  "Risk aversion": "How strongly severe or uncertain losses are penalized.",
+  "Stress-scenario weight": "How strongly extreme simulated market paths influence training.",
+  "Guidance strength": "How strongly a desired material property steers generation.",
+  "Atom-type weight": "How strongly atom identity errors contribute to the learning objective.",
+  "Coordinate weight": "How strongly atom-position errors contribute to the learning objective.",
+  "Lattice weight": "How strongly crystal-cell errors contribute to the learning objective.",
+  "Branch budget": "The number of proof branches the search is allowed to investigate.",
+  "Shortage cost": "The consequence of ordering too little inventory.",
+  "Overstock cost": "The consequence of ordering too much inventory.",
+  "Message-passing depth": "How many rounds neighboring graph locations exchange information.",
+  "Rollout days": "How many future steps are produced by repeatedly feeding forecasts back into the model."
+};
 
 type LabValues = {
   quantumMemory: number;
@@ -76,6 +100,7 @@ function Slider({
     <label className="lab-control">
       <span>
         {label}
+        {controlHelp[label] ? <TermHelp term={label} meaning={controlHelp[label]} /> : null}
         <b>{value}</b>
       </span>
       <input
@@ -102,7 +127,7 @@ function Select({
 }) {
   return (
     <label className="lab-select">
-      <span>{label}</span>
+      <span>{label}{controlHelp[label] ? <TermHelp term={label} meaning={controlHelp[label]} /> : null}</span>
       <select value={value} onChange={(event) => onChange(event.target.value)}>
         {options.map((option) => (
           <option key={option} value={option}>
@@ -136,6 +161,7 @@ function LabShell({
         <button onClick={onReset}>Reset</button>
       </div>
       <p className="lab-disclaimer"><b>ILLUSTRATIVE CLASSROOM EXAMPLE</b> This interaction explains the paper&apos;s reasoning. It does not reproduce the researchers&apos; data, fitted parameters, or reported experiment.</p>
+      <p className="lab-try-this"><b>Try this:</b> move one control at a time, watch the visible consequence, then read why the change occurred.</p>
       <div className="lab-grid">
         <div className="lab-card ask">
           <span>QUESTION</span>
