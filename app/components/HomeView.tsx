@@ -54,7 +54,7 @@ export function HomeView({
           />
           <span>Presentation mode</span>
         </label>
-        <span className="home-count">13 complete lessons: 7 flagship cases + 6 supplements</span>
+        <span className="home-count">13 complete architecture lessons: 7 flagship cases + 6 supplements</span>
       </div>
 
       <div className="case-button-grid" aria-label="Seven flagship cases">

@@ -710,19 +710,27 @@ p {
   display: grid;
   gap: 5px;
   margin-bottom: 4px;
+  min-width: 0;
 }
 
 .lab-control span {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
   color: #2c3a34;
   font-size: 0.84rem;
   font-weight: 760;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.lab-card.adjust .lab-control {
+  overflow: hidden;
 }
 
 .lab-control input {
   width: 100%;
+  max-width: 100%;
   min-width: 0;
   accent-color: var(--green);
 }
