@@ -172,6 +172,8 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .stageExplain small{display:block;font:700 9px var(--font-geist-mono);color:#97a59e;margin-top:13px;letter-spacing:0}
 .latex{font-family:var(--font-geist-mono),Consolas,monospace;color:var(--chapter);font-size:.95em;line-height:1.35;white-space:normal;overflow-wrap:anywhere;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:4px;padding:4px 6px}
 .mathText{display:inline-block}
+.latex .katex{color:var(--chapter);font-size:1.02em}
+.visualLoss .latex,.supplementIntro .latex{max-width:100%;overflow-x:auto}
 .weightBadge{display:inline-grid;gap:4px;align-items:center;justify-items:start;background:#fff;border:1px solid rgba(20,33,30,.18);box-shadow:0 8px 20px rgba(20,33,30,.04);padding:7px 8px;min-width:0}
 .weightBadge small{font:650 9px/1.2 var(--font-geist-mono);letter-spacing:0;color:#5d6b66;text-transform:uppercase}
 .visual3{border:1px solid var(--line);background:#fbfaf6;margin:24px 0 30px;padding:24px;min-width:0;overflow:hidden}

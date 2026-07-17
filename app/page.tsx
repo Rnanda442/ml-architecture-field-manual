@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 import architectureRegistry from "../content/architecture-registry.json";
 
 type Sector = {
@@ -872,49 +874,9 @@ const supplementKeys: Record<string, DemoKey[]> = {
 
 const percentLabel = (value: number) => `${Math.round(value)}%`;
 
-function formatLatex(source: string) {
-  return source
-    .replace(/\\mathcal\{L\}/g, "L")
-    .replace(/\\mathrm\{([^}]+)\}/g, "$1")
-    .replace(/\\mathbb\{1\}/g, "1")
-    .replace(/\\hat\{\\epsilon\}/g, "epsilon_hat")
-    .replace(/\\hat\{y\}/g, "y_hat")
-    .replace(/\\tilde\{c\}/g, "c_tilde")
-    .replace(/\\tilde\{h\}/g, "h_tilde")
-    .replace(/\\theta/g, "theta")
-    .replace(/\\lambda/g, "lambda")
-    .replace(/\\alpha/g, "alpha")
-    .replace(/\\beta/g, "beta")
-    .replace(/\\gamma/g, "gamma")
-    .replace(/\\omega/g, "omega")
-    .replace(/\\phi/g, "phi")
-    .replace(/\\kappa/g, "kappa")
-    .replace(/\\rho/g, "rho")
-    .replace(/\\tau/g, "tau")
-    .replace(/\\pi/g, "pi")
-    .replace(/\\nu/g, "nu")
-    .replace(/\\sigma/g, "sigma")
-    .replace(/\\mu/g, "mu")
-    .replace(/\\sum/g, "sum")
-    .replace(/\\min/g, "min")
-    .replace(/\\log/g, "log")
-    .replace(/\\tanh/g, "tanh")
-    .replace(/\\mid/g, "|")
-    .replace(/\\quad/g, "  ")
-    .replace(/\\text\{([^}]+)\}/g, " $1 ")
-    .replace(/\\lVert/g, "||")
-    .replace(/\\rVert/g, "||")
-    .replace(/\\odot/g, " o ")
-    .replace(/\\Delta/g, "Delta")
-    .replace(/\\epsilon/g, "epsilon")
-    .replace(/_/g, "")
-    .replace(/[{}\\]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
 function Latex({children,className=""}:{children:string;className?:string}) {
-  return <span className={`latex mathText ${className}`} aria-label={children}>{formatLatex(children)}</span>;
+  const html = katex.renderToString(children,{throwOnError:false,strict:false,output:"html"});
+  return <span className={`latex mathText ${className}`} aria-label={children} dangerouslySetInnerHTML={{__html:html}} />;
 }
 
 function WeightBadge({math,label,className=""}:{math:string;label:string;className?:string}) {
