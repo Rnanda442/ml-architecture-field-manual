@@ -62,6 +62,8 @@ export type Evidence = {
   limitation: string;
   url: string;
   openUrl?: string;
+  setting: string;
+  operationalInterpretation: string;
 };
 
 export type WeightsInfo = {
@@ -133,4 +135,41 @@ export type SupplementLesson = {
   year: string;
   url: string;
   limitation: string;
+};
+
+export const presentationStages = [
+  "objective",
+  "bottleneck",
+  "architecture",
+  "vocabulary",
+  "weights",
+  "lab",
+  "result",
+] as const;
+
+export type PresentationStageId = (typeof presentationStages)[number];
+
+export type ScriptCue = {
+  stage: PresentationStageId;
+  text: string;
+  cue?: "CLICK" | "POINT" | "PAUSE" | "ASK" | "ADJUST" | "OBSERVE" | "TRANSITION";
+  relatedNodeId?: string;
+  relatedVocabularyTerm?: string;
+  relatedLabControl?: string;
+  technicalNote?: string;
+};
+
+export type CaseScript = {
+  title: string;
+  quick: ScriptCue[];
+  full: Record<PresentationStageId, ScriptCue[]>;
+  deeperNotes: string[];
+};
+
+export type SupplementScript = {
+  quick: string[];
+  full: string[];
+  equationNote: string;
+  failureMode: string;
+  flagshipLinks: string[];
 };
