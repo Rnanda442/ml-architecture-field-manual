@@ -1,19 +1,4 @@
-# ML Architecture Field Manual
-
-An interactive, research-backed manual explaining how machine-learning architecture follows the scientific or operational bottleneck. It contains seven flagship case studies, six completed architecture supplements, connected pipeline diagrams, weighting explanations, equations, primary papers, and reported results.
-
-## Streamlit Community Cloud
-
-This repository includes `streamlit_app.py`, a Streamlit entry point for the complete interactive manual. In Streamlit Community Cloud, select this repository and the `main` branch, set the entry point to `streamlit_app.py`, and deploy.
-
-For a local Streamlit run:
-
-```bash
-pip install -r requirements.txt
-streamlit run streamlit_app.py
-```
-
-## React/Sites development
+# vinext-starter
 
 A clean full-stack starter running on
 [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
