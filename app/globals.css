@@ -687,14 +687,14 @@ p {
 
 .lab-card.adjust,
 .lab-card.observe {
-  grid-column: span 2;
+  min-height: 188px;
 }
 
 .lab-control,
 .lab-select {
   display: grid;
   gap: 5px;
-  margin-bottom: 7px;
+  margin-bottom: 4px;
 }
 
 .lab-control span {

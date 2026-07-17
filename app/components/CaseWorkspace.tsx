@@ -52,7 +52,11 @@ export function CaseWorkspace({
         <InteractiveLab key={`${lesson.id}-${resetToken}-lab`} caseId={lesson.id} />
       </div>
 
-      <ExplanationTabs lesson={lesson} technicalDetail={technicalDetail && !presentationMode} />
+      <ExplanationTabs
+        key={lesson.id}
+        lesson={lesson}
+        technicalDetail={technicalDetail && !presentationMode}
+      />
 
       {lesson.id === "graphcast" ? (
         <details className="technical-drawer" open={technicalDetail && !presentationMode}>
