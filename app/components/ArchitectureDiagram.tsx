@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { DiagramEdge, DiagramNode, DiagramSpec, VocabularyTerm } from "../data/types";
 import { Latex } from "./Latex";
+import { TermHelp } from "./TermHelp";
 
 type RevealMode = "process" | "weights" | "feedback";
 
@@ -48,6 +49,7 @@ export function ArchitectureDiagram({
   const relatedTerm = relatedTerms[0];
   const selectedIndex = spec.nodes.findIndex((node) => node.id === selected.id);
   const selectAt = (index: number) => onSelectNode(spec.nodes[Math.max(0, Math.min(spec.nodes.length - 1, index))].id);
+  const nextNode = spec.nodes[selectedIndex + 1];
   const connectedIds = useMemo(() => {
     const ids = new Set([selectedId]);
     spec.edges.forEach((edge) => {
@@ -84,6 +86,11 @@ export function ArchitectureDiagram({
         <div className="weight-legend" aria-label="Weight color legend">
           <span className="learned">Learned</span><span className="dynamic">Dynamic</span><span className="data">Data</span><span className="objective">Objective</span><span className="decision">Decision</span>
         </div>
+      </div>
+      <div className="diagram-help-row" aria-label="Diagram terms">
+        <span>Process <TermHelp term="process" meaning="The normal left-to-right path followed by information." /></span>
+        <span>Weight <TermHelp term="weight" meaning="A number controlling influence. The color identifies whether the model learns it, calculates it, or a person chooses it." /></span>
+        <span>Training feedback <TermHelp term="training feedback" meaning="Error information sent backward during training so learned parameters can be adjusted. It is not another audience-facing prediction." /></span>
       </div>
 
       <div className="diagram-body">
@@ -205,7 +212,7 @@ export function ArchitectureDiagram({
               <dt>WHO CONTROLS IT · WHAT IT CHANGES</dt>
               <dd>{weightControl(selected)}</dd>
             </div>
-            <div className="equation-connection"><dt>RELATED TRAINING EQUATION</dt><dd><Latex block>{equation}</Latex><p>{equationNote}</p></dd></div>
+            <div className="equation-connection"><dt>RELATED TRAINING EQUATION <TermHelp term="training equation" meaning="A compact statement of what training tries to improve. Symbols may represent learned parameters or values chosen by researchers." /></dt><dd><Latex block>{equation}</Latex><p>{equationNote}</p><p><b>Ownership:</b> model parameters are learned; loss balances are researcher-selected; operational thresholds and costs are selected after prediction.</p></dd></div>
             <div>
               <dt>IF MISWEIGHTED</dt>
               <dd>{selected.failure}</dd>
@@ -215,6 +222,7 @@ export function ArchitectureDiagram({
               <dd>Point to <b>{selected.shortLabel}</b> and follow the highlighted edge from its input toward its output.</dd>
             </div>
           </dl>
+          <p className="component-transition">{nextNode ? <>Next, <b>{selected.output}</b> becomes input to <b>{nextNode.label}</b>.</> : <>This is the final component. Its output now supports the reported use or decision.</>}</p>
           <div className="component-step-controls"><button disabled={selectedIndex === 0} onClick={() => selectAt(selectedIndex - 1)}>Previous component</button><button className="primary-action" disabled={selectedIndex === spec.nodes.length - 1} onClick={() => selectAt(selectedIndex + 1)}>Next component</button></div>
         </aside>
       </div>
