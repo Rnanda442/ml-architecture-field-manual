@@ -90,6 +90,33 @@ export type CaseLesson = {
   evidence: Evidence;
 };
 
+export type VocabularyVisual =
+  | "qubit-grid"
+  | "timeline"
+  | "attention"
+  | "probability"
+  | "map-layers"
+  | "masking"
+  | "imbalance"
+  | "target-rank"
+  | "sequence"
+  | "risk-bars"
+  | "crystal"
+  | "denoise"
+  | "proof-tree"
+  | "forecast-fan"
+  | "multimesh"
+  | "weight-chain";
+
+export type VocabularyTerm = {
+  term: string;
+  meaning: string;
+  example: string;
+  paperLink: string;
+  nodeIds: string[];
+  visual?: VocabularyVisual;
+};
+
 export type SupplementLesson = {
   id: string;
   name: string;
