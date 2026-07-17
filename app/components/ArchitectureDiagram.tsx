@@ -9,6 +9,8 @@ type RevealMode = "process" | "weights" | "feedback";
 const classForWeight = (weightClass: string) =>
   weightClass.toLowerCase().replace(/[^a-z]+/g, "-").replace(/-$/, "");
 
+const cleanPhrase = (value: string) => value.trim().replace(/[.!?]+$/, "");
+
 function isEdgeActive(edge: DiagramEdge, selected: string) {
   return edge.from === selected || edge.to === selected;
 }
@@ -18,11 +20,11 @@ function nodeById(nodes: DiagramNode[], id: string) {
 }
 
 const weightControl = (node: DiagramNode) => {
-  if (node.weightClass === "LEARNED PARAMETER") return "Training stores and adjusts this value so the component reduces prediction loss.";
-  if (node.weightClass === "DYNAMIC WEIGHT") return "For this input, it controls which current signals influence the update most strongly.";
-  if (node.weightClass === "DATA WEIGHT") return "It controls how strongly this input, example, location, or time step contributes.";
-  if (node.weightClass === "HUMAN-SELECTED OBJECTIVE") return "The researcher selects it to control how strongly this error or target affects training.";
-  return "The operator selects it to control how a prediction becomes a real-world action.";
+  if (node.weightClass === "LEARNED PARAMETER") return `Inside ${node.shortLabel}, training adjusts stored parameters that map ${cleanPhrase(node.input).toLowerCase()} into ${cleanPhrase(node.output).toLowerCase()}.`;
+  if (node.weightClass === "DYNAMIC WEIGHT") return `For the current example, ${node.shortLabel} recalculates how strongly parts of ${cleanPhrase(node.input).toLowerCase()} influence ${cleanPhrase(node.output).toLowerCase()}.`;
+  if (node.weightClass === "DATA WEIGHT") return `For ${node.shortLabel}, it changes how strongly this example, class, location, variable, or time step contributes to learning.`;
+  if (node.weightClass === "HUMAN-SELECTED OBJECTIVE") return `The researcher uses it to decide how strongly errors connected to ${node.shortLabel} contribute to the training objective.`;
+  return `The operator uses it after ${node.shortLabel} produces ${cleanPhrase(node.output).toLowerCase()}, converting that output into a consequence-aware action.`;
 };
 
 export function ArchitectureDiagram({
@@ -198,6 +200,10 @@ export function ArchitectureDiagram({
             <div>
               <dt>IF MISWEIGHTED</dt>
               <dd>{selected.failure}</dd>
+            </div>
+            <div className="look-for-cue">
+              <dt>LOOK FOR</dt>
+              <dd>Point to <b>{selected.shortLabel}</b> and follow the highlighted edge from its input toward its output.</dd>
             </div>
           </dl>
         </aside>
