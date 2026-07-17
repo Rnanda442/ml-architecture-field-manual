@@ -310,10 +310,15 @@ p {
 .rail-progress span,
 .case-rail small,
 .lab-topline span,
-.completed-list small {
+.completed-list small,
+.home-count {
   color: var(--muted);
   font-size: 0.78rem;
   font-weight: 730;
+}
+
+.home-count {
+  align-self: center;
 }
 
 .case-button-grid b {

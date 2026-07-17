@@ -13,8 +13,10 @@ export function CompletedLessonsDrawer({
   onOpenCase: (id: string) => void;
   onOpenSupplement: (id: string) => void;
 }) {
+  if (!open) return null;
+
   return (
-    <aside className={`drawer completed-drawer ${open ? "open" : ""}`} aria-hidden={!open}>
+    <aside className="drawer completed-drawer open">
       <div className="drawer-head">
         <div>
           <span className="eyebrow">Completed lessons</span>

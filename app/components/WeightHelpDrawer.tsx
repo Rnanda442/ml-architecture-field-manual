@@ -5,8 +5,10 @@ export function WeightHelpDrawer({
   open: boolean;
   onClose: () => void;
 }) {
+  if (!open) return null;
+
   return (
-    <aside className={`drawer weight-drawer ${open ? "open" : ""}`} aria-hidden={!open}>
+    <aside className="drawer weight-drawer open">
       <div className="drawer-head">
         <div>
           <span className="eyebrow">Help</span>
