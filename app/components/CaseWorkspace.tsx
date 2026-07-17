@@ -3,23 +3,18 @@
 import { useEffect, useMemo, useState } from "react";
 import type { CaseLesson, PresentationStageId } from "../data/types";
 import { vocabularyByCase } from "../data/vocabulary";
-import { caseScripts } from "../data/scripts";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import { ContextualVocabulary } from "./ContextualVocabulary";
 import { ExplanationTabs } from "./ExplanationTabs";
 import { InteractiveLab } from "./InteractiveLab";
 import { ObjectiveBanner } from "./ObjectiveBanner";
-import { PresenterScriptPanel } from "./PresenterScriptPanel";
 import { ResultStage } from "./ResultStage";
 import { StudentGuide } from "./StudentGuide";
-import { WeightsStage } from "./WeightsStage";
 
 const stages: { id: PresentationStageId; label: string }[] = [
   { id: "objective", label: "Objective" },
   { id: "bottleneck", label: "Bottleneck" },
-  { id: "architecture", label: "Architecture" },
-  { id: "vocabulary", label: "Vocabulary" },
-  { id: "weights", label: "Weights" },
+  { id: "architecture", label: "Component walkthrough" },
   { id: "lab", label: "Lab" },
   { id: "result", label: "Result" },
 ];
@@ -47,10 +42,9 @@ export function CaseWorkspace({
   const next = cases[(index + 1) % cases.length];
   const graphCastDetails = useMemo(() => lesson.diagram.technicalDrawer ?? [], [lesson.diagram]);
   const vocabulary = vocabularyByCase[lesson.id] ?? [];
-  const architecture = <ArchitectureDiagram key={`${lesson.id}-${resetToken}-diagram`} spec={lesson.diagram} selectedId={selectedNodeId} onSelectNode={setSelectedNodeId} vocabulary={vocabulary} />;
+  const architecture = <ArchitectureDiagram key={`${lesson.id}-${resetToken}-diagram`} spec={lesson.diagram} selectedId={selectedNodeId} onSelectNode={setSelectedNodeId} vocabulary={vocabulary} equation={lesson.weights.equation} equationNote={lesson.weights.note} />;
   const vocabularyPanel = <ContextualVocabulary terms={vocabulary} diagram={lesson.diagram} onSelectNode={setSelectedNodeId} />;
   const lab = <InteractiveLab key={`${lesson.id}-${resetToken}-lab`} caseId={lesson.id} />;
-  const script = caseScripts[lesson.id];
 
   useEffect(() => {
     if (!presentationMode) return;
@@ -94,16 +88,14 @@ export function CaseWorkspace({
       ) : null}
 
       {presentationMode ? <div className="keyboard-hint">← / → stages · Shift + ← / → cases · Esc closes drawers</div> : null}
-      {presentationMode && script ? <PresenterScriptPanel script={script} stage={presentationStage} onStageChange={setPresentationStage} /> : null}
 
       {!presentationMode || presentationStage === "objective" ? <ObjectiveBanner objective={lesson.objective} /> : null}
       {!presentationMode || presentationStage === "bottleneck" ? <StudentGuide lesson={lesson} /> : null}
       {!presentationMode || presentationStage === "architecture" ? architecture : null}
-      {!presentationMode || presentationStage === "vocabulary" ? vocabularyPanel : null}
-      {!presentationMode || presentationStage === "weights" ? <WeightsStage lesson={lesson} /> : null}
       {!presentationMode || presentationStage === "lab" ? lab : null}
       {!presentationMode || presentationStage === "result" ? <ResultStage lesson={lesson} /> : null}
       {!presentationMode ? <ExplanationTabs key={lesson.id} lesson={lesson} technicalDetail={technicalDetail} /> : null}
+      {!presentationMode ? vocabularyPanel : null}
 
       {lesson.id === "graphcast" ? (
         <details className="technical-drawer" open={technicalDetail && !presentationMode}>
