@@ -7,7 +7,14 @@ HOW TO READ THIS FILE
 Words outside parentheses are spoken aloud.
 Directions in parentheses are presenter actions and are not spoken.
 If the audience gives a long answer, acknowledge it briefly and use the transition provided so the presentation stays on time.
-Keep Presentation Mode on. Use the left and right arrow keys only when a direction below tells you to change stages. Use Shift plus the arrow keys only when moving between cases.
+Keep Presentation Mode on. Follow the directions in order. Do not rush to the next screen. First tell the audience what they are looking at, then explain it, then click. Use the left and right arrow keys only when a direction below tells you to change stages. Use Shift plus the arrow keys only when moving between cases.
+
+Use this simple speaking pattern throughout:
+1. “Look here.” Point to the part of the screen that matters.
+2. “In simple terms…” Explain it without jargon.
+3. “For example…” Give the example in the script.
+4. “Why this matters…” Connect it to the paper.
+5. “So the main point is…” Give the one-sentence recap before moving on.
 
 ============================================================
 0:00–3:30 — OPENING: HOW TO READ THE WEBSITE
@@ -15,9 +22,9 @@ Keep Presentation Mode on. Use the left and right arrow keys only when a directi
 
 (Begin on the Home page. Keep the cursor away from the main text while speaking.)
 
-Good morning. The central idea of this presentation is simple: a machine-learning architecture should not be chosen because it is fashionable. It should be chosen because its structure matches the information bottleneck in the problem.
+Good morning. I want to begin with one simple idea. We should not choose a machine-learning model just because it is popular. We should choose it because its design matches the hard part of the problem.
 
-By architecture, I mean the organized set of components and information paths inside a model. By information bottleneck, I mean the specific relationship that is difficult to preserve, combine, infer, or move. Sometimes the missing relationship is across time. Sometimes it is across map layers. Sometimes it is between a model’s proposal and an external verification system.
+When I say architecture, I mean the parts inside the model and how information moves between them. When I say information bottleneck, I mean the part of the problem that is hardest for the model to understand. Sometimes information must be remembered over time. Sometimes several map layers must be combined. Sometimes a model can suggest an answer, but another system must check whether it is actually correct.
 
 (Point to the title and then the seven case cards.)
 
@@ -37,7 +44,7 @@ This key stays available throughout the presentation. An input is the informatio
 
 (Close the key. Click “Start guided tour,” or click the Quantum case.)
 
-For every case, we will use the same five-part structure: objective, bottleneck, component walkthrough, interactive lab, and reported result with its limitation. That repeated structure will let us compare architectures without pretending the scientific problems are identical.
+For every case, I will guide you through the same five questions. What is the goal? What makes the problem difficult? How does information move through the model? What happens when we change an important setting? And finally, what did the paper actually show—and what did it not show?
 
 ============================================================
 3:30–9:15 — CASE 1: QUANTUM ERROR CORRECTION
@@ -55,7 +62,7 @@ Notice the separation: the model estimates the chance of an error. It does not a
 
 (Click Bottleneck.)
 
-The bottleneck is both spatial and temporal. One warning event does not tell us the full error. The decoder must ask which events across different qubits belong together and whether events from different measurement cycles are part of the same unfolding failure.
+Here is the hard part. The decoder must connect warnings across both space and time. One warning does not reveal the full error. It has to decide which warnings from different qubits belong together and whether warnings from earlier measurement cycles are still important.
 
 (Ask the audience.)
 
@@ -71,11 +78,11 @@ We begin with syndrome events across qubits and time. What enters is repeated me
 
 (Click “Spatial attention.”)
 
-Spatial attention compares relationships among qubits within the current cycle. Attention is a dynamically calculated influence: for this specific input, one event may strongly affect the interpretation of another. These attention values are not a fixed field policy. They are recalculated from the current syndrome pattern.
+Spatial attention compares the qubits in the current cycle. In simple terms, it asks, “Which warnings seem connected right now?” One event may strongly affect how another event is understood. The model calculates these relationships again for every new pattern.
 
 (Click “Recurrent memory.”)
 
-Recurrent memory carries unresolved evidence into later measurement cycles. A hidden state is simply the model’s internal summary of useful prior information. If memory fades too quickly, earlier warnings disappear before the complete pattern becomes visible.
+Recurrent memory carries unfinished evidence into the next cycle. Think of the hidden state as the model’s short set of notes about what happened earlier. If those notes fade too quickly, the first warning may disappear before the final warning arrives.
 
 (Click “Decoder head,” then “Error probabilities.”)
 
@@ -83,7 +90,7 @@ The decoder head converts the internal representation into logical-error probabi
 
 (Click “Correction.”)
 
-The correction component belongs to the operational layer. A threshold or cost rule converts probabilities into an action. The model may predict an 85 percent chance of one logical error, while the controller decides whether that probability is high enough to justify correction.
+The correction step comes after the prediction. A threshold is simply a cutoff used to decide when to act. For example, the model may report an 85 percent chance of an error, but the controller still decides whether 85 percent is high enough to apply a correction.
 
 (Point to the related training equation.)
 
@@ -107,7 +114,9 @@ Which error would you consider worse: applying an unnecessary correction or miss
 
 (Take one or two answers. Move the false-correction versus missed-error control while summarizing.)
 
-There is no universal answer. The operational cost setting reflects the consequence structure of the controller.
+There is no single correct answer for every system. The people operating the system must decide which mistake has the worse consequence.
+
+So the main point is this: the model connects warning evidence and produces probabilities. People still choose when those probabilities justify a correction.
 
 (Click Result.)
 
@@ -127,7 +136,7 @@ Mineral prospectivity means how favorable a location appears for containing a mi
 
 (Click Bottleneck.)
 
-The bottleneck is weak multimodal evidence under rare labels. Multimodal means that the inputs measure different aspects of the same location. Geology describes rocks and structures. Geophysics measures physical contrasts. Geochemistry measures chemical evidence. Their units, coverage, resolution, and reliability differ.
+Here is the hard part. The evidence comes from several different kinds of maps, but there are very few confirmed deposits. “Multimodal” only means that the inputs describe the same place in different ways. Geology shows rocks and structures. Geophysics measures physical differences. Geochemistry shows chemical evidence. These layers do not always line up perfectly, and some are more reliable than others.
 
 The positive class—confirmed deposits—is extremely rare. Imagine 20 deposit cells and 9,980 background cells. A useless model that predicts background everywhere would appear 99.8 percent accurate. This is class imbalance: ordinary accuracy can reward a model for ignoring the thing we actually care about.
 
@@ -157,7 +166,7 @@ The output is a prospectivity and uncertainty map. Uncertainty is not simply one
 
 (Point to the equation.)
 
-The reconstruction term teaches broad map structure. The prospectivity term uses the scarce labels. The calibration term encourages probabilities that behave honestly across comparable predictions. Their lambda values are researcher-selected. Survey cost belongs after prediction.
+The first part of the equation teaches the model to understand general map patterns. The second part teaches it from the few known deposits. The third part checks whether its probability values are believable. The researchers choose how much each part matters. Field-survey cost is added later, after the model predicts.
 
 (Click Lab. Reduce Geology reliability, raise Magnetic reliability, and leave Geochemistry near the middle.)
 
@@ -165,7 +174,9 @@ The question is which evidence layer the model should trust. These sliders are a
 
 (Raise Rare-deposit class weight. Then raise Survey-cost weight.)
 
-The rare-deposit weight changes the training emphasis. Survey cost changes the operational ranking. Notice that a geologically promising cell can fall in operational priority without its geological prospectivity becoming false.
+The rare-deposit weight changes what the model pays attention to during training. Survey cost changes where people choose to investigate. A location can still look geologically promising but receive a lower field priority because it is expensive or difficult to reach.
+
+So the main point is this: the model helps rank where to look. It does not prove that a deposit is present, and it does not replace fieldwork.
 
 (Click Result.)
 
@@ -185,7 +196,7 @@ Deep hedging is not simply predicting whether a stock price rises tomorrow. A he
 
 (Click Bottleneck.)
 
-The bottleneck is sequential action under friction. Every trade changes the next portfolio state and creates cost now. Ten small adjustments might each appear locally useful, but repeated fees and market impact can make the full path worse.
+Here is the hard part. Every trade affects what happens next, and every trade costs money. Ten small trades may each look helpful by themselves, but their combined fees can make the final result worse.
 
 (Ask the audience.)
 
@@ -231,9 +242,11 @@ What happens if the real market crisis looks nothing like the simulated stress s
 
 The learned policy may be confidently wrong. That is simulator mismatch.
 
+So the main point is this: the model is learning a complete trading strategy after costs, not simply guessing tomorrow’s price direction.
+
 (Click Result.)
 
-The paper reports efficient high-dimensional hedging and better terminal convex risk after costs than the standard complete-market solution in its synthetic Heston-market setting. The limitation is that changing regimes, liquidity, and simulator mismatch can make a learned policy brittle.
+In the paper’s simulated market, the method handled many risk factors and produced lower final risk after trading costs than the comparison method. But this was still a simulation. Real markets can change, trading can become difficult, and the model can fail if the real market behaves differently from its training environment.
 
 (Click Next case.)
 
@@ -249,7 +262,7 @@ Inverse materials design reverses the usual question. Instead of asking what pro
 
 (Click Bottleneck.)
 
-The bottleneck is coupled physical structure. Atom types, atomic coordinates, lattice geometry, and desired properties must describe one consistent object. A candidate can look statistically plausible while being physically unstable.
+Here is the hard part. The atom types, atom positions, crystal shape, and requested property must all agree with each other. A crystal can look convincing to the model and still be physically unstable.
 
 (Ask the audience.)
 
@@ -265,7 +278,7 @@ The process begins with noisy atom types, coordinates, and lattice variables. Di
 
 (Click “Score network.”)
 
-The equivariant score network predicts how to remove noise while respecting geometric transformations. Equivariant means that rotating or translating the crystal changes the internal representation in a physically consistent way rather than changing the underlying identity arbitrarily.
+The score network learns how to remove the noise. It is geometry-aware. That means rotating or moving the crystal should not make the model treat it as a completely different material. The physical arrangement stays meaningful even when its viewing direction changes.
 
 (Click “Channel balance.”)
 
@@ -291,6 +304,8 @@ Would you spend an expensive synthesis budget on the candidate with the highest 
 
 The safer answer is no. Use model score for triage, then require physics-based screening.
 
+So the main point is this: the generator suggests candidates. Physics calculations and laboratory work decide whether those candidates are real materials.
+
 (Click Result.)
 
 The paper reports candidates more than twice as likely to be stable, unique, and new than prior models, more than ten times closer to a local energy minimum, and a synthesized material within 20 percent of its target property. The limitation is that DFT and synthesis remain outside the generator and can reject plausible samples.
@@ -309,7 +324,7 @@ This system takes a formal theorem, the current proof state, and available lemma
 
 (Click Bottleneck.)
 
-The bottleneck is proposal versus correctness. A language model can produce a highly plausible continuation that is formally invalid. Probability ranks what to try; verification decides what is correct.
+Here is the hard part. A language model can suggest a proof step that sounds right but is formally wrong. The model’s probability decides what to try first. The verifier decides whether the step is actually valid.
 
 (Ask the audience.)
 
@@ -355,6 +370,8 @@ Should the model’s confidence ever override a verifier rejection?
 
 In formal proof, no. Confidence ranks attempts; the verifier determines acceptance.
 
+So the main point is this: the language model helps search, but it does not get to declare its own answer correct.
+
 (Click Result.)
 
 DeepSeek-Prover-V2 reports an 88.9 percent pass ratio on MiniF2F-test and 49 of 658 PutnamBench problems solved. Those are benchmark results under finite search budgets. Success still depends on formalization quality, available libraries, search budget, and benchmark scope.
@@ -369,11 +386,11 @@ Formal search outputs a verified artifact. The next system outputs a probability
 
 (Click Objective.)
 
-DeepAR predicts future demand across many products. Instead of producing only one best guess, it produces a probability distribution. A distribution describes multiple possible demand levels and their relative likelihoods.
+DeepAR predicts demand for many products. It does not give only one best guess. It gives a range of possible demand levels and shows which parts of that range are more likely.
 
 (Click Bottleneck.)
 
-The bottleneck combines shared sequence memory with uncertainty. One model per product wastes common patterns, especially when individual series are sparse. A point forecast also hides the difference between likely demand and extreme but costly outcomes.
+Here is the hard part. Products can share useful patterns, but each product may have only a small amount of history. The model also needs to show uncertainty. One number, such as “100 units,” does not show whether demand is tightly centered near 100 or could realistically range from 60 to 160.
 
 (Ask the audience.)
 
@@ -393,15 +410,15 @@ The shared recurrent core learns patterns across many products. Autoregressive m
 
 (Click “Distribution head.”)
 
-The likelihood head converts the hidden state into parameters of a probability distribution. Likelihood measures how well the chosen distribution explains observed demand during training.
+The distribution head turns the model’s memory into a range of possible future demand. During training, likelihood asks a simple question: “Did the model assign high probability to the demand that actually happened?”
 
 (Click “Forecast fan.”)
 
-The forecast fan shows quantiles such as P10, P50, and P90. A quantile is a position within the predicted distribution. P50 is the median: half the predicted probability lies below it and half above it. P90 is a higher-demand planning point, not a 90 percent accurate forecast.
+The forecast fan shows P10, P50, and P90. These are positions inside the predicted range. P50 is the middle. P90 is a higher-demand planning level. It does not mean the forecast is “90 percent accurate.” It means the model expects demand to stay below that level about 90 percent of the time under similar conditions.
 
 (Click “Cost quantile,” then “Inventory.”)
 
-The business-cost quantile is chosen after prediction. If shortage is much more expensive than overstock, the decision moves toward a higher quantile. The final inventory quantity is an action, not a hidden neural-network output.
+The business chooses a point from that forecast range after the model predicts. If running out is much worse than having leftovers, the business orders closer to the high end of the range. The order quantity is a business decision, not something hidden inside the neural network.
 
 (Point to the equation.)
 
@@ -421,11 +438,13 @@ Did the model’s forecast distribution change when I changed the costs?
 
 (Pause.)
 
-No. The operational decision changed. This is the cleanest example of why prediction and action must be kept separate.
+No. The forecast stayed the same. Only the order decision changed. That is the key lesson: a model prediction and a real-world action are not the same thing.
+
+So the main point is this: DeepAR predicts a range of possible demand. The business chooses where inside that range to order.
 
 (Click Result.)
 
-The paper reports forecasting-accuracy improvements of around 15 percent over then-state-of-the-art methods across several real-world datasets. Tail calibration can still fail when covariates are poor, distribution assumptions are mismatched, or demand enters a new regime.
+The paper reports about a 15 percent forecasting improvement over leading methods at that time across several real datasets. But the high and low ends of the forecast can still be unreliable when the extra input information is poor, the assumed distribution does not fit, or customer behavior suddenly changes.
 
 (Click Next case.)
 
@@ -469,7 +488,7 @@ The mesh-to-grid decoder turns processed graph features back into the next regul
 
 (Click “Next 6h state,” then “Rollout/use.”)
 
-The next six-hour state becomes input to the next step. That repeated process is an autoregressive rollout. Four steps advance one day; repeated steps build the medium-range forecast. Operational warning thresholds and false-alarm costs remain downstream.
+The predicted six-hour weather state is fed back into the model to predict the following six hours. This repeated process is called a rollout. Four steps equal one day. Because each prediction helps create the next one, small errors can build over time. Warning rules are still chosen later by weather agencies and operators.
 
 (Point to the equation.)
 
@@ -489,11 +508,13 @@ If GraphCast produces one very accurate trajectory, does that automatically tell
 
 (Pause.)
 
-No. GraphCast is deterministic in this formulation. A fast, accurate trajectory is not a complete uncertainty distribution.
+No. GraphCast gives one main forecast path in this version. Even if that path is very accurate, it does not show the full range of possible outcomes.
+
+So the main point is this: GraphCast moves weather information efficiently across the globe, but other systems are still needed to describe uncertainty and issue warnings.
 
 (Click Result.)
 
-The Science paper reports lower error than HRES on more than 90 percent of 1,380 evaluated targets and a ten-day global forecast at quarter-degree resolution in under one minute. The limitation is that operational uncertainty still requires ensembles, calibration, or other downstream systems, especially for rare extremes and warnings.
+The Science paper reports lower error than HRES on more than 90 percent of 1,380 tested targets. It also produced a ten-day global forecast at quarter-degree resolution in under one minute. But one forecast path is not enough for every warning decision. Rare extremes still need uncertainty estimates, comparison forecasts, and human operational systems.
 
 ============================================================
 43:00–48:00 — SUPPLEMENTS: REUSABLE MECHANISMS
@@ -543,9 +564,9 @@ Self-supervised pretraining hides part of an unlabeled input, learns to reconstr
 48:00–51:00 — CONCLUSION AND FINAL AUDIENCE QUESTION
 ============================================================
 
-Across all seven cases, the architecture followed the bottleneck.
+Let us make the whole presentation simple. In every case, the model design followed the hardest information problem.
 
-Quantum decoding needed relationships across qubits and time, so it combined attention with recurrence. Mineral prospectivity had abundant unlabeled maps and scarce deposits, so it used masked pretraining and fine-tuning. Deep hedging needed a sequence of actions evaluated after costs, so it learned a policy over the full path. MatterGen needed coupled geometric generation, so it used equivariant diffusion and separate loss channels. Formal theorem proving needed plausible proposals separated from exact correctness, so it combined a language model, search, and a verifier. DeepAR needed shared sequence patterns and uncertainty, so it produced a forecast distribution before the business chose a quantity. GraphCast needed local and global communication on a curved Earth, so it used multiscale graph message passing.
+Quantum decoding needed to connect warnings across qubits and time, so it used attention and memory. Mineral prospectivity had many maps but few known deposits, so it learned from unlabeled maps first. Deep hedging needed to judge a full sequence of trades after costs, so it learned an action policy. MatterGen needed atom types, positions, and crystal shape to stay physically connected, so it used geometry-aware generation. Formal theorem proving needed to separate a likely answer from a correct answer, so it combined a language model with search and a verifier. DeepAR needed shared product patterns and uncertainty, so it predicted a range before the business chose an order quantity. GraphCast needed weather information to move both locally and globally, so it used a multiscale graph.
 
 (Pause, then ask the final question.)
 
@@ -553,7 +574,7 @@ If you were evaluating a new machine-learning system tomorrow, what would you as
 
 (Invite two responses.)
 
-The second question is usually more useful. It directs attention to the scientific or operational bottleneck before architecture selection.
+The second question is usually more useful. First identify what information the current method is missing. Then choose the model design.
 
 There is one final distinction I want you to retain. The model learns parameters. Researchers choose data handling and training priorities. Operators choose costs, thresholds, and actions. A clear technical explanation shows who controls each value, what changes when it moves, and what external validation still remains.
 
@@ -583,4 +604,4 @@ The equations on this site are compact teaching representations. They identify t
 
 If the audience asks which architecture is best:
 
-There is no universal winner. An architecture is appropriate when its inductive structure matches the bottleneck, its output supports the real decision, and its performance survives external validation under the intended setting.
+There is no model that is best for every problem. A model is useful when its design matches the hard part of the task, its output helps the real decision, and it still works when tested outside its training examples.
